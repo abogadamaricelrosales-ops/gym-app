@@ -22,3 +22,15 @@ export const CATEGORY_PHOTO: Record<Category, ImageSourcePropType> = {
   "Full body": require("../../assets/photos/fullbody.jpg"),
   Cardio: require("../../assets/photos/cardio.jpg"),
 };
+
+/** Fotos de referentes (uso personal). Los que no tienen foto muestran sus iniciales. */
+export const REFERENT_PHOTO: Record<string, ImageSourcePropType> = {
+  "angela-borges": require("../../assets/referents/angela-borges.jpg"),
+  "chris-bumstead": require("../../assets/referents/chris-bumstead.jpg"),
+  "francielle-mattos": require("../../assets/referents/francielle-mattos.jpg"),
+  "jeff-nippard": require("../../assets/referents/jeff-nippard.jpg"),
+  "krissy-cela": require("../../assets/referents/krissy-cela.jpg"),
+  "mike-israetel": require("../../assets/referents/mike-israetel.jpg"),
+  "ryan-terry": require("../../assets/referents/ryan-terry.jpg"),
+  "yarishna-ayala": require("../../assets/referents/yarishna-ayala.jpg"),
+};

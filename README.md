@@ -62,3 +62,7 @@ Las fotos de fondo son de [Unsplash](https://unsplash.com) y se usan bajo la [li
 | perfil.jpg | https://unsplash.com/photos/photo-1533681904393-9ab6eee7e408 |
 
 Para cambiar una foto, reemplazá el archivo en `assets/photos/` con el mismo nombre.
+
+### Fotos de referentes
+
+Las fotos de `assets/referents/` son de prensa de fitness (Fitness Volt, sitios oficiales de Jeff Nippard y RP Strength, Athletech News) y se usan solo para uso personal y no comercial de esta app. No tienen licencia libre: no publiques la app con ellas.

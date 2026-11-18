@@ -1,4 +1,4 @@
-// Generado a partir de investigación de fuentes públicas (ver `sources`). No son programas oficiales.
+// Generado a partir de videos y fuentes públicas de cada referente (ver `sources` y `videos`). No son programas oficiales.
 import type { Referent } from "../types/referent";
 
 export const REFERENTS: Referent[] = [
@@ -7,223 +7,555 @@ export const REFERENTS: Referent[] = [
     "name": "Jeff Nippard",
     "gender": "male",
     "knownFor": "Culturista natural y divulgador canadiense que basa su entrenamiento en la evidencia científica: frecuencia 2x por músculo, sobrecarga progresiva y RPE controlado.",
-    "split": "Upper/Lower 4 días",
-    "daysPerWeek": 4,
+    "split": "Push/Pull/Legs (serie \"Ultimate\" 2023 de su canal)",
+    "daysPerWeek": 3,
     "goal": "Hipertrofia",
     "confidence": "media",
     "sources": [
+      "https://rosetta.to/u/jeffnippard/the-ultimate-push-workout-for-muscle-growth-chest-shoulders-triceps-2023",
+      "https://rosetta.to/u/jeffnippard/the-ultimate-pull-workout-for-muscle-growth-back-biceps-rear-delts-2023",
+      "https://rosetta.to/u/jeffnippard/the-ultimate-science-based-leg-day-for-muscle-growth-2023",
+      "https://rosetta.to/u/jeffnippard/what-my-leg-days-really-look-like-all-sets-reps-exercises-volume-included",
       "https://rosetta.to/u/jeffnippard/my-new-training-split-why-i-completely-changed-my-program",
-      "https://setgraph.app/articles/jeff-nippard-split-explained-best-ulppl-pplul-upper-lower-programs-ranked",
-      "https://www.fitbod.me/blog/jeff-nippard-upper-lower-size-and-strength-program-review"
+      "https://jeffnippard.com/pages/about"
     ],
     "days": [
       {
-        "name": "Upper A (fuerza)",
-        "focus": "Pecho, espalda, hombros y brazos con énfasis en cargas pesadas",
+        "name": "Push (pecho, hombros y tríceps)",
+        "focus": "Banca pesada, press de hombros, pecho en polea, deltoides lateral y tríceps en estiramiento y contracción",
         "category": "Pecho",
         "exercises": [
           {
             "name": "Press banca",
-            "sets": 3,
-            "reps": 6,
-            "repRange": "4-6",
+            "sets": 1,
+            "reps": 4,
+            "repRange": "3-5",
             "rest": 180,
-            "notes": "Dejar 1-2 repeticiones en reserva"
+            "notes": "Una serie tope cercana al máximo tras pirámide de entrada en calor; arco cómodo y escápulas retraídas"
           },
           {
-            "name": "Remo con barra",
+            "name": "Press Larsen",
+            "sets": 2,
+            "reps": 10,
+            "repRange": "10",
+            "rest": 150,
+            "notes": "Piernas elevadas sin empuje de piernas, agarre algo más cerrado, ~75% del peso de la serie tope"
+          },
+          {
+            "name": "Press Arnold de pie con mancuernas",
+            "sets": 3,
+            "reps": 9,
+            "repRange": "8-10",
+            "rest": 120,
+            "notes": "Rotar las palmas mientras empujás hasta extensión completa"
+          },
+          {
+            "name": "Press alrededor en polea (cable press-around)",
+            "sets": 2,
+            "reps": 13,
+            "repRange": "12-15",
+            "rest": 90,
+            "notes": "Un brazo por vez cruzando la línea media; entre series, estiramiento estático de pecho de 30 s por lado"
+          },
+          {
+            "name": "Elevación en Y cruzada en polea",
+            "sets": 3,
+            "reps": 13,
+            "repRange": "12-15",
+            "rest": 60,
+            "notes": "Movimiento diagonal hacia arriba y afuera, como desenvainar una espada"
+          },
+          {
+            "name": "Extensión de tríceps en polea (solo contracción)",
             "sets": 3,
             "reps": 8,
-            "repRange": "6-8",
-            "rest": 150,
-            "notes": "Torso firme, tirar hacia la cadera"
+            "repRange": "8",
+            "rest": 0,
+            "notes": "Superserie con la siguiente: solo la mitad inferior del recorrido"
           },
           {
-            "name": "Press militar con mancuernas",
+            "name": "Extensión de tríceps sobre la cabeza (solo estiramiento)",
             "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
+            "reps": 8,
+            "repRange": "8",
+            "rest": 90,
+            "notes": "Superserie con la anterior: solo la mitad de estiramiento del recorrido"
           },
+          {
+            "name": "Extensión de tríceps cruzada en polea",
+            "sets": 2,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 60,
+            "notes": "Codos abiertos hacia los costados"
+          }
+        ]
+      },
+      {
+        "name": "Pull (espalda, bíceps y deltoides posterior)",
+        "focus": "Dorsales al fallo, remo con apoyo de pecho, pullover en estiramiento, face pull y bíceps",
+        "category": "Espalda",
+        "exercises": [
           {
             "name": "Jalón al pecho",
-            "sets": 3,
+            "sets": 2,
             "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
+            "repRange": "10 (al fallo)",
+            "rest": 150,
+            "notes": "Tras 3 series de aproximación; 2 series al fallo + mini drop set de 4-5 reps bajando ~30%"
           },
           {
-            "name": "Elevaciones laterales",
+            "name": "Remo en máquina con apoyo de pecho",
+            "sets": 3,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 120,
+            "notes": "Cambiar el agarre en cada serie: abierto, medio, neutro o supino"
+          },
+          {
+            "name": "Pullover con mancuerna (mitad inferior)",
+            "sets": 2,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 30,
+            "notes": "Solo la parte de estiramiento; superserie con estiramiento estático de dorsal de 30 s por lado"
+          },
+          {
+            "name": "Face pull omnidireccional",
+            "sets": 3,
+            "reps": 13,
+            "repRange": "12-15",
+            "rest": 60,
+            "notes": "Serie 1 de abajo hacia arriba, serie 2 a la altura del hombro, serie 3 polea alta hacia los ojos"
+          },
+          {
+            "name": "Curl con barra EZ",
+            "sets": 3,
+            "reps": 7,
+            "repRange": "6-8",
+            "rest": 90,
+            "notes": "Pesado y con sobrecarga progresiva; negativa controlada"
+          },
+          {
+            "name": "Curl predicador (mitad inferior)",
+            "sets": 2,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 60,
+            "notes": "Un brazo por vez, de 0 a ~50° de flexión; empezar por el brazo débil"
+          }
+        ]
+      },
+      {
+        "name": "Legs (piernas y abdomen)",
+        "focus": "Sentadilla pesada con pausa, bisagra de cadera, estocadas, femorales, gemelos y abdomen",
+        "category": "Piernas",
+        "exercises": [
+          {
+            "name": "Sentadilla con barra",
+            "sets": 3,
+            "reps": 4,
+            "repRange": "2-4 + 5 con pausa",
+            "rest": 180,
+            "notes": "1 serie tope de 2-4 reps (RPE 8-9) y 2 series de 5 reps con pausa al ~75%"
+          },
+          {
+            "name": "Peso muerto rumano con barra",
+            "sets": 3,
+            "reps": 9,
+            "repRange": "8-10",
+            "rest": 150,
+            "notes": "Tibias casi verticales, barra pegada al cuerpo"
+          },
+          {
+            "name": "Estocadas caminando con mancuernas",
+            "sets": 2,
+            "reps": 10,
+            "repRange": "10 por pierna",
+            "rest": 120,
+            "notes": "Bajada controlada a profundidad completa"
+          },
+          {
+            "name": "Curl femoral sentado",
+            "sets": 3,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 90,
+            "notes": "Inclinarte hacia adelante para estirar el isquio; variar la posición de los pies por serie"
+          },
+          {
+            "name": "Gemelos en prensa",
+            "sets": 4,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 60,
+            "notes": "Puntas afuera, adentro o al frente según la serie"
+          },
+          {
+            "name": "Abdominales declinados con disco",
+            "sets": 3,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 60,
+            "notes": "Flexionar la columna apretando el abdomen, no desde la cadera"
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "title": "The Ultimate Push Workout For Muscle Growth [Chest, Shoulders, Triceps] (2023)",
+        "url": "https://www.youtube.com/watch?v=c3pbe3qzatQ",
+        "covers": "Día Push: pecho, hombros y tríceps"
+      },
+      {
+        "title": "The Ultimate PULL Workout For Muscle Growth [Back, Biceps, Rear Delts] (2023)",
+        "url": "https://www.youtube.com/watch?v=spKGN0XzErU",
+        "covers": "Día Pull: espalda, bíceps y deltoides posterior"
+      },
+      {
+        "title": "The Ultimate Science-Based Leg Day For Muscle Growth (2023)",
+        "url": "https://www.youtube.com/watch?v=H6mRkx1x77k",
+        "covers": "Día Legs: cuádriceps, isquios, glúteos, gemelos y abdomen"
+      },
+      {
+        "title": "What My Leg Days REALLY Look Like: All Sets, Reps, Exercises & Volume Included",
+        "url": "https://www.youtube.com/watch?v=cP77gUDvAPA",
+        "covers": "Su día de piernas real dentro de un upper/lower: sentadilla, estocadas, step-ups, glúteos y core"
+      },
+      {
+        "title": "My New Training Split (Why I Completely Changed My Program)",
+        "url": "https://www.youtube.com/watch?v=ETunfrqaldM",
+        "covers": "Explica su split personal actual (upper/lower 4 días con foco en espalda, trapecio y bíceps)"
+      }
+    ]
+  },
+  {
+    "id": "chris-bumstead",
+    "name": "Chris Bumstead (CBum)",
+    "gender": "male",
+    "knownFor": "Seis veces Mr. Olympia Classic Physique; entrena pesado con técnica estricta, conexión mente-músculo y alto volumen en básicos.",
+    "split": "Push / Pull / Piernas con días extra de hombros y de isquios (5 días: 3 on / 1 off / 2 on)",
+    "daysPerWeek": 5,
+    "goal": "Hipertrofia",
+    "confidence": "media",
+    "sources": [
+      "https://barbend.com/news/chris-bumstead-tempo-training-chest-triceps-hypertrophy/",
+      "https://barbend.com/chris-bumstead-high-volume-heavy-leg-workout",
+      "https://fitnessvolt.com/chris-bumstead-off-season-leg-workout/",
+      "https://fitnessvolt.com/chris-bumstead-isometric-holds-workout/",
+      "https://generationiron.com/chris-bumstead-off-season/",
+      "https://fitnessvolt.com/chris-bumstead-2024-grocery-haul-training-split/",
+      "https://www.setforset.com/blogs/news/chris-bumstead-shoulder-workout",
+      "https://fitnessvolt.com/chris-bumstead-high-volume-arms-workout"
+    ],
+    "days": [
+      {
+        "name": "Pecho y tríceps (push)",
+        "focus": "Pecho superior, pecho medio y las tres cabezas del tríceps",
+        "category": "Pecho",
+        "exercises": [
+          {
+            "name": "Press inclinado con mancuernas",
+            "sets": 3,
+            "reps": 8,
+            "repRange": "6-10",
+            "rest": 150,
+            "notes": "Tempo 3-1-1-0: 3 s de bajada y pausa en el estiramiento"
+          },
+          {
+            "name": "Press de pecho en máquina",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 120,
+            "notes": "Bajada controlada sin rebote; última serie con rest-pause de 15 s"
+          },
+          {
+            "name": "Cruce de poleas inclinado",
             "sets": 3,
             "reps": 15,
             "repRange": "12-15",
             "rest": 60
           },
           {
-            "name": "Curl con barra",
-            "sets": 2,
+            "name": "Press francés con barra",
+            "sets": 3,
             "reps": 10,
-            "repRange": "8-10",
-            "rest": 90
+            "repRange": "8-12",
+            "rest": 0,
+            "notes": "Serie gigante 1/3: codos algo abiertos"
           },
           {
-            "name": "Extensión de tríceps en polea",
-            "sets": 2,
+            "name": "Fondos en máquina",
+            "sets": 3,
             "reps": 12,
             "repRange": "10-12",
-            "rest": 90
+            "rest": 0,
+            "notes": "Serie gigante 2/3: torso erguido"
+          },
+          {
+            "name": "Press francés en polea con soga",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-15",
+            "rest": 90,
+            "notes": "Serie gigante 3/3"
+          },
+          {
+            "name": "Extensión de tríceps sobre la cabeza a un brazo en polea",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 60,
+            "notes": "Polea a la altura de la cabeza, agarre neutro"
           }
         ]
       },
       {
-        "name": "Lower A (fuerza)",
-        "focus": "Cuádriceps, isquios, glúteos y gemelos con básicos pesados",
-        "category": "Piernas",
+        "name": "Espalda y bíceps (pull)",
+        "focus": "Grosor y amplitud de espalda, bíceps",
+        "category": "Espalda",
         "exercises": [
           {
-            "name": "Sentadilla",
+            "name": "Curl a un brazo con banda",
+            "sets": 2,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 45,
+            "notes": "Entrada en calor de bíceps"
+          },
+          {
+            "name": "Remo con barra",
+            "sets": 4,
+            "reps": 10,
+            "repRange": "8-10",
+            "rest": 120
+          },
+          {
+            "name": "Remo a un brazo con mancuerna",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 90
+          },
+          {
+            "name": "Remo con apoyo en pecho",
             "sets": 3,
             "reps": 6,
-            "repRange": "4-6",
-            "rest": 180,
-            "notes": "Profundidad completa, controlar la bajada"
+            "repRange": "6",
+            "rest": 90,
+            "notes": "10 s de isometría en la contracción y después 6 reps"
           },
           {
-            "name": "Peso muerto rumano",
+            "name": "Dominadas",
             "sets": 3,
-            "reps": 8,
-            "repRange": "6-8",
-            "rest": 150
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 90
           },
           {
-            "name": "Prensa",
+            "name": "Jalón al pecho",
             "sets": 3,
             "reps": 12,
             "repRange": "10-12",
-            "rest": 120
+            "rest": 90
+          },
+          {
+            "name": "Remo en máquina Hammer",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90
+          },
+          {
+            "name": "Curl alternado con mancuernas",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 60,
+            "notes": "Superserie con curl simultáneo"
+          }
+        ]
+      },
+      {
+        "name": "Piernas (cuádriceps)",
+        "focus": "Cuádriceps, con algo de isquios y gemelos",
+        "category": "Piernas",
+        "exercises": [
+          {
+            "name": "Sillón de cuádriceps",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-15",
+            "rest": 0,
+            "notes": "Superserie con camilla de isquios como preagotamiento"
+          },
+          {
+            "name": "Camilla de isquios",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90
+          },
+          {
+            "name": "Sentadilla en Smith",
+            "sets": 4,
+            "reps": 8,
+            "repRange": "7-10",
+            "rest": 180,
+            "notes": "Pirámide ascendente hasta la serie más pesada"
+          },
+          {
+            "name": "Sentadilla sissy",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-15",
+            "rest": 90,
+            "notes": "Peso corporal, en superserie con la Smith"
+          },
+          {
+            "name": "Prensa unilateral",
+            "sets": 2,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90,
+            "notes": "Rest-pause, una serie por pierna"
+          },
+          {
+            "name": "Sillón de cuádriceps con drop set",
+            "sets": 2,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90,
+            "notes": "Triple drop set, bajada lenta"
+          },
+          {
+            "name": "Gemelos sentado",
+            "sets": 4,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 60,
+            "notes": "Superserie con curl femoral sentado"
+          }
+        ]
+      },
+      {
+        "name": "Hombros y brazos",
+        "focus": "Deltoides lateral y posterior, y un bloque de brazos",
+        "category": "Hombros",
+        "exercises": [
+          {
+            "name": "Vuelos posteriores a un brazo en polea",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "15",
+            "rest": 30,
+            "notes": "Entrada en calor"
+          },
+          {
+            "name": "Press de hombros en Smith",
+            "sets": 4,
+            "reps": 7,
+            "repRange": "6-8",
+            "rest": 150,
+            "notes": "La barra no baja de la nariz"
+          },
+          {
+            "name": "Elevaciones laterales sentado con mancuernas",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "12",
+            "rest": 60
+          },
+          {
+            "name": "Press de hombros en máquina",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "12",
+            "rest": 90
+          },
+          {
+            "name": "Elevaciones laterales en máquina",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "12",
+            "rest": 60,
+            "notes": "Drop set al fallo en la última serie"
+          },
+          {
+            "name": "Pájaros en máquina",
+            "sets": 2,
+            "reps": 15,
+            "repRange": "15",
+            "rest": 60
+          },
+          {
+            "name": "Curl martillo sentado",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 60,
+            "notes": "Superserie con curl con mancuernas"
+          },
+          {
+            "name": "Extensión de tríceps en polea",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 60,
+            "notes": "Superserie con extensión sobre la cabeza"
+          }
+        ]
+      },
+      {
+        "name": "Isquios y piernas",
+        "focus": "Isquiotibiales, glúteos y gemelos",
+        "category": "Piernas",
+        "exercises": [
+          {
+            "name": "Curl femoral acostado a un brazo/pierna",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 60,
+            "notes": "Igualar reps con la pierna más débil"
+          },
+          {
+            "name": "Sentadilla péndulo",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 150,
+            "notes": "Cuarto de rep abajo antes de cada rep completa"
+          },
+          {
+            "name": "Prensa 45°",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "10-15",
+            "rest": 120,
+            "notes": "2 series pies abiertos y profundos, 2 pies juntos y bajos"
+          },
+          {
+            "name": "Hiperextensiones",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 60
           },
           {
             "name": "Curl femoral sentado",
             "sets": 3,
             "reps": 12,
             "repRange": "10-12",
-            "rest": 90
-          },
-          {
-            "name": "Gemelos de pie",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "8-12",
-            "rest": 60,
-            "notes": "Pausa de 1-2 s en el estiramiento"
-          },
-          {
-            "name": "Crunch en polea",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
             "rest": 60
-          }
-        ]
-      },
-      {
-        "name": "Upper B (hipertrofia)",
-        "focus": "Espalda, pecho superior, hombros y brazos con más volumen",
-        "category": "Espalda",
-        "exercises": [
-          {
-            "name": "Press inclinado con mancuernas",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
           },
           {
-            "name": "Remo sentado en polea",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 120,
-            "notes": "Estirar bien la espalda al final de cada repetición"
-          },
-          {
-            "name": "Dominadas",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120,
-            "notes": "Asistidas o con lastre según nivel"
-          },
-          {
-            "name": "Aperturas en máquina (peck deck)",
-            "sets": 2,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 90
-          },
-          {
-            "name": "Elevaciones laterales en polea",
+            "name": "Gemelos parado",
             "sets": 3,
             "reps": 15,
             "repRange": "12-15",
-            "rest": 60
-          },
-          {
-            "name": "Curl inclinado con mancuernas",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Extensión de tríceps sobre la cabeza en polea",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          }
-        ]
-      },
-      {
-        "name": "Lower B (hipertrofia)",
-        "focus": "Cadena posterior, cuádriceps y gemelos con más volumen",
-        "category": "Piernas",
-        "exercises": [
-          {
-            "name": "Peso muerto",
-            "sets": 3,
-            "reps": 5,
-            "repRange": "3-5",
-            "rest": 180,
-            "notes": "Técnica estricta, sin rebotar"
-          },
-          {
-            "name": "Sentadilla hack",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 150
-          },
-          {
-            "name": "Sentadilla búlgara",
-            "sets": 2,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90,
-            "notes": "Por pierna"
-          },
-          {
-            "name": "Camilla de cuádriceps (extensiones)",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 60
-          },
-          {
-            "name": "Curl femoral acostado",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
             "rest": 60
           },
           {
@@ -235,285 +567,37 @@ export const REFERENTS: Referent[] = [
           }
         ]
       }
-    ]
-  },
-  {
-    "id": "chris-bumstead",
-    "name": "Chris Bumstead (CBum)",
-    "gender": "male",
-    "knownFor": "Seis veces Mr. Olympia Classic Physique; entrena pesado con técnica estricta, conexión mente-músculo y alto volumen en básicos.",
-    "split": "3 días on / 1 off / 2 on (5 días)",
-    "daysPerWeek": 5,
-    "goal": "Hipertrofia",
-    "confidence": "media",
-    "sources": [
-      "https://fitnessvolt.com/chris-bumstead-current-workout-split-2023-olympia",
-      "https://fitnessvolt.com/chris-bumstead-classic-physique-split/"
     ],
-    "days": [
+    "videos": [
       {
-        "name": "Piernas (cuádriceps)",
-        "focus": "Cuádriceps y glúteos",
-        "category": "Piernas",
-        "exercises": [
-          {
-            "name": "Sillón de cuádriceps",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60,
-            "notes": "Entrada en calor, pausa arriba"
-          },
-          {
-            "name": "Sentadilla",
-            "sets": 4,
-            "reps": 8,
-            "repRange": "5-8",
-            "rest": 180,
-            "notes": "Pirámide ascendente de peso"
-          },
-          {
-            "name": "Prensa 45° pies abiertos",
-            "sets": 4,
-            "reps": 15,
-            "repRange": "10-15",
-            "rest": 120,
-            "notes": "Drop set en la última serie"
-          },
-          {
-            "name": "Sentadilla búlgara con mancuernas",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90
-          },
-          {
-            "name": "Estocadas caminando con barra",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 90
-          },
-          {
-            "name": "Gemelos parado",
-            "sets": 4,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 60
-          }
-        ]
+        "title": "Chest and Triceps Workout",
+        "url": "https://www.youtube.com/watch?v=hkaHHE0AbXo",
+        "covers": "Día de pecho y tríceps: press inclinado con tempo, press en máquina con rest-pause, serie gigante de tríceps"
       },
       {
-        "name": "Pecho y espalda",
-        "focus": "Pecho, dorsales y algo de brazos",
-        "category": "Pecho",
-        "exercises": [
-          {
-            "name": "Press inclinado con mancuernas",
-            "sets": 4,
-            "reps": 12,
-            "repRange": "8-12",
-            "rest": 120
-          },
-          {
-            "name": "Press plano en máquina Hammer",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 90,
-            "notes": "Drop set en la última"
-          },
-          {
-            "name": "Cruce de poleas alto a bajo",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "10-15",
-            "rest": 60
-          },
-          {
-            "name": "Remo sentado en polea agarre cerrado",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 90
-          },
-          {
-            "name": "Jalón al pecho agarre supino",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 90
-          },
-          {
-            "name": "Pullover en polea con soga",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Extensión de tríceps en polea",
-            "sets": 2,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Curl con mancuernas",
-            "sets": 2,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          }
-        ]
+        "title": "Leg day pesado y de alto volumen",
+        "url": "https://www.youtube.com/watch?v=3GoRtoZcUvc",
+        "covers": "Día de piernas (cuádriceps): sillón + camilla, Smith + sissy, prensa unilateral, gemelos"
       },
       {
-        "name": "Hombros y pecho",
-        "focus": "Deltoides y pecho superior",
-        "category": "Hombros",
-        "exercises": [
-          {
-            "name": "Elevaciones laterales con apoyo en banco",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Press militar con mancuernas sentado",
-            "sets": 4,
-            "reps": 12,
-            "repRange": "8-12",
-            "rest": 120
-          },
-          {
-            "name": "Remo al mentón en polea con soga",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Pájaros en máquina (deltoides posterior)",
-            "sets": 4,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 60
-          },
-          {
-            "name": "Press inclinado con barra",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
-          },
-          {
-            "name": "Aperturas con mancuernas",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          }
-        ]
+        "title": "Leg day de off-season",
+        "url": "https://www.youtube.com/watch?v=Dh89BWNZo5o",
+        "covers": "Día de isquios y piernas: curl acostado unilateral, péndulo, prensa, hiperextensiones, gemelos"
       },
       {
-        "name": "Isquios y espalda",
-        "focus": "Isquiotibiales, glúteos y espalda",
-        "category": "Piernas",
-        "exercises": [
-          {
-            "name": "Camilla de isquios",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 60
-          },
-          {
-            "name": "Peso muerto rumano",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 150
-          },
-          {
-            "name": "Curl femoral sentado",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Hiperextensiones",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 60
-          },
-          {
-            "name": "Remo con barra",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
-          },
-          {
-            "name": "Jalón al pecho",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90
-          }
-        ]
+        "title": "Pecho y espalda con isometría",
+        "url": "https://www.youtube.com/watch?v=_Ll60qTWmf8",
+        "covers": "Pecho y espalda en superseries con pausas isométricas de 10 s"
       },
       {
-        "name": "Brazos",
-        "focus": "Bíceps y tríceps",
-        "category": "Bíceps",
-        "exercises": [
-          {
-            "name": "Extensión de tríceps en polea con soga",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60,
-            "notes": "En superserie con la siguiente"
-          },
-          {
-            "name": "Extensión de tríceps sobre la cabeza en polea",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Extensión de tríceps en polea barra recta agarre supino",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 60
-          },
-          {
-            "name": "Curl con barra",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Curl con mancuernas sentado",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 60
-          },
-          {
-            "name": "Curl martillo",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          }
-        ]
+        "title": "Vlog de compras + split push/pull/legs, día de espalda",
+        "url": "https://www.youtube.com/watch?v=LtSMBD9bVBM",
+        "covers": "Día pull: remo con barra, remo a un brazo, dominadas, curls"
+      },
+      {
+        "title": "Sesión de hombros",
+        "url": "https://www.youtube.com/watch?v=gBtfQoutWGo",
+        "covers": "Día de hombros: deltoides posterior, press en Smith, laterales, press en máquina"
       }
     ]
   },
@@ -522,12 +606,17 @@ export const REFERENTS: Referent[] = [
     "name": "Dr. Mike Israetel",
     "gender": "male",
     "knownFor": "Doctor en ciencias del deporte y cofundador de Renaissance Periodization, conocido por los conceptos de volumen (MEV/MRV), entrenar cerca del fallo y las series myo-rep.",
-    "split": "Pull/Legs/Push 6 días (rotativo)",
+    "split": "Pull/Legs/Push 6 días (split flotante rotativo)",
     "daysPerWeek": 6,
     "goal": "Hipertrofia",
     "confidence": "media",
     "sources": [
-      "https://rpstrength.com/blogs/video-guides/dr-mikes-exact-training-split-to-get-to-6-body-fat"
+      "https://rpstrength.com/blogs/video-guides/dr-mikes-exact-training-split-to-get-to-6-body-fat",
+      "https://summaries.pages.dev/blog/renaissanceperiodization/dr-mikes-savage-300-rep-push-workout-gauntlet",
+      "https://summaries.pages.dev/blog/renaissanceperiodization/mike-trains-legs-live-will-he-puke",
+      "https://boxlifemagazine.com/dr-mike-rep-match-chest-lateral-heat-secrets/",
+      "https://rpstrength.com/blogs/videos/dr-mike-israetel-tries-ronnie-colemans-back-workout",
+      "https://rpstrength.com/pages/team/michael-israetel"
     ],
     "days": [
       {
@@ -541,7 +630,7 @@ export const REFERENTS: Referent[] = [
             "reps": 8,
             "repRange": "5-8",
             "rest": 150,
-            "notes": "Primera serie pesada, cerca del fallo"
+            "notes": "Primera serie pesada cerca del fallo; 3-5 series en total sumando las sin lastre"
           },
           {
             "name": "Dominadas agarre neutro",
@@ -615,7 +704,7 @@ export const REFERENTS: Referent[] = [
             "name": "Sentadilla sissy en máquina",
             "sets": 1,
             "reps": 20,
-            "repRange": "al fallo",
+            "repRange": "al fallo (~90 s)",
             "rest": 90,
             "notes": "Una serie myo-rep al fallo de ~90 segundos"
           }
@@ -639,7 +728,7 @@ export const REFERENTS: Referent[] = [
             "reps": 10,
             "repRange": "6-10",
             "rest": 150,
-            "notes": "Puede reemplazarse por press banca común"
+            "notes": "Puede reemplazarse por press banca común; en otro video hace banca plana a 245 lb x 19 dejando 1-2 en reserva"
           },
           {
             "name": "Extensión de tríceps sobre la cabeza en polea",
@@ -754,12 +843,12 @@ export const REFERENTS: Referent[] = [
             "notes": "Por pierna"
           },
           {
-            "name": "Gemelos sentado",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "10-20",
-            "rest": 60,
-            "notes": "Agregado para completar el día; no figura en la fuente"
+            "name": "Peso muerto con piernas rígidas",
+            "sets": 2,
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 150,
+            "notes": "Tomado de su video de piernas en vivo; subir el peso semana a semana"
           }
         ]
       },
@@ -790,6 +879,14 @@ export const REFERENTS: Referent[] = [
             "rest": 90
           },
           {
+            "name": "Extensión de tríceps en polea",
+            "sets": 3,
+            "reps": 20,
+            "repRange": "15-22",
+            "rest": 60,
+            "notes": "Inclinado hacia adelante, codos que viajan atrás al final; rep match (video 300 reps)"
+          },
+          {
             "name": "Curl en polea (free motion)",
             "sets": 3,
             "reps": 15,
@@ -806,6 +903,33 @@ export const REFERENTS: Referent[] = [
           }
         ]
       }
+    ],
+    "videos": [
+      {
+        "title": "Dr. Mike's Exact Training Split To Get To 6% Body Fat",
+        "url": "https://www.youtube.com/watch?v=d7RjjYgxnJE",
+        "covers": "Los 6 días del split flotante: Pull 1, Legs 1, Push 1, Pull 2, Legs 2 y Push 2"
+      },
+      {
+        "title": "Dr. Mike's Savage 300-Rep Push Workout Gauntlet",
+        "url": "https://youtu.be/rw6B7NmGe6U",
+        "covers": "Día de empuje: banca en Smith, tríceps en polea, flexiones con déficit y remo al mentón en polea"
+      },
+      {
+        "title": "Mike Trains Legs LIVE - Will He PUKE!?",
+        "url": "https://youtu.be/9-FlizC5p4I",
+        "covers": "Día de piernas: peso muerto piernas rígidas, sentadilla en máquina y estocadas caminando"
+      },
+      {
+        "title": "Video de RP sobre rep match",
+        "url": "https://www.youtube.com/watch?v=mWG__lt2z88",
+        "covers": "Pecho, tríceps y hombro lateral: banca plana, rompecráneos, press inclinado y laterales con rep match"
+      },
+      {
+        "title": "Dr. Mike Israetel Tries Ronnie Coleman's Back Workout",
+        "url": "https://www.youtube.com/watch?v=OfRtDSpNTW8",
+        "covers": "Espalda y bíceps: peso muerto, remo con barra, remo T y jalones"
+      }
     ]
   },
   {
@@ -813,108 +937,127 @@ export const REFERENTS: Referent[] = [
     "name": "Ryan Terry",
     "gender": "male",
     "knownFor": "Campeón Mr. Olympia Men's Physique; entrena con alto volumen, ejecución controlada y prioridad en espalda ancha y hombros.",
-    "split": "Split por grupo muscular 6 días",
+    "split": "Split por grupo muscular, 6 días con espalda dos veces por semana (amplitud y grosor)",
     "daysPerWeek": 6,
     "goal": "Hipertrofia",
     "confidence": "media",
     "sources": [
+      "https://barbend.com/news/4-back-exercises-ryan-terry-trained-for-2023-mens-physique-olympia/",
+      "https://fitnessvolt.com/ryan-terry-back-workout/",
+      "https://fitnessvolt.com/ryan-terry-back-workout-7-weeks-2026-mr-olympia/",
+      "https://barbend.com/news/ryan-terry-chest-and-triceps-training-2024-olympia-prep/",
+      "https://fitnessvolt.com/ryan-terry-shoulder-workout-2024-mr-olympia/",
+      "https://barbend.com/news/ryan-terry-time-under-tension-leg-day/",
+      "https://fitnessvolt.com/ryan-terry-superset-arm-workout-2024-olympia",
+      "https://fitnessvolt.com/ryan-terry-profile/",
       "https://myprotein.com/blog/our-ambassadors/ryan-terry-training-split"
     ],
     "days": [
       {
-        "name": "Espalda y bíceps",
-        "focus": "Dorsales, espalda media y bíceps",
+        "name": "Espalda (amplitud) y bíceps",
+        "focus": "Dorsales anchos, con bíceps como entrada en calor",
         "category": "Espalda",
         "exercises": [
           {
-            "name": "Remo a un brazo con apoyo en pecho",
-            "sets": 4,
+            "name": "Curl en polea",
+            "sets": 2,
             "reps": 15,
-            "repRange": "8-15",
+            "repRange": "12-15",
+            "rest": 45,
+            "notes": "Entrada en calor de bíceps"
+          },
+          {
+            "name": "Curl martillo alternado",
+            "sets": 2,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 45
+          },
+          {
+            "name": "Jalón al pecho en máquina",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "10-12",
             "rest": 90,
-            "notes": "Peso ascendente, 2 series de entrada en calor"
+            "notes": "Variar el agarre: supino, prono o neutro"
           },
           {
-            "name": "Dominadas",
-            "sets": 3,
+            "name": "Remo bajo con apoyo en pecho",
+            "sets": 4,
             "reps": 12,
             "repRange": "10-12",
             "rest": 90
           },
           {
-            "name": "Remo en T",
-            "sets": 4,
+            "name": "Pullover en máquina",
+            "sets": 3,
             "reps": 15,
             "repRange": "12-15",
-            "rest": 90
+            "rest": 60,
+            "notes": "Empujar con los codos contra el apoyo"
           },
           {
-            "name": "Jalón al pecho con apoyo en pecho",
-            "sets": 4,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 75
-          },
-          {
-            "name": "Curl con barra",
+            "name": "Remo sentado en polea agarre cerrado",
             "sets": 3,
             "reps": 12,
             "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Curl martillo",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
+            "rest": 90,
+            "notes": "Sin apoyo en pecho, codos abiertos"
           }
         ]
       },
       {
         "name": "Pecho y tríceps",
-        "focus": "Pecho superior y tríceps",
+        "focus": "Pecho superior y tríceps, drop set al fallo en cada ejercicio",
         "category": "Pecho",
         "exercises": [
           {
+            "name": "Cruce de poleas a la altura del pecho",
+            "sets": 2,
+            "reps": 10,
+            "repRange": "10",
+            "rest": 60,
+            "notes": "Entrada en calor; la segunda serie es drop set al fallo"
+          },
+          {
             "name": "Press inclinado con mancuernas",
-            "sets": 4,
-            "reps": 12,
-            "repRange": "8-12",
+            "sets": 3,
+            "reps": 11,
+            "repRange": "10-12",
             "rest": 120
           },
           {
-            "name": "Aperturas en polea",
-            "sets": 4,
+            "name": "Press inclinado con barra",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "10",
+            "rest": 120,
+            "notes": "Más 3 negativas al final de cada serie"
+          },
+          {
+            "name": "Aperturas inclinadas con mancuernas",
+            "sets": 3,
             "reps": 12,
             "repRange": "10-12",
             "rest": 60
           },
           {
-            "name": "Press inclinado en máquina agarre neutro",
-            "sets": 3,
-            "reps": 7,
-            "repRange": "6-7",
-            "rest": 120
-          },
-          {
-            "name": "Pullover con mancuerna + press hex",
-            "sets": 3,
-            "reps": 7,
-            "repRange": "6-7",
-            "rest": 90,
-            "notes": "Superserie"
-          },
-          {
-            "name": "Press de pecho en máquina FST-7",
-            "sets": 7,
+            "name": "Press plano con barra",
+            "sets": 2,
             "reps": 10,
-            "repRange": "10",
-            "rest": 30,
-            "notes": "Descansos cortos, bombeo"
+            "repRange": "al fallo",
+            "rest": 120,
+            "notes": "Con ayuda del compañero"
           },
           {
-            "name": "Extensión de tríceps en polea",
+            "name": "Press de pecho en máquina unilateral alternado",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90
+          },
+          {
+            "name": "Extensión de tríceps en polea (barra y soga)",
             "sets": 3,
             "reps": 12,
             "repRange": "10-12",
@@ -924,189 +1067,278 @@ export const REFERENTS: Referent[] = [
       },
       {
         "name": "Piernas",
-        "focus": "Cuádriceps y gemelos",
+        "focus": "Cuádriceps, isquios y gemelos con tiempo bajo tensión",
         "category": "Piernas",
         "exercises": [
           {
             "name": "Sillón de cuádriceps",
             "sets": 4,
             "reps": 12,
-            "repRange": "8-12",
-            "rest": 60
-          },
-          {
-            "name": "Sentadilla en V (máquina)",
-            "sets": 4,
-            "reps": 12,
-            "repRange": "8-12",
-            "rest": 120
-          },
-          {
-            "name": "Sentadilla péndulo",
-            "sets": 4,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 120
-          },
-          {
-            "name": "Prensa unilateral",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "8-12",
-            "rest": 90,
-            "notes": "Empezar por la pierna más débil"
+            "repRange": "12",
+            "rest": 60,
+            "notes": "Una serie de aproximación; la última con tiempo bajo tensión"
           },
           {
             "name": "Gemelos sentado",
             "sets": 4,
-            "reps": 12,
-            "repRange": "10-12",
+            "reps": 13,
+            "repRange": "12-15",
             "rest": 60
           },
           {
-            "name": "Gemelos parado",
+            "name": "Peso muerto piernas rígidas con hex bar",
+            "sets": 4,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 120,
+            "notes": "Lento y controlado"
+          },
+          {
+            "name": "Elevación de piernas acostado",
+            "sets": 4,
+            "reps": 15,
+            "repRange": "15",
+            "rest": 45
+          },
+          {
+            "name": "Gemelos parado en Smith",
+            "sets": 4,
+            "reps": 20,
+            "repRange": "20",
+            "rest": 60
+          },
+          {
+            "name": "Estocadas caminando con barra",
             "sets": 4,
             "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
+            "repRange": "12 por pierna",
+            "rest": 90
           }
         ]
       },
       {
-        "name": "Hombros y gemelos",
-        "focus": "Deltoides (énfasis lateral y posterior)",
+        "name": "Hombros",
+        "focus": "Deltoides lateral y posterior, trapecios",
         "category": "Hombros",
         "exercises": [
           {
-            "name": "Pájaros con apoyo en pecho",
+            "name": "Push press con barra",
+            "sets": 3,
+            "reps": 8,
+            "repRange": "8-10",
+            "rest": 120
+          },
+          {
+            "name": "Pájaros en banco inclinado",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 0,
+            "notes": "Superserie con pájaros sentado agarre neutro"
+          },
+          {
+            "name": "Pájaros sentado inclinado agarre neutro",
             "sets": 3,
             "reps": 15,
             "repRange": "12-15",
             "rest": 60
           },
           {
-            "name": "Press militar con barra",
+            "name": "Vuelos posteriores acostado en polea",
             "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 60
           },
           {
-            "name": "Elevaciones laterales + elevación frontal con disco",
+            "name": "Elevaciones laterales parciales",
             "sets": 3,
-            "reps": 12,
-            "repRange": "8-12",
-            "rest": 60,
-            "notes": "Superserie"
+            "reps": 15,
+            "repRange": "15-20",
+            "rest": 0,
+            "notes": "Superserie con elevaciones laterales completas"
           },
           {
-            "name": "Press de hombros en polea",
-            "sets": 4,
+            "name": "Elevaciones laterales con mancuernas",
+            "sets": 3,
             "reps": 12,
             "repRange": "10-12",
-            "rest": 75
+            "rest": 60
           },
           {
             "name": "Encogimientos con mancuernas",
             "sets": 3,
             "reps": 12,
-            "repRange": "8-12",
-            "rest": 60
+            "repRange": "10-12",
+            "rest": 0,
+            "notes": "Superserie con encogimientos invertidos en Smith"
           },
           {
-            "name": "Gemelos en prensa",
-            "sets": 4,
-            "reps": 15,
-            "repRange": "12-15",
+            "name": "Encogimientos invertidos en Smith",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
             "rest": 60
           }
         ]
       },
       {
-        "name": "Espalda",
-        "focus": "Amplitud y grosor de espalda",
+        "name": "Espalda (grosor)",
+        "focus": "Espalda media, zona lumbar y grosor",
         "category": "Espalda",
         "exercises": [
           {
-            "name": "Jalón al pecho",
+            "name": "Hiperextensiones con peso",
             "sets": 4,
+            "reps": 15,
+            "repRange": "15",
+            "rest": 0,
+            "notes": "Superserie con peso muerto"
+          },
+          {
+            "name": "Peso muerto",
+            "sets": 4,
+            "reps": 15,
+            "repRange": "15",
+            "rest": 120,
+            "notes": "Peso moderado"
+          },
+          {
+            "name": "Remo con mancuerna con apoyo",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90
+          },
+          {
+            "name": "Remo en T",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90,
+            "notes": "Primero agarre ancho prono y después cerrado neutro"
+          },
+          {
+            "name": "Remo en máquina",
+            "sets": 3,
             "reps": 12,
             "repRange": "10-12",
             "rest": 90
           },
           {
             "name": "Remo con barra",
-            "sets": 4,
+            "sets": 3,
             "reps": 10,
             "repRange": "8-10",
             "rest": 120
           },
           {
-            "name": "Remo sentado en polea",
+            "name": "Curl en máquina Scott",
             "sets": 3,
             "reps": 12,
-            "repRange": "10-12",
-            "rest": 90
-          },
-          {
-            "name": "Pullover en polea",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 60
-          },
-          {
-            "name": "Hiperextensiones con peso",
-            "sets": 4,
-            "reps": 12,
-            "repRange": "10-12",
+            "repRange": "10-15",
             "rest": 60
           }
         ]
       },
       {
         "name": "Brazos",
-        "focus": "Bíceps y tríceps en superseries",
+        "focus": "Bíceps y tríceps en superseries de alto volumen",
         "category": "Bíceps",
         "exercises": [
           {
-            "name": "Curl en banco Scott",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60,
-            "notes": "Superserie con fondos"
-          },
-          {
-            "name": "Fondos de tríceps",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Curl en polea con soga",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60,
-            "notes": "Superserie con extensión"
-          },
-          {
-            "name": "Extensión de tríceps en polea",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Abdominales declinados",
-            "sets": 3,
+            "name": "Fondos en máquina",
+            "sets": 4,
             "reps": 15,
-            "repRange": "12-15",
-            "rest": 45
+            "repRange": "15-20",
+            "rest": 0,
+            "notes": "Superserie con curl en Scott; rest-pause en las últimas reps"
+          },
+          {
+            "name": "Curl en máquina Scott",
+            "sets": 4,
+            "reps": 15,
+            "repRange": "15-20",
+            "rest": 75
+          },
+          {
+            "name": "Press de banca con agarre cerrado",
+            "sets": 4,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 0,
+            "notes": "Superserie con curl en polea baja; codos pegados"
+          },
+          {
+            "name": "Curl de bíceps en polea baja doble",
+            "sets": 4,
+            "reps": 11,
+            "repRange": "10-12",
+            "rest": 75
+          },
+          {
+            "name": "Extensión de tríceps sobre la cabeza con mancuerna sentado",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 0,
+            "notes": "Superserie con curl martillo con barra suiza"
+          },
+          {
+            "name": "Curl martillo con barra suiza",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "12",
+            "rest": 75
+          },
+          {
+            "name": "Extensión de tríceps en polea con soga",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-15",
+            "rest": 0,
+            "notes": "Superserie con curl en polea sentado"
+          },
+          {
+            "name": "Curl en polea sentado",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-15",
+            "rest": 60
           }
         ]
+      }
+    ],
+    "videos": [
+      {
+        "title": "HOW I MADE THE IMPROVEMENTS TO WIN",
+        "url": "https://www.youtube.com/watch?v=2yE-yPg5Y0M",
+        "covers": "Día de espalda (amplitud): jalón, remo con apoyo en pecho, pullover en máquina, remo en polea; bíceps de entrada en calor"
+      },
+      {
+        "title": "Back day a 7 semanas del Olympia 2026",
+        "url": "https://www.youtube.com/watch?v=9MfDdFeOKJM",
+        "covers": "Día de espalda (grosor): remos con apoyo, remos en máquina y polea, hiperextensiones, curl en Scott"
+      },
+      {
+        "title": "THE ROAD TO 2X MR OLYMPIA – Episode 3",
+        "url": "https://www.youtube.com/watch?v=-Sj0-vbOOgw",
+        "covers": "Día de pecho y tríceps: cruce de poleas, press inclinado, aperturas, press plano, máquina unilateral, extensiones en polea"
+      },
+      {
+        "title": "Hombros para el Olympia 2024",
+        "url": "https://www.youtube.com/watch?v=sXyYv2vrGLo",
+        "covers": "Día de hombros: push press, deltoides posterior en tres variantes, laterales parciales, encogimientos"
+      },
+      {
+        "title": "HOW TO BUILD BIG LEGS / RAW SERIES PART ONE",
+        "url": "https://www.youtube.com/watch?v=XXwIzZeH8nc",
+        "covers": "Día de piernas: sillón, peso muerto piernas rígidas con hex bar, estocadas, gemelos"
+      },
+      {
+        "title": "Brazos en superseries para el Olympia 2024",
+        "url": "https://www.youtube.com/watch?v=yarGLqfV9w8",
+        "covers": "Día de brazos: superseries bíceps/tríceps"
       }
     ]
   },
@@ -1115,12 +1347,44 @@ export const REFERENTS: Referent[] = [
     "name": "Francielle Mattos",
     "gender": "female",
     "knownFor": "Atleta brasileña tricampeona de Wellness Olympia, famosa por su tren inferior y un entrenamiento de piernas y glúteos de altísima intensidad.",
-    "split": "Énfasis tren inferior 5 días",
+    "split": "Tren inferior dividido (glúteos / cuádriceps) + tren superior, 5 días",
     "daysPerWeek": 5,
     "goal": "Masa muscular",
     "confidence": "baja",
     "sources": [
-      "https://barbend.com/francielle-mattos"
+      "https://barbend.com/francielle-mattos",
+      "https://www.youtube.com/watch?v=1bclOgXAbN0",
+      "https://www.youtube.com/watch?v=kWwS9zy5uyI",
+      "https://www.youtube.com/watch?v=XpEImouNSv0",
+      "https://www.youtube.com/watch?v=PFWYyn5PC_U",
+      "https://www.youtube.com/watch?v=jbdTiv8xBCk"
+    ],
+    "videos": [
+      {
+        "title": "Olympia Wellness Champion Francielle Mattos (Olympia TV)",
+        "url": "https://www.youtube.com/watch?v=1bclOgXAbN0",
+        "covers": "Glúteos e isquios: sentadilla sumo sobre cajones, peso muerto piernas rígidas, búlgara, puente de glúteo con barra, elevación lateral de pierna y patada en polea"
+      },
+      {
+        "title": "BUMBUM DOS SONHOS - TREINO COMPLETO DE GLÚTEOS DA FRANCIELLE MATTOS",
+        "url": "https://www.youtube.com/watch?v=kWwS9zy5uyI",
+        "covers": "Día de glúteos completo"
+      },
+      {
+        "title": "PERNAS TORNEADAS - TREINO COMPLETO DE QUADRÍCEPS DA FRANCIELLE MATTOS",
+        "url": "https://www.youtube.com/watch?v=XpEImouNSv0",
+        "covers": "Día de cuádriceps completo"
+      },
+      {
+        "title": "TREINÃO DE QUADRÍCEPS - FALTANDO 4 SEMANAS PARA O ARNOLD OHIO 2024",
+        "url": "https://www.youtube.com/watch?v=PFWYyn5PC_U",
+        "covers": "Día de cuádriceps en preparación de competencia"
+      },
+      {
+        "title": "TREINO DE QUADRÍCEPS DE WELLNESS FRANCIELLE MATTOS E MICHELLE IBATA",
+        "url": "https://www.youtube.com/watch?v=jbdTiv8xBCk",
+        "covers": "Día de cuádriceps (categoría Wellness)"
+      }
     ],
     "days": [
       {
@@ -1129,12 +1393,28 @@ export const REFERENTS: Referent[] = [
         "category": "Piernas",
         "exercises": [
           {
+            "name": "Sentadilla sumo sobre cajones",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 120,
+            "notes": "Parada sobre bloques para bajar más profundo, como en su video de Olympia TV"
+          },
+          {
             "name": "Peso muerto piernas rígidas con barra",
             "sets": 4,
             "reps": 12,
             "repRange": "10-12",
             "rest": 120,
-            "notes": "Bajar controlado, sentir el estiramiento del isquio"
+            "notes": "Bajar controlado sintiendo el estiramiento del isquio"
+          },
+          {
+            "name": "Sentadilla búlgara",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90,
+            "notes": "Por pierna, torso algo inclinado para cargar glúteo"
           },
           {
             "name": "Puente de glúteo con barra",
@@ -1145,19 +1425,12 @@ export const REFERENTS: Referent[] = [
             "notes": "Pausa arriba apretando glúteos"
           },
           {
-            "name": "Sentadilla búlgara",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90,
-            "notes": "Por pierna, torso algo inclinado para glúteo"
-          },
-          {
             "name": "Patada de glúteo en polea",
             "sets": 3,
             "reps": 15,
             "repRange": "12-15",
-            "rest": 60
+            "rest": 60,
+            "notes": "Por pierna"
           },
           {
             "name": "Elevación lateral de pierna",
@@ -1165,20 +1438,13 @@ export const REFERENTS: Referent[] = [
             "reps": 20,
             "repRange": "15-20",
             "rest": 45,
-            "notes": "Para glúteo medio"
-          },
-          {
-            "name": "Curl femoral acostado",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 60
+            "notes": "Glúteo medio, sin balancear"
           }
         ]
       },
       {
         "name": "Espalda y hombros",
-        "focus": "Espalda y deltoides",
+        "focus": "Dorsales y deltoides",
         "category": "Espalda",
         "exercises": [
           {
@@ -1193,7 +1459,8 @@ export const REFERENTS: Referent[] = [
             "sets": 3,
             "reps": 12,
             "repRange": "10-12",
-            "rest": 90
+            "rest": 90,
+            "notes": "Por brazo"
           },
           {
             "name": "Remo sentado en polea",
@@ -1219,17 +1486,17 @@ export const REFERENTS: Referent[] = [
         ]
       },
       {
-        "name": "Cuádriceps y glúteos",
+        "name": "Cuádriceps",
         "focus": "Cuádriceps y glúteos",
         "category": "Piernas",
         "exercises": [
           {
-            "name": "Sentadilla sumo sobre cajones",
+            "name": "Sentadilla libre o en Smith",
             "sets": 4,
-            "reps": 12,
-            "repRange": "10-12",
+            "reps": 10,
+            "repRange": "8-12",
             "rest": 120,
-            "notes": "Mayor rango de movimiento parada sobre bloques"
+            "notes": "Ejercicio principal de sus videos de cuádriceps"
           },
           {
             "name": "Prensa 45°",
@@ -1237,6 +1504,13 @@ export const REFERENTS: Referent[] = [
             "reps": 15,
             "repRange": "12-15",
             "rest": 120
+          },
+          {
+            "name": "Sentadilla hack",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90
           },
           {
             "name": "Estocadas caminando",
@@ -1248,10 +1522,11 @@ export const REFERENTS: Referent[] = [
           },
           {
             "name": "Sillón de cuádriceps",
-            "sets": 3,
+            "sets": 4,
             "reps": 15,
             "repRange": "12-15",
-            "rest": 60
+            "rest": 60,
+            "notes": "Última serie al fallo"
           },
           {
             "name": "Abducción en máquina",
@@ -1310,7 +1585,7 @@ export const REFERENTS: Referent[] = [
         "category": "Piernas",
         "exercises": [
           {
-            "name": "Hip thrust",
+            "name": "Hip thrust con barra",
             "sets": 4,
             "reps": 12,
             "repRange": "8-12",
@@ -1324,18 +1599,19 @@ export const REFERENTS: Referent[] = [
             "rest": 120
           },
           {
-            "name": "Sentadilla búlgara",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90
-          },
-          {
             "name": "Patada de glúteo en polea",
             "sets": 3,
             "reps": 15,
             "repRange": "12-15",
-            "rest": 60
+            "rest": 60,
+            "notes": "Por pierna"
+          },
+          {
+            "name": "Elevación lateral de pierna",
+            "sets": 3,
+            "reps": 20,
+            "repRange": "15-20",
+            "rest": 45
           },
           {
             "name": "Abducción en máquina",
@@ -1354,13 +1630,50 @@ export const REFERENTS: Referent[] = [
     "name": "Krissy Cela",
     "gender": "female",
     "knownFor": "Entrenadora británica creadora de la app Tone & Sculpt, centrada en glúteos, sobrecarga progresiva y fuerza sin dietas extremas.",
-    "split": "Empuje/Tirón/Piernas x2/Full body 5 días",
+    "split": "Glúteos / Empuje / Piernas / Espalda / Glúteos, 5 días (hoy dice entrenar 3-4)",
     "daysPerWeek": 5,
     "goal": "Hipertrofia",
     "confidence": "media",
     "sources": [
+      "https://chaindesk.ai/tools/youtube-summarizer/5-must-do-glutes-exercises-updated-krissy-cela-otKbwLAtnFo",
+      "https://www.coachweb.com/fitness/leg-workouts/build-lower-body-strength-with-this-heavyweight-leg-session-from-krissy-celas-new-program",
+      "https://www.purewow.com/wellness/minimal-equipment-lower-body-workout",
+      "https://primalscreen.itvmedia.co.uk/krissy-cela-in-two-piece-workout-gear-shares-leg-day-workout-celebwell.html",
       "https://polarisfit.pages.dev/sources/krissy-cela",
+      "https://www.cosmopolitan.in/beauty/features/a18737/undefined",
       "https://coachweb.com/workouts/leg-workouts/strengthen-your-lower-body-with-krissy-celas-six-move-workout-for-the-gym"
+    ],
+    "videos": [
+      {
+        "title": "5 MUST DO GLUTES EXERCISES [UPDATED] | Krissy Cela",
+        "url": "https://www.youtube.com/watch?v=otKbwLAtnFo",
+        "covers": "Glúteos: peso muerto piernas rígidas, peso muerto rumano, step-up, estocada inversa, hip thrust con pulsos, hiperextensión"
+      },
+      {
+        "title": "INTENSE LEG WORKOUT",
+        "url": "https://www.youtube.com/watch?v=UhGihoXJWck",
+        "covers": "Día de piernas completo"
+      },
+      {
+        "title": "SNATCH YOUR BACK FULL WORKOUT",
+        "url": "https://www.youtube.com/watch?v=4IyMwqMBC9A",
+        "covers": "Día de espalda completo"
+      },
+      {
+        "title": "PERFECT CHEST, SHOULDER & TRICEP WORKOUT FOR WOMEN",
+        "url": "https://www.youtube.com/watch?v=wUOBow4rsSY",
+        "covers": "Día de empuje: pecho, hombros y tríceps"
+      },
+      {
+        "title": "INSANE UPPER BODY WORKOUT FOR WOMEN",
+        "url": "https://www.youtube.com/watch?v=OoA7a2lRxz8",
+        "covers": "Tren superior completo"
+      },
+      {
+        "title": "LET'S GET THAT BOOTY PUMP! Booty Workout",
+        "url": "https://www.youtube.com/watch?v=ZeZfgyMXk34",
+        "covers": "Día de glúteos"
+      }
     ],
     "days": [
       {
@@ -1371,48 +1684,50 @@ export const REFERENTS: Referent[] = [
           {
             "name": "Peso muerto rumano con mancuernas",
             "sets": 4,
+            "reps": 8,
+            "repRange": "8-10",
+            "rest": 90,
+            "notes": "Rodilla apenas flexionada, mover desde la cadera"
+          },
+          {
+            "name": "Peso muerto piernas rígidas",
+            "sets": 3,
             "reps": 10,
             "repRange": "8-10",
-            "rest": 60
+            "rest": 90,
+            "notes": "Piernas casi estiradas"
           },
           {
-            "name": "Hip thrust con mancuerna",
+            "name": "Hip thrust con barra",
             "sets": 4,
             "reps": 10,
-            "repRange": "8-10",
-            "rest": 0,
-            "notes": "Superserie con puente de glúteo con banda"
+            "repRange": "8-12",
+            "rest": 90,
+            "notes": "Terminar con pulsos arriba para más tiempo bajo tensión"
           },
           {
-            "name": "Puente de glúteo con banda",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "10",
-            "rest": 60
-          },
-          {
-            "name": "Sentadilla split con mancuernas",
+            "name": "Step-up al cajón con mancuernas",
             "sets": 3,
             "reps": 10,
             "repRange": "10",
             "rest": 60,
-            "notes": "Por pierna"
+            "notes": "Por pierna, empujar con la pierna de arriba"
           },
           {
-            "name": "Sentadilla sumo con mancuerna",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "10",
-            "rest": 0,
-            "notes": "Superserie con almeja con banda"
-          },
-          {
-            "name": "Almeja con banda",
+            "name": "Estocada inversa",
             "sets": 3,
             "reps": 10,
             "repRange": "10",
             "rest": 60,
-            "notes": "Por lado"
+            "notes": "Por pierna, core firme"
+          },
+          {
+            "name": "Hiperextensión enfocada en glúteo",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 60,
+            "notes": "Pies hacia afuera para cargar glúteo"
           }
         ]
       },
@@ -1425,13 +1740,13 @@ export const REFERENTS: Referent[] = [
             "name": "Press de hombros con mancuernas",
             "sets": 4,
             "reps": 10,
-            "repRange": "8-10",
+            "repRange": "8-12",
             "rest": 90
           },
           {
             "name": "Press inclinado con mancuernas",
             "sets": 3,
-            "reps": 12,
+            "reps": 10,
             "repRange": "8-12",
             "rest": 90
           },
@@ -1443,10 +1758,17 @@ export const REFERENTS: Referent[] = [
             "rest": 60
           },
           {
-            "name": "Flexiones de brazos",
+            "name": "Aperturas en polea",
             "sets": 3,
             "reps": 12,
             "repRange": "10-12",
+            "rest": 60
+          },
+          {
+            "name": "Flexiones de brazos",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-15",
             "rest": 60
           },
           {
@@ -1459,51 +1781,52 @@ export const REFERENTS: Referent[] = [
         ]
       },
       {
-        "name": "Cuádriceps y glúteos",
-        "focus": "Cuádriceps y glúteos",
+        "name": "Piernas",
+        "focus": "Cuádriceps, isquios y glúteos",
         "category": "Piernas",
         "exercises": [
           {
-            "name": "Sentadilla con barra",
+            "name": "Peso muerto rumano",
             "sets": 4,
             "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
+            "repRange": "10",
+            "rest": 120,
+            "notes": "Sesión de piernas semana 1 de su programa en EvolveYou"
           },
           {
             "name": "Prensa 45°",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
+            "sets": 4,
+            "reps": 10,
+            "repRange": "10",
             "rest": 90
           },
           {
-            "name": "Estocada inversa",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60,
-            "notes": "Por pierna"
-          },
-          {
             "name": "Sillón de cuádriceps",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
+            "sets": 4,
+            "reps": 10,
+            "repRange": "10",
             "rest": 60
           },
           {
-            "name": "Abducción en máquina",
+            "name": "Curl femoral",
+            "sets": 4,
+            "reps": 10,
+            "repRange": "10",
+            "rest": 60
+          },
+          {
+            "name": "Sentadilla búlgara",
             "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 45
+            "reps": 8,
+            "repRange": "8",
+            "rest": 90,
+            "notes": "Por pierna"
           }
         ]
       },
       {
-        "name": "Tirón",
-        "focus": "Espalda y bíceps",
+        "name": "Espalda y bíceps",
+        "focus": "Dorsales, espalda media y bíceps",
         "category": "Espalda",
         "exercises": [
           {
@@ -1518,7 +1841,8 @@ export const REFERENTS: Referent[] = [
             "sets": 3,
             "reps": 10,
             "repRange": "8-10",
-            "rest": 90
+            "rest": 90,
+            "notes": "Por brazo"
           },
           {
             "name": "Remo sentado en polea",
@@ -1544,52 +1868,54 @@ export const REFERENTS: Referent[] = [
         ]
       },
       {
-        "name": "Full body",
-        "focus": "Cuerpo completo con énfasis en glúteos",
-        "category": "Full body",
+        "name": "Glúteos y tren inferior",
+        "focus": "Glúteos, aductores y glúteo medio",
+        "category": "Piernas",
         "exercises": [
           {
-            "name": "Hip thrust",
+            "name": "Peso muerto sumo con barra",
             "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
+            "reps": 10,
+            "repRange": "10",
+            "rest": 120
+          },
+          {
+            "name": "Hip thrust con barra",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "10",
             "rest": 90
           },
           {
-            "name": "Peso muerto a una pierna",
+            "name": "Sentadilla sumo con mancuerna",
+            "sets": 4,
+            "reps": 8,
+            "repRange": "8",
+            "rest": 90
+          },
+          {
+            "name": "Estocada inversa con una mancuerna",
             "sets": 3,
             "reps": 10,
-            "repRange": "8-10",
+            "repRange": "10",
             "rest": 60,
-            "notes": "Unilateral para estabilidad de rodilla"
+            "notes": "Por pierna"
           },
           {
-            "name": "Sentadilla goblet",
+            "name": "Sentadilla búlgara con mancuernas",
             "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
+            "reps": 10,
+            "repRange": "10",
+            "rest": 60,
+            "notes": "Por pierna"
           },
           {
-            "name": "Press de pecho con mancuernas",
+            "name": "Estocada lateral",
             "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Remo con mancuerna",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 60
-          },
-          {
-            "name": "Patada de glúteo en polea",
-            "sets": 2,
-            "reps": 20,
-            "repRange": "15-20",
-            "rest": 45
+            "reps": 10,
+            "repRange": "10",
+            "rest": 60,
+            "notes": "Por pierna"
           }
         ]
       }
@@ -1600,15 +1926,43 @@ export const REFERENTS: Referent[] = [
     "name": "LeanBeefPatty",
     "gender": "female",
     "knownFor": "Creadora de contenido fitness (Patty) que combina fuerza, hipertrofia de todo el cuerpo y algo de cardio, con mucho trabajo de piernas y espalda.",
-    "split": "Por grupo muscular 5 días",
+    "split": "Por grupo muscular 5 días (piernas / espalda-hombros-bíceps / glúteos / pecho-hombros / brazos y cardio)",
     "daysPerWeek": 5,
     "goal": "Masa muscular",
     "confidence": "media",
     "sources": [
-      "https://sportskeeda.com/health-and-fitness/lean-beef-patty-s-workout-routine-her-secret-attaining-iconic-physique",
-      "https://charlie-www.soapcentral.com/bodybuilding/how-many-times-week-leanbeefpatty-workout",
+      "https://gist.ly/youtube-summarizer/lean-beef-pattys-ultimate-back-shoulder-bicep-workout",
+      "https://summaries.pages.dev/blog/renaissanceperiodization/exercise-scientist-critiques-lean-beef-patty-s-training",
       "https://barbend.com/news/lean-beef-patty-brett-wilkin-chris-bumstead-leg-training/",
-      "https://summaries.pages.dev/blog/renaissanceperiodization/exercise-scientist-critiques-lean-beef-patty-s-training"
+      "https://sportskeeda.com/health-and-fitness/lean-beef-patty-s-workout-routine-her-secret-attaining-iconic-physique",
+      "https://charlie-www.soapcentral.com/bodybuilding/how-many-times-week-leanbeefpatty-workout"
+    ],
+    "videos": [
+      {
+        "title": "Lean Beef Patty's Ultimate Back, Shoulder & Bicep Workout",
+        "url": "https://www.youtube.com/watch?v=IT8uuFKTB1k",
+        "covers": "Espalda, hombros y bíceps: dominadas (40 reps), jalón, remo con apoyo en pecho, elevaciones laterales, superserie de curls"
+      },
+      {
+        "title": "Exercise Scientist Critiques Lean Beef Patty's Training (Renaissance Periodization)",
+        "url": "https://youtu.be/TY-BB7sPkfM",
+        "covers": "Glúteos/piernas unilateral (estocada inversa con déficit, step-up, búlgara), jalón y crunch en polea"
+      },
+      {
+        "title": "Leg day con Chris Bumstead y Brett Wilkin (canal de Chris Bumstead)",
+        "url": "https://www.youtube.com/watch?v=GyGb9rZiKsE",
+        "covers": "Piernas: abducción, sillón de cuádriceps, curl sentado, prensa con series ascendentes, péndulo con drop set, curl acostado"
+      },
+      {
+        "title": "Optimized Dumbbell Leg & Glute Day w/ Lean Beef Patty",
+        "url": "https://www.youtube.com/watch?v=-xfC3JPArnw",
+        "covers": "Piernas y glúteos con mancuernas"
+      },
+      {
+        "title": "BACK DAY w/ LeanBeefPatty",
+        "url": "https://www.youtube.com/watch?v=rYSlioW5fCk",
+        "covers": "Día de espalda"
+      }
     ],
     "days": [
       {
@@ -1617,42 +1971,12 @@ export const REFERENTS: Referent[] = [
         "category": "Piernas",
         "exercises": [
           {
-            "name": "Sentadilla con barra",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 150
-          },
-          {
-            "name": "Prensa 45°",
-            "sets": 4,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 120,
-            "notes": "Series ascendentes sumando discos"
-          },
-          {
-            "name": "Sentadilla péndulo",
+            "name": "Abducción en máquina",
             "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90,
-            "notes": "Última serie con drop set"
-          },
-          {
-            "name": "Estocadas caminando con mancuernas",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "12",
-            "rest": 90,
-            "notes": "Por pierna"
-          },
-          {
-            "name": "Peso muerto rumano",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "10",
-            "rest": 120
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 60,
+            "notes": "Para entrar en calor la cadera"
           },
           {
             "name": "Sillón de cuádriceps",
@@ -1660,6 +1984,142 @@ export const REFERENTS: Referent[] = [
             "reps": 15,
             "repRange": "12-15",
             "rest": 60
+          },
+          {
+            "name": "Curl femoral sentado",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 60
+          },
+          {
+            "name": "Prensa 45° con series ascendentes",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "12 + 5 por disco",
+            "rest": 120,
+            "notes": "Arrancar con 5 discos x12 y sumar un disco por lado cada 5 reps hasta el fallo"
+          },
+          {
+            "name": "Sentadilla péndulo",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 120,
+            "notes": "Última serie con drop set"
+          },
+          {
+            "name": "Curl femoral acostado",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 60
+          }
+        ]
+      },
+      {
+        "name": "Espalda, hombros y bíceps",
+        "focus": "Dorsales, deltoides laterales y bíceps",
+        "category": "Espalda",
+        "exercises": [
+          {
+            "name": "Dominadas",
+            "sets": 4,
+            "reps": 10,
+            "repRange": "40 totales",
+            "rest": 120,
+            "notes": "Objetivo: 40 repeticiones totales en la menor cantidad de series"
+          },
+          {
+            "name": "Jalón al pecho",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90,
+            "notes": "Llevar la barra a la parte alta del pecho, bajar lento"
+          },
+          {
+            "name": "Remo con mancuernas con apoyo en pecho",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90
+          },
+          {
+            "name": "Elevaciones laterales",
+            "sets": 4,
+            "reps": 12,
+            "repRange": "12-20",
+            "rest": 60
+          },
+          {
+            "name": "Curl martillo + curl supino (superserie)",
+            "sets": 4,
+            "reps": 10,
+            "repRange": "8-10 + 20-25",
+            "rest": 90
+          },
+          {
+            "name": "Crunch en polea",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 45,
+            "notes": "Flexionar la columna sin mover la cadera"
+          }
+        ]
+      },
+      {
+        "name": "Glúteos y unilaterales",
+        "focus": "Glúteos, cuádriceps e isquios",
+        "category": "Piernas",
+        "exercises": [
+          {
+            "name": "Hip thrust",
+            "sets": 4,
+            "reps": 10,
+            "repRange": "8-10",
+            "rest": 120
+          },
+          {
+            "name": "Estocada inversa con déficit",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "8-10",
+            "rest": 90,
+            "notes": "Por pierna, pie bien atrás sin golpear la rodilla"
+          },
+          {
+            "name": "Step-up con mancuerna",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "10",
+            "rest": 90,
+            "notes": "Por pierna, no empujar con la pierna de atrás"
+          },
+          {
+            "name": "Sentadilla búlgara",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90,
+            "notes": "Versión cuádriceps o glúteo según inclinación del torso"
+          },
+          {
+            "name": "Patada de glúteo en polea",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "15",
+            "rest": 60,
+            "notes": "Por pierna"
+          },
+          {
+            "name": "Caminata lateral con banda",
+            "sets": 2,
+            "reps": 20,
+            "repRange": "20",
+            "rest": 45,
+            "notes": "Finalizador"
           }
         ]
       },
@@ -1671,7 +2131,7 @@ export const REFERENTS: Referent[] = [
           {
             "name": "Press de banca",
             "sets": 4,
-            "reps": 12,
+            "reps": 10,
             "repRange": "8-12",
             "rest": 120,
             "notes": "Subir el peso en cada serie"
@@ -1693,13 +2153,14 @@ export const REFERENTS: Referent[] = [
           {
             "name": "Press de hombros sentado con mancuernas",
             "sets": 4,
-            "reps": 12,
+            "reps": 10,
             "repRange": "8-12",
-            "rest": 90
+            "rest": 90,
+            "notes": "Tras 3 series de aproximación"
           },
           {
             "name": "Elevaciones laterales",
-            "sets": 4,
+            "sets": 3,
             "reps": 15,
             "repRange": "12-15",
             "rest": 60
@@ -1714,120 +2175,10 @@ export const REFERENTS: Referent[] = [
         ]
       },
       {
-        "name": "Espalda",
-        "focus": "Dorsales y espalda media",
-        "category": "Espalda",
-        "exercises": [
-          {
-            "name": "Dominadas",
-            "sets": 5,
-            "reps": 8,
-            "repRange": "6-10",
-            "rest": 120,
-            "notes": "Objetivo: 40 repeticiones totales en la menor cantidad de series"
-          },
-          {
-            "name": "Jalón al pecho",
-            "sets": 4,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90
-          },
-          {
-            "name": "Remo con mancuernas con apoyo en pecho",
-            "sets": 4,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90
-          },
-          {
-            "name": "Remo sentado agarre cerrado",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 75
-          },
-          {
-            "name": "Pull-over en polea",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "10",
-            "rest": 60
-          },
-          {
-            "name": "Crunch en polea",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 45
-          }
-        ]
-      },
-      {
-        "name": "Glúteos",
-        "focus": "Glúteos y aductores/abductores",
-        "category": "Piernas",
-        "exercises": [
-          {
-            "name": "Hip thrust",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
-          },
-          {
-            "name": "Sentadilla búlgara",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
-            "rest": 90,
-            "notes": "Torso inclinado para glúteo e isquio"
-          },
-          {
-            "name": "Estocada inversa con déficit",
-            "sets": 3,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 90,
-            "notes": "Por pierna"
-          },
-          {
-            "name": "Patada de glúteo en polea",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "15",
-            "rest": 60,
-            "notes": "Por pierna"
-          },
-          {
-            "name": "Abducción en máquina",
-            "sets": 3,
-            "reps": 15,
-            "repRange": "12-15",
-            "rest": 45
-          },
-          {
-            "name": "Caminata lateral con banda",
-            "sets": 2,
-            "reps": 20,
-            "repRange": "20",
-            "rest": 45,
-            "notes": "Finalizador"
-          }
-        ]
-      },
-      {
         "name": "Brazos y cardio",
         "focus": "Bíceps, antebrazos y acondicionamiento",
         "category": "Bíceps",
         "exercises": [
-          {
-            "name": "Curl martillo + curl supino (superserie)",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "8-10 + 20-25",
-            "rest": 90
-          },
           {
             "name": "Curl de bíceps con drop set",
             "sets": 3,
@@ -1848,6 +2199,13 @@ export const REFERENTS: Referent[] = [
             "reps": 12,
             "repRange": "12",
             "rest": 60
+          },
+          {
+            "name": "Remo sentado agarre cerrado",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 75
           },
           {
             "name": "Curl de muñeca",
@@ -1873,17 +2231,55 @@ export const REFERENTS: Referent[] = [
     "name": "Angela Borges",
     "gender": "female",
     "knownFor": "Competidora brasileña IFBB Pro de Wellness, subcampeona del Wellness Olympia 2021, con un físico dominado por tren inferior y glúteos de gran volumen.",
-    "split": "Énfasis en tren inferior 5 días",
+    "split": "Énfasis en glúteos y cadena posterior, 5 días (cuádriceps con volumen reducido)",
     "daysPerWeek": 5,
     "goal": "Hipertrofia",
     "confidence": "baja",
     "sources": [
-      "https://fitnessvolt.com/bodybuilding/athletes/angela-borges/"
+      "https://fitnessvolt.com/bodybuilding/athletes/angela-borges/",
+      "https://www.youtube.com/watch?v=mqha5pG5MKg",
+      "https://www.youtube.com/watch?v=FzYLwB5HO-g",
+      "https://www.youtube.com/watch?v=CUKZXP1W144",
+      "https://www.youtube.com/watch?v=cxcgcPQ_AtY",
+      "https://www.youtube.com/watch?v=HWFfCDS8MBw",
+      "https://videohighlight.com/v/mqha5pG5MKg"
+    ],
+    "videos": [
+      {
+        "title": "O TREINO DA MAIOR ATLETA WELLNESS DE TODOS OS TEMPOS (Angela Borges)",
+        "url": "https://www.youtube.com/watch?v=mqha5pG5MKg",
+        "covers": "Tren inferior completo con foco en glúteos; el único trabajo de cuádriceps es sillón de cuádriceps (3 series) al final. Cuenta que hace más de 3 años limita el cuádriceps por proporción."
+      },
+      {
+        "title": "QUEM VAI FAZER ESSE TREINÃO DE PERNAS? (Angela Borges)",
+        "url": "https://www.youtube.com/watch?v=FzYLwB5HO-g",
+        "covers": "Su \"treino A\" de piernas: cuádriceps e isquiotibiales."
+      },
+      {
+        "title": "ANGELA BORGES I TREINO POSTERIOR COM ENFASE EM GLÚTEO",
+        "url": "https://www.youtube.com/watch?v=CUKZXP1W144",
+        "covers": "Día de posterior (isquios) con énfasis en glúteo, pesado y técnico (canal Max Titanium)."
+      },
+      {
+        "title": "TREININHO DE POSTERIOR E GLUTEO PARA MOTIVAR A SEMANINHA (Angela Borges)",
+        "url": "https://www.youtube.com/watch?v=_667oAYx2ow",
+        "covers": "Isquiotibiales y glúteos."
+      },
+      {
+        "title": "TREINO PRO PARA COXAS E GLÚTEOS FIT (Angela Borges)",
+        "url": "https://www.youtube.com/watch?v=cxcgcPQ_AtY",
+        "covers": "Cuádriceps, isquios, glúteos y gemelos; foco en la unión glúteo-isquio."
+      },
+      {
+        "title": "TREINO DE GLÚTEO EM DETALHES | Angela Borges mostra as estratégias para transformar seu glúteo.",
+        "url": "https://www.youtube.com/watch?v=HWFfCDS8MBw",
+        "covers": "Glúteos: elongación previa y ejercicios básicos para el \"glúteo gota\" de Wellness (Arnold South America)."
+      }
     ],
     "days": [
       {
         "name": "Glúteos",
-        "focus": "Glúteo mayor y medio",
+        "focus": "Glúteo mayor y medio; cuádriceps solo al final",
         "category": "Piernas",
         "exercises": [
           {
@@ -1892,7 +2288,7 @@ export const REFERENTS: Referent[] = [
             "reps": 20,
             "repRange": "15-20",
             "rest": 60,
-            "notes": "Activación previa, pausa en apertura"
+            "notes": "Activación previa, pausa en la apertura"
           },
           {
             "name": "Hip thrust",
@@ -1911,13 +2307,6 @@ export const REFERENTS: Referent[] = [
             "notes": "Torso inclinado para cargar glúteo"
           },
           {
-            "name": "Peso muerto rumano",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
-          },
-          {
             "name": "Patada de glúteo en polea",
             "sets": 3,
             "reps": 15,
@@ -1930,6 +2319,14 @@ export const REFERENTS: Referent[] = [
             "reps": 15,
             "repRange": "12-15",
             "rest": 75
+          },
+          {
+            "name": "Sillón de cuádriceps",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 60,
+            "notes": "Único ejercicio de cuádriceps del día, al final (así lo muestra en su video)"
           }
         ]
       },
@@ -1983,8 +2380,8 @@ export const REFERENTS: Referent[] = [
         ]
       },
       {
-        "name": "Cuádriceps",
-        "focus": "Cuádriceps y aductores",
+        "name": "Piernas A",
+        "focus": "Cuádriceps e isquiotibiales (volumen moderado de cuádriceps)",
         "category": "Piernas",
         "exercises": [
           {
@@ -1997,25 +2394,33 @@ export const REFERENTS: Referent[] = [
           },
           {
             "name": "Sentadilla hack",
-            "sets": 4,
+            "sets": 3,
             "reps": 10,
             "repRange": "8-10",
-            "rest": 120
+            "rest": 120,
+            "notes": "Volumen de cuádriceps contenido para mantener la proporción"
           },
           {
             "name": "Prensa 45°",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 120,
+            "notes": "Pies altos para repartir carga con glúteo"
+          },
+          {
+            "name": "Camilla de isquios",
             "sets": 4,
             "reps": 12,
             "repRange": "10-12",
-            "rest": 120
+            "rest": 75
           },
           {
-            "name": "Estocadas caminando",
+            "name": "Peso muerto rumano",
             "sets": 3,
-            "reps": 20,
-            "repRange": "16-20",
-            "rest": 90,
-            "notes": "Pasos totales"
+            "reps": 10,
+            "repRange": "8-10",
+            "rest": 120
           },
           {
             "name": "Aducción en máquina",
@@ -2077,8 +2482,8 @@ export const REFERENTS: Referent[] = [
         ]
       },
       {
-        "name": "Isquios y glúteos",
-        "focus": "Isquiotibiales y glúteos",
+        "name": "Posterior y glúteos",
+        "focus": "Isquiotibiales y unión glúteo-isquio",
         "category": "Piernas",
         "exercises": [
           {
@@ -2093,7 +2498,8 @@ export const REFERENTS: Referent[] = [
             "sets": 4,
             "reps": 10,
             "repRange": "8-10",
-            "rest": 120
+            "rest": 120,
+            "notes": "Cadera atrás, foco en la unión glúteo-isquio"
           },
           {
             "name": "Hip thrust a una pierna",
@@ -2137,7 +2543,32 @@ export const REFERENTS: Referent[] = [
     "goal": "Quemar grasa",
     "confidence": "media",
     "sources": [
-      "https://www.simplyshredded.com/?p=27501"
+      "https://www.simplyshredded.com/?p=27501",
+      "https://www.youtube.com/@anita_herbert/shorts",
+      "https://www.youtube.com/watch?v=j6xIi2R1wrI",
+      "https://www.youtube.com/watch?v=ho-IigGUma4"
+    ],
+    "videos": [
+      {
+        "title": "Anita Herbert (canal oficial, shorts)",
+        "url": "https://www.youtube.com/@anita_herbert/shorts",
+        "covers": "Clips cortos de ejercicios de glúteos, piernas, tríceps y abdomen."
+      },
+      {
+        "title": "Terra-Core: Full Body Workout With Anita Herbert",
+        "url": "https://www.youtube.com/watch?v=j6xIi2R1wrI",
+        "covers": "Cuerpo completo con plataforma inestable (no forma parte de su split de gimnasio)."
+      },
+      {
+        "title": "BEST Of ANITA HERBERT FITNESS GLUTE MOTIVATION WORKOUT",
+        "url": "https://www.youtube.com/watch?v=ho-IigGUma4",
+        "covers": "Recopilación de ejercicios de glúteos y piernas en gimnasio (canal de terceros)."
+      },
+      {
+        "title": "Anita Herbert (Anitah Sabo) ABS: Gym Workout Routine for Bikini Girls",
+        "url": "https://www.youtube.com/watch?v=_PtPRaaFXlc",
+        "covers": "Abdomen (canal de terceros)."
+      }
     ],
     "days": [
       {
@@ -2388,19 +2819,46 @@ export const REFERENTS: Referent[] = [
     "name": "Yarishna Ayala",
     "gender": "female",
     "knownFor": "Competidora puertorriqueña IFBB Pro de Wellness; prioriza glúteos y piernas varias veces por semana con repeticiones lentas, pausas y mucho control.",
-    "split": "Piernas 3 veces + torso 2 días (5 días)",
-    "daysPerWeek": 5,
+    "split": "Rutina dividida 6 días: glúteos, espalda, cuádriceps, hombros, isquios/glúteos, pecho-brazos-abdomen",
+    "daysPerWeek": 6,
     "goal": "Hipertrofia",
-    "confidence": "baja",
+    "confidence": "media",
     "sources": [
+      "https://www.youtube.com/watch?v=ha6_RA0H1Js",
+      "https://videohighlight.com/v/ha6_RA0H1Js",
+      "https://www.youtube.com/watch?v=ps_liCTfmZ0",
       "https://fitnessvolt.com/dana-linn-bailey-yarishna-ayala-glute-workout/",
+      "https://www.youtube.com/watch?app=desktop&v=_j--NMXLMBU",
       "https://fitnessvolt.com/yarishna-ayala-tips-hany-rambod-2026-new-york-pro-leg-workout/",
-      "https://www.greatestphysiques.com/?p=5775"
+      "https://www.youtube.com/watch?v=kCnRcRmDK6A",
+      "https://www.inkl.com/news/intense-glutes-workout-with-bret-contreras-and-yarishna-ayala"
+    ],
+    "videos": [
+      {
+        "title": "Mi Semana Completa de Entrenamiento💪🏻🍑 | Yarishna Ayala",
+        "url": "https://www.youtube.com/watch?v=ha6_RA0H1Js",
+        "covers": "Semana completa por días (canal Yarishna Sin Filtro): glúteos, piernas, espalda, hombros, pecho, brazos y abdomen."
+      },
+      {
+        "title": "Día de Espalda🔥 | Rutina de Espalda con Yarishna Ayala Fitness",
+        "url": "https://www.youtube.com/watch?v=ps_liCTfmZ0",
+        "covers": "Espalda completa; clave técnica: llevar el codo atrás en vez de tirar con el brazo."
+      },
+      {
+        "title": "Glúteos con Dana Linn Bailey (canal de DLB)",
+        "url": "https://www.youtube.com/watch?app=desktop&v=_j--NMXLMBU",
+        "covers": "Glúteos y piernas: abducción 4x8, hip thrust 4x12, sumo en Pit Shark 4x10, hack inversa 4x8, péndulo 4x10, prensa y estocadas, todo con tempo lento y pausas."
+      },
+      {
+        "title": "Día de piernas con Hany Rambod (2026, rumbo al New York Pro)",
+        "url": "https://www.youtube.com/watch?v=kCnRcRmDK6A",
+        "covers": "Cuádriceps: abducción de calentamiento, sillón de cuádriceps reclinado, prensa con pies cerrados y estocadas caminando."
+      }
     ],
     "days": [
       {
-        "name": "Glúteos y piernas",
-        "focus": "Glúteos, aductores y cuádriceps",
+        "name": "Glúteos",
+        "focus": "Glúteos con tempo lento y pausas",
         "category": "Piernas",
         "exercises": [
           {
@@ -2417,15 +2875,15 @@ export const REFERENTS: Referent[] = [
             "reps": 12,
             "repRange": "10-12",
             "rest": 120,
-            "notes": "Bajada de 4 s y pausa arriba"
+            "notes": "Bajada de 4 s y apretar arriba unos segundos"
           },
           {
-            "name": "Sentadilla sumo en pozo",
+            "name": "Sentadilla sumo en máquina (Pit Shark)",
             "sets": 4,
             "reps": 10,
-            "repRange": "8-10",
+            "repRange": "10",
             "rest": 90,
-            "notes": "Bajada de 3 s, pausa abajo"
+            "notes": "Bajada de 3 s, pausa de 3 s abajo, sin manos"
           },
           {
             "name": "Hack inversa",
@@ -2433,13 +2891,13 @@ export const REFERENTS: Referent[] = [
             "reps": 8,
             "repRange": "8",
             "rest": 120,
-            "notes": "Bajada de 3 s y pausa de 3 s"
+            "notes": "Bajada de 3 s y pausa de 3 s; postura ancha, puntas algo afuera"
           },
           {
             "name": "Sentadilla péndulo",
             "sets": 4,
             "reps": 10,
-            "repRange": "8-10",
+            "repRange": "10",
             "rest": 120
           },
           {
@@ -2448,20 +2906,21 @@ export const REFERENTS: Referent[] = [
             "reps": 12,
             "repRange": "10-12",
             "rest": 90,
-            "notes": "Pausa de 2 s abajo"
+            "notes": "Bajada lenta, pausa de 2 s abajo"
           },
           {
             "name": "Estocadas caminando",
             "sets": 3,
             "reps": 30,
             "repRange": "30 pasos",
-            "rest": 90
+            "rest": 90,
+            "notes": "Lentas, con pausa abajo"
           }
         ]
       },
       {
-        "name": "Espalda y bíceps",
-        "focus": "Dorsales, espalda media y bíceps",
+        "name": "Espalda",
+        "focus": "Dorsales y espalda media",
         "category": "Espalda",
         "exercises": [
           {
@@ -2469,7 +2928,8 @@ export const REFERENTS: Referent[] = [
             "sets": 4,
             "reps": 12,
             "repRange": "10-12",
-            "rest": 90
+            "rest": 90,
+            "notes": "Llevar el codo atrás, no tirar con el brazo"
           },
           {
             "name": "Remo sentado en polea",
@@ -2493,10 +2953,10 @@ export const REFERENTS: Referent[] = [
             "rest": 60
           },
           {
-            "name": "Curl con mancuernas",
+            "name": "Hiperextensiones lumbares",
             "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
+            "reps": 15,
+            "repRange": "12-15",
             "rest": 60
           }
         ]
@@ -2528,7 +2988,7 @@ export const REFERENTS: Referent[] = [
             "reps": 12,
             "repRange": "10-12",
             "rest": 120,
-            "notes": "Pies en posición neutra"
+            "notes": "Pies cerrados en posición neutra"
           },
           {
             "name": "Sentadilla hack",
@@ -2543,13 +3003,13 @@ export const REFERENTS: Referent[] = [
             "reps": 30,
             "repRange": "30 pasos",
             "rest": 90,
-            "notes": "Finalizador, ritmo controlado"
+            "notes": "Finalizador, sin apurarse"
           }
         ]
       },
       {
-        "name": "Hombros y tríceps",
-        "focus": "Deltoides y tríceps",
+        "name": "Hombros",
+        "focus": "Deltoides lateral, anterior y posterior",
         "category": "Hombros",
         "exercises": [
           {
@@ -2567,6 +3027,13 @@ export const REFERENTS: Referent[] = [
             "rest": 90
           },
           {
+            "name": "Elevaciones laterales en polea",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 60
+          },
+          {
             "name": "Pájaros (deltoides posterior)",
             "sets": 3,
             "reps": 15,
@@ -2574,17 +3041,10 @@ export const REFERENTS: Referent[] = [
             "rest": 60
           },
           {
-            "name": "Extensión de tríceps en polea",
+            "name": "Face pull en polea",
             "sets": 3,
             "reps": 15,
             "repRange": "12-15",
-            "rest": 60
-          },
-          {
-            "name": "Fondos en banco",
-            "sets": 3,
-            "reps": 12,
-            "repRange": "10-12",
             "rest": 60
           }
         ]
@@ -2595,6 +3055,36 @@ export const REFERENTS: Referent[] = [
         "category": "Piernas",
         "exercises": [
           {
+            "name": "Hip thrust",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "8-15",
+            "rest": 120,
+            "notes": "En su sesión con Bret Contreras: series pesadas y una de 20 reps"
+          },
+          {
+            "name": "Prensa a una pierna",
+            "sets": 2,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 90,
+            "notes": "Pie alto en la plataforma para cargar glúteo"
+          },
+          {
+            "name": "Peso muerto piernas rígidas",
+            "sets": 2,
+            "reps": 10,
+            "repRange": "8-10",
+            "rest": 120
+          },
+          {
+            "name": "Buenos días",
+            "sets": 3,
+            "reps": 10,
+            "repRange": "8-12",
+            "rest": 90
+          },
+          {
             "name": "Camilla de isquios",
             "sets": 4,
             "reps": 12,
@@ -2602,33 +3092,60 @@ export const REFERENTS: Referent[] = [
             "rest": 75
           },
           {
-            "name": "Peso muerto rumano",
-            "sets": 4,
-            "reps": 10,
-            "repRange": "8-10",
-            "rest": 120
-          },
+            "name": "Abducción sentada inclinada (pulsos)",
+            "sets": 2,
+            "reps": 20,
+            "repRange": "15-20",
+            "rest": 60
+          }
+        ]
+      },
+      {
+        "name": "Pecho, brazos y abdomen",
+        "focus": "Pectorales, bíceps, tríceps y core",
+        "category": "Pecho",
+        "exercises": [
           {
-            "name": "Hip thrust",
+            "name": "Press inclinado con mancuernas",
             "sets": 3,
             "reps": 12,
             "repRange": "10-12",
             "rest": 90
           },
           {
-            "name": "Patada de glúteo en polea",
+            "name": "Aperturas en máquina",
             "sets": 3,
             "reps": 15,
             "repRange": "12-15",
             "rest": 60
           },
           {
-            "name": "Cinta inclinada caminando",
-            "sets": 1,
-            "reps": 30,
-            "repRange": "20-30 min",
-            "rest": 0,
-            "notes": "Cardio; reps = minutos"
+            "name": "Curl con mancuernas",
+            "sets": 3,
+            "reps": 12,
+            "repRange": "10-12",
+            "rest": 60
+          },
+          {
+            "name": "Extensión de tríceps en polea",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 60
+          },
+          {
+            "name": "Elevación de piernas colgado",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 45
+          },
+          {
+            "name": "Crunch en polea",
+            "sets": 3,
+            "reps": 15,
+            "repRange": "12-15",
+            "rest": 45
           }
         ]
       }

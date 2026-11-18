@@ -15,6 +15,7 @@ import { Photo } from "../components/ui/Photo";
 import { CATEGORY_PHOTO, PHOTOS } from "../constants/photos";
 import type { Workout } from "../types/workout";
 import { useSettingsStore } from "../store/useSettingsStore";
+import { ExerciseGuideSheet } from "../components/ExerciseGuideSheet";
 import { kcalFor, METS } from "../utils/body";
 
 export default function WorkoutScreen() {
@@ -133,6 +134,7 @@ function CurrentExercise() {
   const addSet = useWorkoutStore(s => s.addSet);
   const goTo = useWorkoutStore(s => s.goToExercise);
   const rest = useRestTimer();
+  const [guide, setGuide] = useState<string | null>(null);
 
   const idx = active.currentExercise;
   const ex = active.exercises[idx];
@@ -143,8 +145,17 @@ function CurrentExercise() {
 
   return (
     <View className="bg-card border border-line rounded-4xl p-5 mt-4">
-      <Text className="text-mute font-semibold">Ejercicio {idx + 1} de {active.exercises.length}</Text>
-      <Text className="text-white text-3xl font-extrabold mt-1">{ex.name}</Text>
+      <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
+      <View className="flex-row items-center justify-between">
+        <Text className="text-mute font-semibold">Ejercicio {idx + 1} de {active.exercises.length}</Text>
+        <Pressable onPress={() => setGuide(ex.name)} hitSlop={8} className="flex-row items-center h-8 px-3 rounded-full bg-card2">
+          <Icon name="body-outline" size={14} color={C.lime} />
+          <Text className="text-lime text-xs font-bold ml-1">Técnica</Text>
+        </Pressable>
+      </View>
+      <Pressable onPress={() => setGuide(ex.name)}>
+        <Text className="text-white text-3xl font-extrabold mt-1">{ex.name}</Text>
+      </Pressable>
 
       {/* Series: lima = hecha (tocá para deshacer), borde = la actual */}
       <View className="flex-row flex-wrap gap-2 mt-4">

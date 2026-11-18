@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { ExerciseGuideSheet } from "../components/ExerciseGuideSheet";
+import { ExerciseFigure } from "../components/ExerciseFigure";
+import { guideFor } from "../data/exerciseGuide";
+import { drawPattern } from "../data/figures";
 import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -24,6 +28,7 @@ export default function RoutineEditorScreen() {
   const remove = useRoutineStore(s => s.deleteRoutine);
   const [custom, setCustom] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [guide, setGuide] = useState<string | null>(null);
   const insets = useSafeAreaInsets();
 
   if (!routine) return <Screen scroll={false}><TopBar title="Rutina" back /></Screen>;
@@ -99,12 +104,16 @@ export default function RoutineEditorScreen() {
       <Text className="text-white text-xl font-bold px-5 mt-8 mb-3">Ejercicios</Text>
       <View className="px-5">
         {routine.exercises.map((e, i) => (
-          <ExerciseEditor key={e.id} routineId={id} ex={e} index={i} count={routine.exercises.length} />
+          <ExerciseEditor key={e.id} routineId={id} ex={e} index={i} count={routine.exercises.length} onGuide={() => setGuide(e.name)} />
         ))}
         {routine.exercises.length === 0 && (
           <Text className="text-mute mb-3">Agregá ejercicios con los botones de abajo.</Text>
         )}
+        {routine.exercises.length > 0 && (
+          <Text className="text-mute text-xs mb-1">Tocá el muñequito de un ejercicio para ver cómo se hace.</Text>
+        )}
       </View>
+      <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
 
       {suggestions.length > 0 && (
         <>
@@ -150,9 +159,10 @@ export default function RoutineEditorScreen() {
   );
 }
 
-function ExerciseEditor({ routineId, ex, index, count }: {
-  routineId: string; ex: ExerciseTemplate; index: number; count: number;
+function ExerciseEditor({ routineId, ex, index, count, onGuide }: {
+  routineId: string; ex: ExerciseTemplate; index: number; count: number; onGuide: () => void;
 }) {
+  const thumb = useMemo(() => drawPattern(guideFor(ex.name).pattern)[1], [ex.name]);
   const update = useRoutineStore(s => s.updateExercise);
   const remove = useRoutineStore(s => s.removeExercise);
   const move = useRoutineStore(s => s.moveExercise);
@@ -161,10 +171,16 @@ function ExerciseEditor({ routineId, ex, index, count }: {
   return (
     <View className="bg-card border border-line rounded-3xl p-4 mb-3">
       <View className="flex-row items-center">
-        <View className="w-8 h-8 rounded-full bg-card2 items-center justify-center mr-3">
-          <Text className="text-lime font-bold">{index + 1}</Text>
+        <Pressable onPress={onGuide} className="w-14 h-14 rounded-2xl bg-ink items-center justify-center mr-3">
+          <ExerciseFigure prims={thumb} width={50} />
+          <View className="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-lime items-center justify-center">
+            <Text className="text-ink text-[10px] font-extrabold">{index + 1}</Text>
+          </View>
+        </Pressable>
+        <View className="flex-1 min-w-0">
+          <TextInput value={ex.name} onChangeText={v => patch({ name: v })} className="text-white text-base font-bold" />
+          <Pressable onPress={onGuide} hitSlop={6}><Text className="text-lime text-xs font-semibold mt-0.5">Cómo se hace →</Text></Pressable>
         </View>
-        <TextInput value={ex.name} onChangeText={v => patch({ name: v })} className="flex-1 text-white text-base font-bold" />
         <Pressable disabled={index === 0} onPress={() => move(routineId, index, index - 1)} hitSlop={6} className="px-1.5">
           <Icon name="chevron-up" size={18} color={index === 0 ? C.line : C.mute} />
         </Pressable>

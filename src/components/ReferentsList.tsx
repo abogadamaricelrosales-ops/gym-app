@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Photo } from "./ui/Photo";
 import { Icon } from "./ui/Icon";
 import { REFERENTS } from "../data/referents";
-import { CATEGORY_PHOTO } from "../constants/photos";
+import { CATEGORY_PHOTO, REFERENT_PHOTO } from "../constants/photos";
 import { useSettingsStore, type Sex } from "../store/useSettingsStore";
 import { C } from "../constants/theme";
 
@@ -56,12 +56,14 @@ export function ReferentsList() {
       </View>
       {list.map(r => (
         <Pressable key={r.id} onPress={() => nav.navigate("Referent", { id: r.id })} className="mb-3">
-          <Photo source={CATEGORY_PHOTO[r.days[0]?.category ?? "Full body"]} radius={28} style={{ height: 190 }}>
+          <Photo source={REFERENT_PHOTO[r.id] ?? CATEGORY_PHOTO[r.days[0]?.category ?? "Full body"]} radius={28} style={{ height: REFERENT_PHOTO[r.id] ? 260 : 190 }}>
             <View className="flex-1 justify-between p-5">
               <View className="flex-row justify-between">
-                <View className="w-12 h-12 rounded-full bg-lime items-center justify-center">
-                  <Text className="text-ink font-extrabold text-base">{initials(r.name)}</Text>
-                </View>
+                {REFERENT_PHOTO[r.id] ? <View /> : (
+                  <View className="w-12 h-12 rounded-full bg-lime items-center justify-center">
+                    <Text className="text-ink font-extrabold text-base">{initials(r.name)}</Text>
+                  </View>
+                )}
                 <View className="flex-row gap-1.5">
                   <Badge text={`${r.daysPerWeek} días`} />
                   <Badge text={r.goal} />

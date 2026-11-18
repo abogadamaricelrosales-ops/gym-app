@@ -26,5 +26,6 @@ export interface Referent {
   goal: Goal;
   confidence: "alta" | "media" | "baja";
   sources: string[];
+  videos?: { title: string; url: string; covers: string }[];
   days: ReferentDay[];
 }
