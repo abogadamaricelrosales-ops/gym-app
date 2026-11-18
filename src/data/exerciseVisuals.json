@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "exercises": {
+    "squat": {
+      "displayName": "SQUAT / SENTADILLA",
+      "aliases": [
+        "Sentadilla trasera",
+        "Sentadilla goblet",
+        "Sentadilla goblet o trasera",
+        "Sentadilla"
+      ],
+      "visual": {
+        "phases": [
+          {
+            "label": "1. INICIO",
+            "pose": {
+              "head": [
+                50,
+                12
+              ],
+              "neck": [
+                50,
+                20
+              ],
+              "shoulder": [
+                50,
+                22
+              ],
+              "elbow": [
+                40,
+                24
+              ],
+              "wrist": [
+                42,
+                20
+              ],
+              "hip": [
+                50,
+                50
+              ],
+              "knee": [
+                51,
+                70
+              ],
+              "ankle": [
+                50,
+                90
+              ],
+              "toe": [
+                58,
+                90
+              ]
+            }
+          },
+          {
+            "label": "2. DESCENSO",
+            "pose": {
+              "head": [
+                58,
+                34
+              ],
+              "neck": [
+                56,
+                41
+              ],
+              "shoulder": [
+                55,
+                43
+              ],
+              "elbow": [
+                45,
+                45
+              ],
+              "wrist": [
+                47,
+                41
+              ],
+              "hip": [
+                36,
+                64
+              ],
+              "knee": [
+                60,
+                66
+              ],
+              "ankle": [
+                50,
+                90
+              ],
+              "toe": [
+                58,
+                90
+              ]
+            }
+          }
+        ],
+        "highlight": [
+          "knee",
+          "hip",
+          "shoulder"
+        ],
+        "equipment": {
+          "type": "barbell",
+          "attachTo": "shoulder"
+        },
+        "angles": [
+          {
+            "joint": "knee",
+            "label": "90°",
+            "phase": "end"
+          }
+        ],
+        "pathJoint": "hip",
+        "cue": "Pecho arriba, bajá hasta 90°, empujá con los talones",
+        "durationMs": 1400
+      }
+    },
+    "bench_press": {
+      "displayName": "BENCH PRESS / PRESS BANCA",
+      "aliases": [
+        "Press banca",
+        "Press banca con barra"
+      ],
+      "visual": {
+        "phases": [
+          {
+            "label": "1. BRAZOS EXTENDIDOS",
+            "pose": {
+              "head": [
+                18,
+                60
+              ],
+              "neck": [
+                25,
+                60
+              ],
+              "shoulder": [
+                30,
+                60
+              ],
+              "elbow": [
+                30,
+                47
+              ],
+              "wrist": [
+                30,
+                34
+              ],
+              "hip": [
+                62,
+                60
+              ],
+              "knee": [
+                78,
+                60
+              ],
+              "ankle": [
+                80,
+                85
+              ],
+              "toe": [
+                86,
+                85
+              ]
+            }
+          },
+          {
+            "label": "2. DESCENSO AL PECHO",
+            "pose": {
+              "head": [
+                18,
+                60
+              ],
+              "neck": [
+                25,
+                60
+              ],
+              "shoulder": [
+                30,
+                60
+              ],
+              "elbow": [
+                22,
+                62
+              ],
+              "wrist": [
+                34,
+                52
+              ],
+              "hip": [
+                62,
+                60
+              ],
+              "knee": [
+                78,
+                60
+              ],
+              "ankle": [
+                80,
+                85
+              ],
+              "toe": [
+                86,
+                85
+              ]
+            }
+          }
+        ],
+        "highlight": [
+          "shoulder",
+          "elbow"
+        ],
+        "equipment": {
+          "type": "barbell",
+          "attachTo": "wrist"
+        },
+        "angles": [
+          {
+            "joint": "elbow",
+            "label": "~75°",
+            "phase": "end"
+          }
+        ],
+        "pathJoint": "wrist",
+        "cue": "Escápulas juntas, barra al esternón, codos a 45°",
+        "durationMs": 1600
+      }
+    },
+    "deadlift": {
+      "displayName": "DEADLIFT / PESO MUERTO",
+      "aliases": [
+        "Peso muerto",
+        "Peso muerto convencional"
+      ],
+      "visual": {
+        "phases": [
+          {
+            "label": "1. INICIO",
+            "pose": {
+              "head": [
+                62,
+                36
+              ],
+              "neck": [
+                58,
+                42
+              ],
+              "shoulder": [
+                56,
+                44
+              ],
+              "elbow": [
+                55,
+                58
+              ],
+              "wrist": [
+                54,
+                72
+              ],
+              "hip": [
+                36,
+                56
+              ],
+              "knee": [
+                56,
+                72
+              ],
+              "ankle": [
+                50,
+                90
+              ],
+              "toe": [
+                58,
+                90
+              ]
+            }
+          },
+          {
+            "label": "2. BLOQUEO",
+            "pose": {
+              "head": [
+                50,
+                12
+              ],
+              "neck": [
+                50,
+                20
+              ],
+              "shoulder": [
+                50,
+                22
+              ],
+              "elbow": [
+                50,
+                36
+              ],
+              "wrist": [
+                50,
+                50
+              ],
+              "hip": [
+                50,
+                50
+              ],
+              "knee": [
+                51,
+                70
+              ],
+              "ankle": [
+                50,
+                90
+              ],
+              "toe": [
+                58,
+                90
+              ]
+            }
+          }
+        ],
+        "highlight": [
+          "hip",
+          "knee"
+        ],
+        "equipment": {
+          "type": "barbell",
+          "attachTo": "wrist"
+        },
+        "pathJoint": "wrist",
+        "cue": "Espalda neutra, barra pegada a las piernas, empujá el piso",
+        "durationMs": 1500
+      }
+    },
+    "hip_thrust": {
+      "displayName": "HIP THRUST",
+      "aliases": [
+        "Hip thrust con barra"
+      ],
+      "visual": {
+        "phases": [
+          {
+            "label": "1. CADERA ABAJO",
+            "pose": {
+              "head": [
+                16,
+                46
+              ],
+              "neck": [
+                22,
+                50
+              ],
+              "shoulder": [
+                26,
+                52
+              ],
+              "elbow": [
+                34,
+                58
+              ],
+              "wrist": [
+                44,
+                66
+              ],
+              "hip": [
+                46,
+                80
+              ],
+              "knee": [
+                66,
+                64
+              ],
+              "ankle": [
+                70,
+                88
+              ],
+              "toe": [
+                76,
+                88
+              ]
+            }
+          },
+          {
+            "label": "2. EXTENSIÓN",
+            "pose": {
+              "head": [
+                16,
+                46
+              ],
+              "neck": [
+                22,
+                50
+              ],
+              "shoulder": [
+                26,
+                52
+              ],
+              "elbow": [
+                36,
+                54
+              ],
+              "wrist": [
+                46,
+                56
+              ],
+              "hip": [
+                48,
+                58
+              ],
+              "knee": [
+                68,
+                60
+              ],
+              "ankle": [
+                70,
+                88
+              ],
+              "toe": [
+                76,
+                88
+              ]
+            }
+          }
+        ],
+        "highlight": [
+          "hip",
+          "knee"
+        ],
+        "equipment": {
+          "type": "barbell",
+          "attachTo": "hip"
+        },
+        "angles": [
+          {
+            "joint": "knee",
+            "label": "90°",
+            "phase": "end"
+          }
+        ],
+        "pathJoint": "hip",
+        "cue": "Mentón al pecho, apretá glúteos arriba 1 s, no arquees la lumbar",
+        "durationMs": 1300
+      }
+    }
+  }
+}
