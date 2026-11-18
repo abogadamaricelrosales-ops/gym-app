@@ -16,10 +16,10 @@ export default function RoutineEditorScreen({ route }: any) {
   const addDay = useRoutineStore(s => s.addDay);
   const [dayName, setDayName] = useState("");
 
-  if (!routine) return <View className="flex-1 bg-black" />;
+  if (!routine) return <View className="flex-1 bg-zinc-950" />;
 
   return (
-    <ScrollView className="flex-1 bg-black" contentContainerClassName="p-4 pb-20 gap-4" keyboardShouldPersistTaps="handled">
+    <ScrollView className="flex-1 bg-zinc-950" contentContainerClassName="p-4 pb-20 gap-4" keyboardShouldPersistTaps="handled">
       <View>
         <Text className="text-zinc-400 mb-1">Nombre</Text>
         <Input value={routine.name} onChangeText={v => rename(id, v)} className="text-lg" />

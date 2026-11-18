@@ -25,13 +25,13 @@ export default function TemplateLibraryScreen({ navigation }: any) {
     ]);
 
   return (
-    <View className="flex-1 bg-black">
+    <View className="flex-1 bg-zinc-950">
       <ScrollView horizontal showsHorizontalScrollIndicator={false} className="max-h-14 px-3 py-2">
         {FILTERS.map(tag => {
           const on = selected.includes(tag);
           return (
             <Pressable key={tag} onPress={() => toggle(tag)}
-              className={`mr-2 px-4 py-2 rounded-full border ${on ? "bg-emerald-500 border-emerald-500" : "border-zinc-700"}`}>
+              className={`mr-2 px-4 py-2 rounded-full border ${on ? "bg-orange-500 border-orange-500" : "border-zinc-700"}`}>
               <Text className={on ? "text-black font-semibold" : "text-zinc-300"}>{tag}</Text>
             </Pressable>
           );
@@ -41,10 +41,10 @@ export default function TemplateLibraryScreen({ navigation }: any) {
       <FlatList
         data={data}
         keyExtractor={t => t.id}
-        contentContainerClassName="p-4 gap-4"
+        contentContainerClassName="p-4"
         ListEmptyComponent={<Text className="text-zinc-500 text-center mt-10">No hay rutinas con esos filtros.</Text>}
         renderItem={({ item: t }) => (
-          <View className="bg-zinc-900 rounded-2xl p-4">
+          <View className="bg-zinc-900 rounded-2xl border border-zinc-800 p-4 mb-3">
             <Text className="text-white text-lg font-bold">{t.name}</Text>
             <Text className="text-zinc-400 mt-1">{t.description}</Text>
             <Text className="text-zinc-500 mt-2 text-xs uppercase">
@@ -53,11 +53,11 @@ export default function TemplateLibraryScreen({ navigation }: any) {
             <View className="flex-row flex-wrap gap-2 mt-3">
               {t.tags.map(tag => (
                 <View key={tag} className="bg-zinc-800 px-2 py-1 rounded-md">
-                  <Text className="text-emerald-400 text-xs">{tag}</Text>
+                  <Text className="text-zinc-300 text-xs">{tag}</Text>
                 </View>
               ))}
             </View>
-            <Pressable onPress={() => onAdopt(t.id, t.name)} className="mt-4 bg-emerald-500 py-3 rounded-xl items-center">
+            <Pressable onPress={() => onAdopt(t.id, t.name)} className="mt-4 bg-orange-500 py-3 rounded-xl items-center">
               <Text className="text-black font-semibold">Usar esta rutina</Text>
             </Pressable>
           </View>

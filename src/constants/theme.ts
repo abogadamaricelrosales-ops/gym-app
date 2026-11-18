@@ -1,12 +1,13 @@
 import { DarkTheme, type Theme } from "@react-navigation/native";
 
 export const COLORS = {
-  bg: "#000000",
+  bg: "#09090b",
   card: "#18181b",
   border: "#27272a",
+  surface: "#18181b",
   text: "#ffffff",
   muted: "#a1a1aa",
-  primary: "#34d399",
+  primary: "#f97316",
 };
 
 export const navTheme: Theme = {
@@ -21,8 +22,8 @@ export const navTheme: Theme = {
   },
 };
 
+// Headers nativos desactivados: cada pantalla dibuja su propio <ScreenHeader>
 export const stackScreenOptions = {
-  headerStyle: { backgroundColor: COLORS.bg },
-  headerTintColor: COLORS.text,
+  headerShown: false,
   contentStyle: { backgroundColor: COLORS.bg },
 };

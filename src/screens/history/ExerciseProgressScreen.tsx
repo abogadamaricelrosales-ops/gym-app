@@ -29,7 +29,7 @@ export default function ExerciseProgressScreen({ route }: any) {
   }));
 
   return (
-    <ScrollView className="flex-1 bg-black" contentContainerClassName="p-4 pb-10">
+    <ScrollView className="flex-1 bg-zinc-950" contentContainerClassName="p-4 pb-10">
       <Text className="text-white text-2xl font-bold">{name}</Text>
       <Text className={`mt-1 ${STATUS[status].cls}`}>{STATUS[status].text}</Text>
 
@@ -42,7 +42,7 @@ export default function ExerciseProgressScreen({ route }: any) {
       <View className="flex-row gap-2 mt-6 mb-3">
         {METRICS.map(m => (
           <Pressable key={m.key} onPress={() => setMetric(m.key)}
-            className={`px-3 py-2 rounded-full ${metric === m.key ? "bg-emerald-500" : "bg-zinc-800"}`}>
+            className={`px-3 py-2 rounded-full ${metric === m.key ? "bg-orange-500" : "bg-zinc-900 border border-zinc-800"}`}>
             <Text className={metric === m.key ? "text-black font-semibold" : "text-zinc-300"}>{m.label}</Text>
           </Pressable>
         ))}
@@ -50,8 +50,8 @@ export default function ExerciseProgressScreen({ route }: any) {
 
       {data.length >= 2 ? (
         <View className="bg-zinc-900 rounded-2xl py-4">
-          <LineChart data={data} width={width - 80} height={180} color="#34d399" thickness={3}
-            dataPointsColor="#34d399" curved areaChart startFillColor="#34d399" startOpacity={0.25} endOpacity={0}
+          <LineChart data={data} width={width - 80} height={180} color="#f97316" thickness={3}
+            dataPointsColor="#f97316" curved areaChart startFillColor="#f97316" startOpacity={0.25} endOpacity={0}
             yAxisTextStyle={{ color: "#a1a1aa" }} xAxisLabelTextStyle={{ color: "#a1a1aa", fontSize: 10 }}
             rulesColor="#27272a" xAxisColor="#3f3f46" yAxisColor="#3f3f46" />
         </View>

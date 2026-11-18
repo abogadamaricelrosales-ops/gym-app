@@ -10,6 +10,11 @@ import RoutinesStack from "./RoutinesStack";
 import HistoryStack from "./HistoryStack";
 import type { RootStackParams, TabParams } from "./types";
 import { COLORS, navTheme, stackScreenOptions } from "../constants/theme";
+import { withScreen } from "../components/ui/Screen";
+
+const Home = withScreen(HomeScreen, "Hoy");
+const Library = withScreen(TemplateLibraryScreen, "Librería");
+const LogActivity = withScreen(LogActivityScreen, "Registrar actividad", { back: true });
 
 const Root = createNativeStackNavigator<RootStackParams>();
 const Tab = createBottomTabNavigator<TabParams>();
@@ -22,18 +27,18 @@ function Tabs() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: COLORS.bg },
-        headerTintColor: COLORS.text,
-        tabBarStyle: { backgroundColor: COLORS.bg, borderTopColor: COLORS.border },
+        headerShown: false,
+        tabBarStyle: { backgroundColor: COLORS.bg, borderTopColor: COLORS.border, height: 64, paddingTop: 6 },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
         tabBarActiveTintColor: COLORS.primary,
         tabBarInactiveTintColor: COLORS.muted,
       }}
     >
-      <Tab.Screen name="Hoy" component={HomeScreen} options={{ title: "Hoy", tabBarIcon: icon("☀") }} />
-      <Tab.Screen name="Rutinas" component={RoutinesStack} options={{ headerShown: false, tabBarIcon: icon("☰") }} />
+      <Tab.Screen name="Hoy" component={Home} options={{ title: "Hoy", tabBarIcon: icon("☀") }} />
+      <Tab.Screen name="Rutinas" component={RoutinesStack} options={{ tabBarIcon: icon("☰") }} />
       <Tab.Screen name="Entrenar" component={ActiveWorkoutScreen} options={{ title: "Entrenar", tabBarIcon: icon("🏋") }} />
-      <Tab.Screen name="Historial" component={HistoryStack} options={{ headerShown: false, tabBarIcon: icon("📈") }} />
-      <Tab.Screen name="Libreria" component={TemplateLibraryScreen} options={{ title: "Librería", tabBarIcon: icon("📚") }} />
+      <Tab.Screen name="Historial" component={HistoryStack} options={{ tabBarIcon: icon("📈") }} />
+      <Tab.Screen name="Libreria" component={Library} options={{ title: "Librería", tabBarIcon: icon("📚") }} />
     </Tab.Navigator>
   );
 }
@@ -42,12 +47,8 @@ export default function RootNavigator() {
   return (
     <NavigationContainer theme={navTheme}>
       <Root.Navigator screenOptions={stackScreenOptions}>
-        <Root.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-        <Root.Screen
-          name="LogActivity"
-          component={LogActivityScreen}
-          options={{ presentation: "modal", title: "Registrar actividad" }}
-        />
+        <Root.Screen name="Tabs" component={Tabs} />
+        <Root.Screen name="LogActivity" component={LogActivity} options={{ presentation: "modal" }} />
       </Root.Navigator>
     </NavigationContainer>
   );

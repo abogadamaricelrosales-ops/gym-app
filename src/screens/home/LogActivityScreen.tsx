@@ -28,7 +28,7 @@ export default function LogActivityScreen({ navigation }: any) {
   };
 
   return (
-    <ScrollView className="flex-1 bg-black" contentContainerClassName="p-4 pb-16 gap-5" keyboardShouldPersistTaps="handled">
+    <ScrollView className="flex-1 bg-zinc-950" contentContainerClassName="p-4 pb-16 gap-5" keyboardShouldPersistTaps="handled">
       <View>
         <Text className="text-zinc-400 mb-2">Tipo</Text>
         <View className="flex-row flex-wrap">
@@ -46,7 +46,7 @@ export default function LogActivityScreen({ navigation }: any) {
         <View className="flex-row flex-wrap gap-2">
           {Array.from({ length: 10 }, (_, i) => i + 1).map(n => (
             <Pressable key={n} onPress={() => setRpe(n)}
-              className={`w-11 h-11 rounded-xl items-center justify-center ${rpe === n ? "bg-emerald-500" : "bg-zinc-800"}`}>
+              className={`w-11 h-11 rounded-xl items-center justify-center ${rpe === n ? "bg-orange-500" : "bg-zinc-900 border border-zinc-800"}`}>
               <Text className={rpe === n ? "text-black font-bold" : "text-white"}>{n}</Text>
             </Pressable>
           ))}
@@ -62,7 +62,7 @@ export default function LogActivityScreen({ navigation }: any) {
         </View>
       </View>
 
-      <View className="bg-zinc-900 rounded-2xl p-4">
+      <View className="bg-zinc-900 rounded-2xl border border-zinc-800 p-4">
         <Text className="text-zinc-400">Carga (sRPE): <Text className="text-white font-semibold">{durationMin * rpe}</Text></Text>
         <Text className="text-zinc-400 mt-1">Calorías estimadas: <Text className="text-white font-semibold">{kcal} kcal</Text></Text>
       </View>

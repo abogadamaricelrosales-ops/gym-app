@@ -3,16 +3,16 @@ import { Pressable, Text } from "react-native";
 type Variant = "primary" | "secondary" | "danger" | "ghost";
 
 const BG: Record<Variant, string> = {
-  primary: "bg-emerald-500",
-  secondary: "bg-zinc-800",
+  primary: "bg-orange-500",
+  secondary: "bg-zinc-800 border border-zinc-700",
   danger: "border border-red-500",
   ghost: "",
 };
 const FG: Record<Variant, string> = {
-  primary: "text-black font-semibold",
+  primary: "text-zinc-950 font-bold",
   secondary: "text-white",
   danger: "text-red-400",
-  ghost: "text-emerald-400",
+  ghost: "text-orange-500",
 };
 
 export function Button({ title, onPress, variant = "primary", className = "", disabled }: {

@@ -39,7 +39,7 @@ export default function HomeScreen({ navigation }: any) {
   };
 
   return (
-    <ScrollView className="flex-1 bg-black" contentContainerClassName="p-4 pb-16 gap-4">
+    <ScrollView className="flex-1 bg-zinc-950" contentContainerClassName="p-4 pb-16 gap-4">
       <Card>
         <Text className="text-zinc-400">Hoy te recomiendo</Text>
         {rec ? (
@@ -87,7 +87,7 @@ export default function HomeScreen({ navigation }: any) {
         <View className="flex-row justify-between items-center">
           <Text className="text-white font-semibold">Actividad extra</Text>
           <Pressable onPress={() => navigation.navigate("LogActivity")}>
-            <Text className="text-emerald-400 font-semibold">+ Registrar</Text>
+            <Text className="text-orange-500 font-semibold">+ Registrar</Text>
           </Pressable>
         </View>
         {extras.length === 0 && (
