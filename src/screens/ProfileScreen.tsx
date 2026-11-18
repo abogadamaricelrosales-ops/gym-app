@@ -20,6 +20,7 @@ export default function ProfileScreen() {
   const weightKg = useSettingsStore(s => s.weightKg);
   const heightCm = useSettingsStore(s => s.heightCm);
   const sex = useSettingsStore(s => s.sex);
+  const bodyFat = useSettingsStore(s => s.bodyFat);
   const setProfile = useSettingsStore(s => s.setProfile);
   const lastQuote = useSettingsStore(s => s.lastQuote);
   const setLastQuote = useSettingsStore(s => s.setLastQuote);
@@ -88,6 +89,9 @@ export default function ProfileScreen() {
             </View>
           </View>
         </View>
+        <Field label="% de grasa (opcional, si lo mediste)" icon="water-outline" suffix="%">
+          <NumberInput value={bodyFat} onChange={v => setProfile({ bodyFat: v != null && v < 60 ? v : null })} placeholder="Si no lo sabés, lo estimamos" decimals />
+        </Field>
         <Text className="text-mute text-xs mt-3">Con peso, estatura, edad y sexo calculamos tus calorías, tu peso ideal y los referentes que te mostramos.</Text>
       </View>
 
@@ -95,15 +99,22 @@ export default function ProfileScreen() {
         <IdealWeightCard />
       </View>
 
-      <View className="mx-5 mt-3 bg-card border border-line rounded-4xl p-5">
-        <Text className="text-lime font-bold text-xs tracking-widest">TU FRASE DE HOY</Text>
-        <Text className="text-white text-lg font-semibold mt-2">
-          {lastQuote >= 0 ? QUOTES[lastQuote] : "Abrí la app para ver tu frase."}
-        </Text>
-        <Pressable onPress={() => setLastQuote(pickQuote(lastQuote))} className="flex-row items-center mt-4">
-          <Icon name="refresh" size={16} color={C.lime} />
-          <Text className="text-lime font-semibold ml-2">Otra frase</Text>
-        </Pressable>
+      <View className="mx-5 mt-3">
+        <Photo source={PHOTOS.splash} radius={28} style={{ minHeight: 220 }}>
+          <View className="flex-1 justify-end p-6">
+            <View className="flex-row items-center">
+              <Icon name="flash" size={16} color={C.lime} />
+              <Text className="text-lime font-extrabold text-xs tracking-[3px] ml-2">NO TE RINDAS</Text>
+            </View>
+            <Text className="text-white text-2xl font-extrabold leading-8 mt-2">
+              {lastQuote >= 0 ? QUOTES[lastQuote] : "Abrí la app para ver tu frase."}
+            </Text>
+            <Pressable onPress={() => setLastQuote(pickQuote(lastQuote))} className="self-start flex-row items-center mt-4 h-10 px-4 rounded-full bg-lime">
+              <Icon name="refresh" size={16} color={C.ink} />
+              <Text className="text-ink font-bold ml-2">Otra frase</Text>
+            </Pressable>
+          </View>
+        </Photo>
       </View>
 
       <View className="mx-5 mt-3 gap-2">

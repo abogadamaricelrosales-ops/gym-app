@@ -89,6 +89,19 @@ export default function HomeScreen() {
         </Pressable>
       )}
 
+      {!profileIncomplete && (
+        <Pressable onPress={() => nav.navigate("Strategy")} className="mx-5 mt-4 flex-row items-center bg-card border border-line rounded-3xl p-4">
+          <View className="w-10 h-10 rounded-full bg-card2 items-center justify-center">
+            <Icon name="stats-chart" size={18} color={C.lime} />
+          </View>
+          <View className="flex-1 ml-3">
+            <Text className="text-white font-bold">Mi estrategia</Text>
+            <Text className="text-mute text-xs">Peso meta, calorías, fases y gráficos según tus datos.</Text>
+          </View>
+          <Icon name="chevron-forward" size={18} color={C.lime} />
+        </Pressable>
+      )}
+
       <View className="mt-5">
         <WeekStrip selected={selected} onSelect={setSelected} trainedDays={trainedDays} />
       </View>
@@ -152,6 +165,18 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
+
+      {/* Entrená en casa */}
+      <Pressable onPress={() => nav.navigate("HomeWorkouts")} className="mx-5 mt-4 flex-row items-center bg-lime rounded-4xl p-5">
+        <View className="w-14 h-14 rounded-2xl bg-ink items-center justify-center">
+          <Icon name="home" size={24} color={C.lime} />
+        </View>
+        <View className="flex-1 ml-4">
+          <Text className="text-ink text-xl font-extrabold">Entrená en casa</Text>
+          <Text className="text-ink/70 text-sm">¿No pudiste ir al gym? 5 rutinas con tu propio peso, de flexiones a abs intensos.</Text>
+        </View>
+        <Icon name="arrow-forward" size={20} color={C.ink} />
+      </Pressable>
 
       {/* Referentes */}
       <Pressable onPress={() => nav.navigate("Rutinas", { tab: "referentes" })} className="mx-5 mt-4">

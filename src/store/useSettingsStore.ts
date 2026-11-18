@@ -10,7 +10,9 @@ interface SettingsState {
   weightKg: number | null;
   heightCm: number | null;
   sex: Sex | null;
-  setProfile: (p: Partial<Pick<SettingsState, "name" | "age" | "weightKg" | "heightCm" | "sex">>) => void;
+  /** % de grasa medido (opcional) */
+  bodyFat: number | null;
+  setProfile: (p: Partial<Pick<SettingsState, "name" | "age" | "weightKg" | "heightCm" | "sex" | "bodyFat">>) => void;
   seeded: boolean;
   lastQuote: number;
   setLastQuote: (i: number) => void;
@@ -26,6 +28,7 @@ export const useSettingsStore = create<SettingsState>()(
       weightKg: null,
       heightCm: null,
       sex: null,
+      bodyFat: null,
       setProfile: p => set(p),
       seeded: false,
       lastQuote: -1,

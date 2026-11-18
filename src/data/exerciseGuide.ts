@@ -14,6 +14,11 @@ type Row = [name: string, pattern: PatternId, muscles: string, tips: string[], m
 
 const DATA: Record<Category, Row[]> = {
   Pecho: [
+    ["Flexiones pica", "pike", "Hombros y tríceps (sin equipo)", [
+      "Cadera bien arriba formando una V invertida.",
+      "Bajá la cabeza hacia el piso entre las manos, codos hacia atrás.",
+      "Empujá fuerte hasta estirar los brazos.",
+    ], "Bajar la cadera y convertirla en una flexión común."],
     ["Press banca", "bench", "Pectoral, tríceps y hombro frontal", [
       "Juntá los omóplatos y llevalos hacia abajo antes de sacar la barra.",
       "Bajá la barra controlada hasta la parte baja del pecho, con los codos a unos 45–70° del cuerpo.",
@@ -72,6 +77,11 @@ const DATA: Record<Category, Row[]> = {
     ], "Dejar caer la cadera o levantar la cola."],
   ],
   Espalda: [
+    ["Superman", "superman", "Lumbares, glúteos y espalda alta", [
+      "Boca abajo con brazos estirados adelante.",
+      "Levantá brazos, pecho y piernas a la vez.",
+      "Aguantá 2 segundos arriba y bajá lento.",
+    ], "Tirar el cuello hacia atrás: mirá al piso."],
     ["Dominadas", "pullup", "Dorsal ancho y bíceps", [
       "Empezá colgado con los brazos estirados y los hombros activos (hacia abajo).",
       "Pensá en llevar los codos al bolsillo, no en subir la pera.",
@@ -130,6 +140,36 @@ const DATA: Record<Category, Row[]> = {
     ], "Subir con impulso y pasarse de la línea del cuerpo."],
   ],
   Piernas: [
+    ["Sentadilla sin peso", "airSquat", "Cuádriceps y glúteos", [
+      "Pies al ancho de hombros, brazos adelante para equilibrar.",
+      "Bajá lo más profundo que puedas con la espalda recta.",
+      "Hacelas lentas (3 s bajando) para que sean más intensas.",
+    ], "Levantar los talones del piso."],
+    ["Sentadilla con salto", "jumpSquat", "Piernas y potencia (cardio)", [
+      "Bajá a sentadilla y saltá con fuerza usando los brazos.",
+      "Caé suave, con las rodillas flexionadas.",
+      "Encadená la siguiente sin pausa.",
+    ], "Caer con las piernas rígidas."],
+    ["Sentadilla isométrica en pared", "wallSit", "Cuádriceps (resistencia)", [
+      "Espalda pegada a la pared y muslos paralelos al piso.",
+      "Rodillas encima de los tobillos.",
+      "Aguantá el tiempo indicado respirando normal.",
+    ], "Apoyar las manos en las piernas."],
+    ["Puente de glúteo a una pierna", "bridge", "Glúteos e isquios", [
+      "Una pierna apoyada y la otra estirada al aire.",
+      "Subí la cadera sin que se incline hacia un costado.",
+      "Pausa de 2 segundos arriba.",
+    ], "Empujar con la espalda baja."],
+    ["Zancadas alternadas", "lunge", "Glúteos y cuádriceps", [
+      "Paso largo adelante, alternando piernas.",
+      "Rodilla de atrás casi toca el piso.",
+      "Torso erguido.",
+    ], "Que la rodilla de adelante se vaya hacia adentro."],
+    ["Gemelos en escalón", "calf", "Gemelos", [
+      "Puntas en un escalón, agarrate de algo para equilibrio.",
+      "Bajá el talón por debajo del escalón y subí al máximo.",
+      "Hacelas a una pierna para más intensidad.",
+    ], "Rebotar."],
     ["Sentadilla", "squat", "Cuádriceps, glúteos y aductores", [
       "Barra sobre los trapecios, pies al ancho de hombros con las puntas un poco afuera.",
       "Tomá aire, apretá el abdomen y bajá llevando la cadera atrás y abajo.",
@@ -189,7 +229,7 @@ const DATA: Record<Category, Row[]> = {
       "Subí hasta que el torso quede paralelo al piso, mentón hacia el pecho.",
       "Apretá los glúteos 1–2 segundos arriba.",
     ], "Arquear la espalda baja en lugar de extender la cadera."],
-    ["Puente de glúteo", "hipThrust", "Glúteos", [
+    ["Puente de glúteo", "bridge", "Glúteos", [
       "Acostada/o en el piso, pies cerca de la cola.",
       "Subí la cadera apretando los glúteos.",
       "Pausa arriba y bajada lenta.",
@@ -295,6 +335,16 @@ const DATA: Record<Category, Row[]> = {
     ], "Despegar la cabeza y los hombros del banco."],
   ],
   Tríceps: [
+    ["Flexiones diamante", "pushup", "Tríceps y pecho interno", [
+      "Manos juntas debajo del pecho formando un rombo con los dedos.",
+      "Codos pegados al cuerpo al bajar.",
+      "Si cuesta, apoyá las rodillas.",
+    ], "Abrir los codos hacia los costados."],
+    ["Fondos en silla", "benchDip", "Tríceps", [
+      "Usá una silla firme contra la pared.",
+      "Bajá hasta 90° de codo, espalda cerca de la silla.",
+      "Piernas flexionadas = más fácil; estiradas = más difícil.",
+    ], "Usar una silla que se mueve o bajar de más."],
     ["Extensión de tríceps en polea", "pushdown", "Tríceps", [
       "Codos pegados al cuerpo y quietos.",
       "Estirá por completo abajo y apretá.",
@@ -332,6 +382,36 @@ const DATA: Record<Category, Row[]> = {
     ], "Agarre demasiado cerrado: carga las muñecas."],
   ],
   "Full body": [
+    ["Elevaciones de piernas", "legRaise", "Abdomen bajo", [
+      "Boca arriba, manos debajo de la cola y zona lumbar pegada al piso.",
+      "Subí las piernas rectas hasta la vertical.",
+      "Bajalas lento sin tocar el piso.",
+    ], "Arquear la espalda baja al bajar."],
+    ["Bicicleta abdominal", "crunch", "Oblicuos y recto abdominal", [
+      "Llevá codo hacia la rodilla contraria girando el torso.",
+      "La otra pierna se estira sin tocar el piso.",
+      "Lento y controlado: no es una carrera.",
+    ], "Mover solo los codos sin girar el torso."],
+    ["Plancha lateral", "sidePlank", "Oblicuos y glúteo medio", [
+      "Codo debajo del hombro y cuerpo en línea recta.",
+      "Subí la cadera y no la dejes caer.",
+      "Hacé los dos lados.",
+    ], "Cadera caída o rotada hacia adelante."],
+    ["Russian twist", "russianTwist", "Oblicuos", [
+      "Sentada/o con el torso inclinado y los pies despegados.",
+      "Girá el torso tocando el piso a cada lado.",
+      "Espalda recta, no encorvada.",
+    ], "Mover solo los brazos sin girar el torso."],
+    ["Hollow hold", "hollow", "Zona media completa", [
+      "Boca arriba, despegá hombros y piernas del piso.",
+      "Lumbar bien pegada al piso: es la clave.",
+      "Brazos estirados atrás para más dificultad.",
+    ], "Dejar que se arquee la espalda baja."],
+    ["Plancha con toque de hombros", "plank", "Core y estabilidad", [
+      "Plancha alta con los pies un poco abiertos.",
+      "Tocá el hombro contrario sin mover la cadera.",
+      "Alterná lento y controlado.",
+    ], "Balancear la cadera de lado a lado."],
     ["Kettlebell swing", "swing", "Glúteos, isquios y core", [
       "Es una bisagra de cadera, no una sentadilla.",
       "Llevá la pesa entre las piernas y proyectala con un golpe de cadera.",
@@ -369,6 +449,16 @@ const DATA: Record<Category, Row[]> = {
     ], "Subir la cola."],
   ],
   Cardio: [
+    ["Jumping jacks", "jumpingJack", "Cardio", [
+      "Saltá abriendo piernas y subiendo los brazos.",
+      "Caé sobre la punta de los pies.",
+      "Ritmo constante y respiración regular.",
+    ], "Caer con los talones y las piernas rígidas."],
+    ["Rodillas al pecho", "highKnees", "Cardio y flexores de cadera", [
+      "Corré en el lugar subiendo las rodillas a la altura de la cadera.",
+      "Braceá fuerte.",
+      "Torso erguido, apoyá la punta del pie.",
+    ], "Inclinarte hacia atrás."],
     ["Cinta", "run", "Cardio y piernas", [
       "Entrada en calor de 5 minutos caminando.",
       "Pisá debajo del cuerpo, no adelante.",
@@ -440,7 +530,8 @@ const KEYWORDS: [RegExp, string][] = [
   [/prensa|leg press/, "Prensa"],
   [/extension.*(cuadriceps|pierna)|sillon|leg ext/, "Extensión de cuádriceps"],
   [/curl.*(femoral|isquio|pierna)|camilla|leg curl/, "Curl femoral"],
-  [/hip thrust|empuje de cadera|puente/, "Hip thrust"],
+  [/puente/, "Puente de glúteo"],
+  [/hip thrust|empuje de cadera/, "Hip thrust"],
   [/patada.*(gluteo|polea)|kickback|abduc|aduc|almeja/, "Patada de glúteo en polea"],
   [/gemelo|pantorrilla|calf/, "Gemelos de pie"],
   [/lateral/, "Elevaciones laterales"],
@@ -473,7 +564,7 @@ const byName = new Map(GUIDES.map(g => [norm(g.name), g]));
 
 /** Guía del ejercicio: exacta si está en el catálogo, si no la del movimiento más parecido. */
 export function guideFor(name: string): ExerciseGuide & { approx: boolean } {
-  const n = norm(name);
+  const n = norm(name.replace(/\s*\([^)]*\)/g, "").trim());
   const exact = byName.get(n);
   if (exact) return { ...exact, approx: false };
   for (const [re, target] of KEYWORDS) {

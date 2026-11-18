@@ -7,6 +7,8 @@ import RoutineEditorScreen from "../screens/RoutineEditorScreen";
 import ProgressScreen from "../screens/ProgressScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ReferentScreen from "../screens/ReferentScreen";
+import StrategyScreen from "../screens/StrategyScreen";
+import HomeWorkoutsScreen from "../screens/HomeWorkoutsScreen";
 import WorkoutScreen from "../screens/WorkoutScreen";
 import { PillTabBar } from "../components/PillTabBar";
 import { navTheme, C } from "../constants/theme";
@@ -16,6 +18,8 @@ export type RootStackParams = {
   Workout: undefined;
   RoutineEditor: { id: string };
   Referent: { id: string };
+  Strategy: undefined;
+  HomeWorkouts: undefined;
 };
 
 const Root = createNativeStackNavigator<RootStackParams>();
@@ -42,6 +46,8 @@ export default function RootNavigator() {
         <Root.Screen name="Tabs" component={Tabs} />
         <Root.Screen name="RoutineEditor" component={RoutineEditorScreen} />
         <Root.Screen name="Referent" component={ReferentScreen} />
+        <Root.Screen name="Strategy" component={StrategyScreen} />
+        <Root.Screen name="HomeWorkouts" component={HomeWorkoutsScreen} />
         <Root.Screen name="Workout" component={WorkoutScreen} options={{ presentation: "fullScreenModal", gestureEnabled: false }} />
       </Root.Navigator>
     </NavigationContainer>

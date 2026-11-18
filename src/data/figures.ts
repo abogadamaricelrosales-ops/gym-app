@@ -12,7 +12,9 @@ export type PatternId =
   | "ohp" | "lateral" | "frontRaise" | "rearDelt" | "facePull" | "uprightRow" | "shrug"
   | "curl" | "preacher" | "pushdown" | "skull" | "overheadExt" | "benchDip" | "triKick"
   | "swing" | "thruster" | "burpee" | "carry" | "plank" | "crunch" | "climber"
-  | "run" | "bike" | "rower" | "jump";
+  | "run" | "bike" | "rower" | "jump"
+  | "airSquat" | "jumpSquat" | "bridge" | "legRaise" | "superman" | "wallSit" | "jumpingJack"
+  | "sidePlank" | "russianTwist" | "hollow" | "pike" | "highKnees";
 
 type Prop =
   | { k: "seg"; x1: number; y1: number; x2: number; y2: number; w?: number } // banco, máquina, barra fija
@@ -33,6 +35,7 @@ export interface Pose {
   ua: number; fa: number; // brazo, antebrazo
   th2?: number; sh2?: number; f2?: number; // pierna de atrás
   ua2?: number; fa2?: number; // brazo de atrás
+  spread?: number; // vista de frente: apertura de piernas en grados
   props?: Prop[];
 }
 
@@ -251,6 +254,54 @@ export const PATTERNS: Record<PatternId, Pattern> = {
     { root: [40, 92], t: -60, th: -40, sh: 60, ua: 30, fa: 0, props: [{ k: "seg", x1: 10, y1: 96, x2: 110, y2: 96, w: 4 }, { k: "cable", ax: 108, ay: 90 }] },
     { root: [18, 92], t: -110, th: 0, sh: 10, ua: 135, fa: 0, props: [{ k: "seg", x1: 10, y1: 96, x2: 110, y2: 96, w: 4 }, { k: "cable", ax: 108, ay: 90 }] },
   ] },
+  airSquat: { poses: [
+    stand({ ua: 85, fa: 85 }),
+    stand({ sh: -55, th: 180, t: -55, ua: 0, fa: 0 }),
+  ] },
+  jumpSquat: { poses: [
+    stand({ sh: -55, th: 180, t: -55, ua: 120, fa: 130 }),
+    stand({ root: [60, GROUND - 6], ua: -35, fa: -45, f: 55 }),
+  ] },
+  bridge: { poses: [
+    { root: [88, GROUND], rootAt: "ankle", sh: -100, th: 150, t: 180, ua: 5, fa: 0 },
+    { root: [88, GROUND], rootAt: "ankle", sh: -100, th: 180, t: 160, ua: 20, fa: 0 },
+  ] },
+  legRaise: { poses: [
+    { root: [56, 98], t: 180, th: -5, sh: 0, f: -60, ua: 5, fa: 0 },
+    { root: [56, 98], t: 180, th: -90, sh: -90, f: 0, ua: 5, fa: 0 },
+  ] },
+  superman: { poses: [
+    { root: [62, 98], t: 180, th: 0, sh: 0, f: 80, ua: 180, fa: 180 },
+    { root: [62, 98], t: 192, th: -12, sh: -12, f: 70, ua: 198, fa: 198 },
+  ] },
+  wallSit: { poses: [
+    stand({ root: [42, GROUND], ua: 90, fa: 90, props: [{ k: "seg", x1: 30, y1: 10, x2: 30, y2: GROUND, w: 4 }] }),
+    stand({ root: [62, GROUND], sh: -90, th: 180, t: -90, ua: 0, fa: 0, props: [{ k: "seg", x1: 30, y1: 10, x2: 30, y2: GROUND, w: 4 }] }),
+  ] },
+  jumpingJack: { front: true, poses: [
+    stand({ ua: 95, fa: 90 }),
+    stand({ root: [60, GROUND - 4], ua: -55, fa: -70, spread: 16 }),
+  ] },
+  sidePlank: { poses: [
+    { root: [104, GROUND - 2], rootAt: "ankle", t: 200, th: 200, sh: 200, f: 60, ua: 90, fa: 180, ua2: 90, fa2: 90 },
+    { root: [104, GROUND - 2], rootAt: "ankle", t: 200, th: 200, sh: 200, f: 60, ua: 90, fa: 180, ua2: -90, fa2: -90 },
+  ] },
+  russianTwist: { poses: [
+    { root: [58, 96], t: -125, th: -35, sh: 45, ua: 20, fa: -5 },
+    { root: [58, 96], t: -125, th: -35, sh: 45, ua: 75, fa: 70 },
+  ] },
+  hollow: { poses: [
+    { root: [60, 98], t: 180, th: 0, sh: 0, f: -60, ua: 180, fa: 180 },
+    { root: [60, 96], t: 195, th: -15, sh: -10, f: -60, ua: 200, fa: 200 },
+  ] },
+  pike: { poses: [
+    { root: [96, GROUND - 2], rootAt: "ankle", sh: -110, th: -110, t: 140, f: 50, ua: 120, fa: 80 },
+    { root: [96, GROUND - 2], rootAt: "ankle", sh: -110, th: -110, t: 150, f: 50, ua: 60, fa: 130 },
+  ] },
+  highKnees: { poses: [
+    stand({ th2: -10, sh2: 90, ua: 60, fa: -40, ua2: 120, fa2: 40 }),
+    stand({ th2: 92, sh2: 90, ua: 120, fa: 40, ua2: 60, fa2: -40 }),
+  ] },
   jump: { front: true, poses: [
     stand({ ua: 95, fa: 90 }),
     stand({ root: [60, GROUND - 10], ua: 70, fa: 70, f: 50 }),
@@ -295,8 +346,9 @@ export function drawPose(pose: Pose, front = false, moving: Set<string> = new Se
     // piernas: de pie van rectas y algo abiertas; colgado o sentado siguen la pose
     for (const side of [1, -1]) {
       const h = side === 1 ? hR : hL;
-      const kAng = pose.rootAt === "ankle" ? (side === 1 ? 86 : 94) : side === 1 ? pose.th : mirror(pose.th);
-      const sAng = pose.rootAt === "ankle" ? (side === 1 ? 88 : 92) : side === 1 ? pose.sh : mirror(pose.sh);
+      const sp = pose.spread ?? 4;
+      const kAng = pose.rootAt === "ankle" ? (side === 1 ? 90 - sp : 90 + sp) : side === 1 ? pose.th : mirror(pose.th);
+      const sAng = pose.rootAt === "ankle" ? (side === 1 ? 90 - sp / 2 : 90 + sp / 2) : side === 1 ? pose.sh : mirror(pose.sh);
       const k = step(h, kAng, L.th), a = step(k, sAng, L.sh);
       line(h, k, "th"); line(k, a, "sh");
     }
