@@ -16,6 +16,8 @@ import { estimateMinutes, fmtDay } from "../utils/format";
 import { C } from "../constants/theme";
 import type { Routine, Goal } from "../types/routine";
 import { GOAL_LIST } from "../constants/exercises";
+import { LoadCard } from "../components/LoadCard";
+import type { Adjustment } from "../utils/load";
 
 export default function HomeScreen() {
   const nav = useNavigation<any>();
@@ -44,12 +46,15 @@ export default function HomeScreen() {
   const list = filter === "Todas" ? routines : routines.filter(r => r.goal === filter);
   const age = useSettingsStore(s => s.age);
   const weightKg = useSettingsStore(s => s.weightKg);
-  const profileIncomplete = !name || !age || !weightKg;
+  const heightCm = useSettingsStore(s => s.heightCm);
+  const sex = useSettingsStore(s => s.sex);
+  const profileIncomplete = !name || !age || !weightKg || !heightCm || !sex;
 
-  const go = (r: Routine) => {
-    if (!active) start(r);
+  const go = (r: Routine, adj?: Adjustment) => {
+    if (!active) start(r, adj);
     nav.navigate("Workout");
   };
+  const todayPlan = routines.find(r => r.weekdays.includes(new Date().getDay()));
 
   return (
     <Screen>
@@ -78,7 +83,7 @@ export default function HomeScreen() {
           </View>
           <View className="flex-1 ml-3">
             <Text className="text-white font-bold">Completá tus datos</Text>
-            <Text className="text-mute text-xs">Nombre, edad y peso para personalizar tu app.</Text>
+            <Text className="text-mute text-xs">Nombre, edad, peso, estatura y sexo para personalizar tu app.</Text>
           </View>
           <Icon name="chevron-forward" size={18} color={C.lime} />
         </Pressable>
@@ -121,6 +126,17 @@ export default function HomeScreen() {
         )}
       </View>
 
+      {/* Sobrecarga: gimnasio + actividades de afuera */}
+      {!active && (
+        <View className="px-5 mt-4">
+          <LoadCard
+            category={todayPlan?.category ?? null}
+            title={todayPlan?.name}
+            onStart={todayPlan ? adj => go(todayPlan, adj) : undefined}
+          />
+        </View>
+      )}
+
       {/* Meta semanal */}
       <View className="mx-5 mt-4 flex-row items-center bg-card border border-line rounded-full p-2 pr-5">
         <View className="w-11 h-11 rounded-full bg-ink items-center justify-center">
@@ -136,6 +152,22 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
+
+      {/* Referentes */}
+      <Pressable onPress={() => nav.navigate("Rutinas", { tab: "referentes" })} className="mx-5 mt-4">
+        <Photo source={PHOTOS.splash} radius={28} style={{ height: 130 }}>
+          <View className="flex-1 flex-row items-end justify-between p-5">
+            <View className="flex-1 mr-3">
+              <Text className="text-lime text-xs font-bold tracking-widest">REFERENTES FITNESS</Text>
+              <Text className="text-white text-xl font-extrabold mt-1">Entrená como tus referentes</Text>
+              <Text className="text-white/70 text-xs mt-0.5">10 rutinas por día y grupo muscular</Text>
+            </View>
+            <View className="w-11 h-11 rounded-full bg-lime items-center justify-center">
+              <Icon name="arrow-forward" size={18} color={C.ink} />
+            </View>
+          </View>
+        </Photo>
+      </Pressable>
 
       {/* Rutinas */}
       <SectionTitle title="Tus rutinas" action="Ver todas" onAction={() => nav.navigate("Rutinas")} />

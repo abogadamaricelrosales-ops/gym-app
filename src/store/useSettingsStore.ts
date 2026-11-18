@@ -2,11 +2,15 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+export type Sex = "hombre" | "mujer";
+
 interface SettingsState {
   name: string;
   age: number | null;
   weightKg: number | null;
-  setProfile: (p: Partial<{ name: string; age: number | null; weightKg: number | null }>) => void;
+  heightCm: number | null;
+  sex: Sex | null;
+  setProfile: (p: Partial<Pick<SettingsState, "name" | "age" | "weightKg" | "heightCm" | "sex">>) => void;
   seeded: boolean;
   lastQuote: number;
   setLastQuote: (i: number) => void;
@@ -20,6 +24,8 @@ export const useSettingsStore = create<SettingsState>()(
       name: "",
       age: null,
       weightKg: null,
+      heightCm: null,
+      sex: null,
       setProfile: p => set(p),
       seeded: false,
       lastQuote: -1,

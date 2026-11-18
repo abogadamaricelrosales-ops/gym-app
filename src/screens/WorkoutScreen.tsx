@@ -15,6 +15,7 @@ import { Photo } from "../components/ui/Photo";
 import { CATEGORY_PHOTO, PHOTOS } from "../constants/photos";
 import type { Workout } from "../types/workout";
 import { useSettingsStore } from "../store/useSettingsStore";
+import { kcalFor, METS } from "../utils/body";
 
 export default function WorkoutScreen() {
   const nav = useNavigation<any>();
@@ -64,6 +65,12 @@ export default function WorkoutScreen() {
             </Pressable>
           </View>
           <View className="flex-1 justify-end px-5 pb-5">
+            {!!active.adjustment && (
+              <View className="self-start flex-row items-center bg-amber-400 rounded-full px-3 py-1 mb-2">
+                <Icon name="speedometer-outline" size={13} color={C.ink} />
+                <Text className="text-ink text-xs font-bold ml-1">{active.adjustment}</Text>
+              </View>
+            )}
             <Text className="text-white text-[34px] font-extrabold tracking-tight mb-4" numberOfLines={2}>{active.name}</Text>
             <ElapsedPill startedAt={active.startedAt} workout={active} />
           </View>
@@ -250,9 +257,11 @@ function Summary({ workout: w, onDone }: { workout: Workout; onDone: () => void 
   const minutes = Math.max(1, Math.round(((w.finishedAt ?? Date.now()) - w.startedAt) / 60000));
   const sets = w.exercises.reduce((t, e) => t + e.sets.length, 0);
   const weightKg = useSettingsStore(s => s.weightKg);
-  // MET aprox. de pesas según el objetivo (cardio / quemar grasa gastan más)
-  const met = w.goal === "Cardio" ? 8 : w.goal === "Quemar grasa" ? 6.5 : 5;
-  const kcal = weightKg ? Math.round(met * weightKg * (minutes / 60)) : null;
+  const heightCm = useSettingsStore(s => s.heightCm);
+  const age = useSettingsStore(s => s.age);
+  const sex = useSettingsStore(s => s.sex);
+  // MET aprox. de pesas según el objetivo, corregido por tu metabolismo (peso, estatura, edad y sexo)
+  const kcal = kcalFor(METS[w.goal ?? "Hipertrofia"], minutes, { weightKg, heightCm, age, sex });
   return (
     <View className="flex-1 bg-ink">
       <Photo source={w.category ? CATEGORY_PHOTO[w.category] : PHOTOS.gym} style={{ flex: 1 }} strength={1}>

@@ -5,17 +5,21 @@ import { Icon, type IconName } from "../components/ui/Icon";
 import { useSettingsStore } from "../store/useSettingsStore";
 import { useRoutineStore } from "../store/useRoutineStore";
 import { useWorkoutStore } from "../store/useWorkoutStore";
+import { useActivityStore } from "../store/useActivityStore";
 import { QUOTES, pickQuote } from "../constants/quotes";
 import { C } from "../constants/theme";
 import { Photo } from "../components/ui/Photo";
 import { PHOTOS } from "../constants/photos";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { IdealWeightCard } from "../components/IdealWeightCard";
 
 export default function ProfileScreen() {
   const name = useSettingsStore(s => s.name);
   const setName = useSettingsStore(s => s.setName);
   const age = useSettingsStore(s => s.age);
   const weightKg = useSettingsStore(s => s.weightKg);
+  const heightCm = useSettingsStore(s => s.heightCm);
+  const sex = useSettingsStore(s => s.sex);
   const setProfile = useSettingsStore(s => s.setProfile);
   const lastQuote = useSettingsStore(s => s.lastQuote);
   const setLastQuote = useSettingsStore(s => s.setLastQuote);
@@ -28,6 +32,7 @@ export default function ProfileScreen() {
   const wipe = () => {
     useRoutineStore.setState({ routines: [] });
     useWorkoutStore.setState({ history: [], active: null, timer: null });
+    useActivityStore.setState({ activities: [] });
     setConfirm(false);
   };
 
@@ -67,7 +72,27 @@ export default function ProfileScreen() {
             <NumberInput value={weightKg} onChange={v => setProfile({ weightKg: v })} placeholder="70" decimals />
           </Field>
         </View>
-        <Text className="text-mute text-xs mt-3">Tu peso se usa para estimar las calorías de cada entreno.</Text>
+        <View className="flex-row gap-3">
+          <Field label="Estatura" icon="resize-outline" suffix="cm">
+            <NumberInput value={heightCm} onChange={v => setProfile({ heightCm: v })} placeholder="170" />
+          </Field>
+          <View className="flex-1 min-w-0 mt-4">
+            <Text className="text-mute text-xs mb-1.5">Sexo</Text>
+            <View className="flex-row h-14 p-1 bg-card2 rounded-2xl">
+              {(["hombre", "mujer"] as const).map(x => (
+                <Pressable key={x} onPress={() => setProfile({ sex: x })}
+                  className={`flex-1 rounded-xl items-center justify-center ${sex === x ? "bg-lime" : ""}`}>
+                  <Text className={`font-bold ${sex === x ? "text-ink" : "text-mute"}`}>{x === "hombre" ? "Hombre" : "Mujer"}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+        </View>
+        <Text className="text-mute text-xs mt-3">Con peso, estatura, edad y sexo calculamos tus calorías, tu peso ideal y los referentes que te mostramos.</Text>
+      </View>
+
+      <View className="mx-5 mt-3">
+        <IdealWeightCard />
       </View>
 
       <View className="mx-5 mt-3 bg-card border border-line rounded-4xl p-5">

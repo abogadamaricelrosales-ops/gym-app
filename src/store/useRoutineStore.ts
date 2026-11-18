@@ -14,6 +14,8 @@ interface RoutineState {
   setGoal: (id: ID, goal: Goal) => void;
   toggleWeekday: (id: ID, day: number) => void;
   deleteRoutine: (id: ID) => void;
+  /** Copia una rutina armada (p. ej. de un referente) a tus rutinas. */
+  importRoutine: (r: Omit<Routine, "id" | "createdAt" | "updatedAt">) => ID;
   addExercise: (id: ID, name: string) => void;
   updateExercise: (id: ID, exId: ID, patch: Partial<ExerciseTemplate>) => void;
   removeExercise: (id: ID, exId: ID) => void;
@@ -61,6 +63,11 @@ export const useRoutineStore = create<RoutineState>()(
               ? r.weekdays.filter(d => d !== day)
               : [...r.weekdays, day].sort();
           }),
+        importRoutine: data => {
+          const r = routine(data.name, data.category, data.goal, data.weekdays, data.exercises.map(e => ({ ...e, id: uid() })));
+          set(s => { s.routines.push(r); });
+          return r.id;
+        },
         deleteRoutine: id => set(s => { s.routines = s.routines.filter(r => r.id !== id); }),
 
         addExercise: (id, name) =>

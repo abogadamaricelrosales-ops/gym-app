@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { Workout, RestTimer, LoggedSet } from "../types/workout";
 import type { Routine, ID } from "../types/routine";
 import { uid } from "../utils/id";
+import type { Adjustment } from "../utils/load";
 import { scheduleRestEnd, cancelNotification } from "../services/notifications";
 
 interface WorkoutState {
@@ -12,7 +13,8 @@ interface WorkoutState {
   timer: RestTimer | null;
   history: Workout[]; // más reciente primero
 
-  start: (routine: Routine) => void;
+  /** Arranca un entreno. Con `adj` aplica el ajuste por sobrecarga (menos series y peso). */
+  start: (routine: Routine, adj?: Adjustment | null) => void;
   goToExercise: (index: number) => void;
   updateSet: (exId: ID, setId: ID, patch: Partial<LoggedSet>) => void;
   addSet: (exId: ID) => void;
@@ -42,8 +44,11 @@ export const useWorkoutStore = create<WorkoutState>()(
       timer: null,
       history: [],
 
-      start: routine => {
+      start: (routine, adj) => {
         const { history } = get();
+        const sf = adj?.setsFactor ?? 1;
+        const wf = adj?.weightFactor ?? 1;
+        const round = (kg: number) => Math.round((kg * wf) / 0.5) * 0.5;
         const exercises = routine.exercises.map(t => {
           const prev = lastSetsFor(history, t.name);
           return {
@@ -51,16 +56,16 @@ export const useWorkoutStore = create<WorkoutState>()(
             name: t.name,
             targetReps: t.targetReps,
             restSeconds: t.restSeconds,
-            sets: Array.from({ length: Math.max(1, t.targetSets) }, (_, i) => {
+            sets: Array.from({ length: Math.max(1, Math.round(t.targetSets * sf)) }, (_, i) => {
               const p = prev[i] ?? prev[prev.length - 1];
-              return { id: uid(), reps: p?.reps ?? t.targetReps, weight: p?.weight ?? 0, completed: false };
+              return { id: uid(), reps: p?.reps ?? t.targetReps, weight: round(p?.weight ?? 0), completed: false };
             }),
           };
         });
         set(s => {
           s.active = {
             id: uid(), routineId: routine.id, name: routine.name, category: routine.category, goal: routine.goal,
-            startedAt: Date.now(), currentExercise: 0, exercises,
+            startedAt: Date.now(), currentExercise: 0, exercises, adjustment: adj?.label,
           };
         });
       },

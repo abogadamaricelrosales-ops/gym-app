@@ -2,7 +2,9 @@ import { View, Text, Pressable, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Photo } from "../components/ui/Photo";
 import { CATEGORY_PHOTO, PHOTOS } from "../constants/photos";
-import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { ReferentsList } from "../components/ReferentsList";
 import { Screen } from "../components/ui/Screen";
 import { Icon } from "../components/ui/Icon";
 import { useRoutineStore } from "../store/useRoutineStore";
@@ -18,6 +20,9 @@ export default function RoutinesScreen() {
   const active = useWorkoutStore(s => s.active);
   const start = useWorkoutStore(s => s.start);
   const insets = useSafeAreaInsets();
+  const params = useRoute<any>().params as { tab?: "mias" | "referentes" } | undefined;
+  const [tab, setTab] = useState<"mias" | "referentes">(params?.tab ?? "mias");
+  useEffect(() => { if (params?.tab) setTab(params.tab); }, [params?.tab]);
 
   const onNew = () => {
     const id = create("Nueva rutina", "Pecho");
@@ -31,14 +36,25 @@ export default function RoutinesScreen() {
           <Text className="text-white/70">{routines.length} {routines.length === 1 ? "rutina" : "rutinas"} · {routines.reduce((t, r) => t + r.weekdays.length, 0)} días por semana</Text>
           <View className="flex-row items-end justify-between mt-1">
             <Text className="text-white text-4xl font-extrabold tracking-tight">Rutinas</Text>
-            <Pressable onPress={onNew} className="flex-row items-center h-12 pl-4 pr-5 rounded-full bg-lime">
+            {tab === "mias" && <Pressable onPress={onNew} className="flex-row items-center h-12 pl-4 pr-5 rounded-full bg-lime">
               <Icon name="add" size={20} color={C.ink} />
               <Text className="text-ink font-bold ml-1">Nueva</Text>
-            </Pressable>
+            </Pressable>}
           </View>
         </View>
       </Photo>
 
+      <View className="flex-row mx-5 mt-4 bg-card border border-line rounded-full p-1">
+        {([["mias", "Mis rutinas"], ["referentes", "Referentes"]] as const).map(([k, label]) => (
+          <Pressable key={k} onPress={() => setTab(k)} className={`flex-1 h-11 rounded-full items-center justify-center ${tab === k ? "bg-lime" : ""}`}>
+            <Text className={`font-bold ${tab === k ? "text-ink" : "text-mute"}`}>{label}</Text>
+          </Pressable>
+        ))}
+      </View>
+
+      {tab === "referentes" ? (
+        <View className="px-5 mt-4"><ReferentsList /></View>
+      ) : (
       <View className="px-5 mt-4">
         {routines.length === 0 && (
           <View className="bg-card border border-line rounded-3xl p-6 items-center">
@@ -83,6 +99,7 @@ export default function RoutinesScreen() {
           </Pressable>
         ))}
       </View>
+      )}
     </Screen>
   );
 }

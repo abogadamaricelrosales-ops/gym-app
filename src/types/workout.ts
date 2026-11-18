@@ -25,6 +25,8 @@ export interface Workout {
   startedAt: number;
   finishedAt?: number;
   currentExercise: number; // índice del ejercicio en pantalla
+  /** Ajuste aplicado por sobrecarga, si hubo */
+  adjustment?: string;
   exercises: WorkoutExercise[];
 }
 
