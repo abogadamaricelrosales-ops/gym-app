@@ -14,7 +14,8 @@ import { useSettingsStore } from "../store/useSettingsStore";
 import { QUOTES } from "../constants/quotes";
 import { estimateMinutes, fmtDay } from "../utils/format";
 import { C } from "../constants/theme";
-import type { Routine, Category } from "../types/routine";
+import type { Routine, Goal } from "../types/routine";
+import { GOAL_LIST } from "../constants/exercises";
 
 export default function HomeScreen() {
   const nav = useNavigation<any>();
@@ -27,7 +28,7 @@ export default function HomeScreen() {
 
   const today = startOfDay(new Date());
   const [selected, setSelected] = useState(today);
-  const [filter, setFilter] = useState<Category | "Todas">("Todas");
+  const [filter, setFilter] = useState<Goal | "Todas">("Todas");
 
   const trainedDays = useMemo(() => new Set(history.map(w => startOfDay(new Date(w.startedAt)))), [history]);
   const weekday = new Date(selected).getDay();
@@ -39,8 +40,11 @@ export default function HomeScreen() {
   const doneThisWeek = new Set(history.filter(w => w.startedAt >= weekStart).map(w => startOfDay(new Date(w.startedAt)))).size;
   const plannedPerWeek = Math.max(1, new Set(routines.flatMap(r => r.weekdays)).size);
 
-  const categories = useMemo(() => [...new Set(routines.map(r => r.category))], [routines]);
-  const list = filter === "Todas" ? routines : routines.filter(r => r.category === filter);
+  const goals = useMemo(() => GOAL_LIST.filter(g => routines.some(r => r.goal === g)), [routines]);
+  const list = filter === "Todas" ? routines : routines.filter(r => r.goal === filter);
+  const age = useSettingsStore(s => s.age);
+  const weightKg = useSettingsStore(s => s.weightKg);
+  const profileIncomplete = !name || !age || !weightKg;
 
   const go = (r: Routine) => {
     if (!active) start(r);
@@ -67,6 +71,19 @@ export default function HomeScreen() {
         <Text className="text-mute px-5 mt-3 italic" numberOfLines={2}>“{QUOTES[quoteIndex]}”</Text>
       )}
 
+      {profileIncomplete && (
+        <Pressable onPress={() => nav.navigate("Perfil")} className="mx-5 mt-4 flex-row items-center bg-card border border-lime/40 rounded-3xl p-4">
+          <View className="w-10 h-10 rounded-full bg-lime items-center justify-center">
+            <Icon name="person" size={18} color={C.ink} />
+          </View>
+          <View className="flex-1 ml-3">
+            <Text className="text-white font-bold">Completá tus datos</Text>
+            <Text className="text-mute text-xs">Nombre, edad y peso para personalizar tu app.</Text>
+          </View>
+          <Icon name="chevron-forward" size={18} color={C.lime} />
+        </Pressable>
+      )}
+
       <View className="mt-5">
         <WeekStrip selected={selected} onSelect={setSelected} trainedDays={trainedDays} />
       </View>
@@ -87,7 +104,7 @@ export default function HomeScreen() {
             photo={CATEGORY_PHOTO[planned.category]}
             eyebrow={isToday ? "Entreno de hoy" : "Entreno de ese día"}
             title={planned.name}
-            meta={`${planned.exercises.length} ejercicios · ${estimateMinutes(planned)} min`}
+            meta={`${planned.goal} · ${planned.exercises.length} ejercicios · ${estimateMinutes(planned)} min`}
             cta="Empezar"
             onPress={() => go(planned)}
           />
@@ -122,10 +139,10 @@ export default function HomeScreen() {
 
       {/* Rutinas */}
       <SectionTitle title="Tus rutinas" action="Ver todas" onAction={() => nav.navigate("Rutinas")} />
-      {categories.length > 1 && (
+      {goals.length > 1 && (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="px-5 pb-3">
           <Chip label="Todas" active={filter === "Todas"} onPress={() => setFilter("Todas")} />
-          {categories.map(c => <Chip key={c} label={c} active={filter === c} onPress={() => setFilter(c)} />)}
+          {goals.map(g => <Chip key={g} label={g} active={filter === g} onPress={() => setFilter(g)} />)}
         </ScrollView>
       )}
       <View className="px-5 flex-row flex-wrap justify-between">
@@ -187,7 +204,10 @@ function RoutineTile({ routine: r, onPlay }: { routine: Routine; onPlay: () => v
           <View>
             <Text className="text-white text-base font-bold leading-5" numberOfLines={2}>{r.name}</Text>
             <View className="flex-row items-center justify-between mt-2">
-              <Text className="text-lime text-xs font-semibold">{r.category}</Text>
+              <View className="flex-1 mr-2">
+                <Text className="text-lime text-xs font-semibold" numberOfLines={1}>{r.goal}</Text>
+                <Text className="text-white/60 text-[11px]" numberOfLines={1}>{r.category}</Text>
+              </View>
               <View className="w-8 h-8 rounded-full bg-lime items-center justify-center">
                 <Icon name="play" size={13} color={C.ink} />
               </View>

@@ -12,7 +12,8 @@ export const CATEGORY_ICON: Record<Category, IconName> = {
   Espalda: "body-outline",
   Piernas: "walk-outline",
   Hombros: "fitness-outline",
-  Brazos: "hand-left-outline",
+  "Bíceps": "hand-left-outline",
+  "Tríceps": "hand-right-outline",
   "Full body": "flash-outline",
   Cardio: "heart-outline",
 };

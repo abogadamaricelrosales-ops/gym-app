@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
 import { Screen } from "../components/ui/Screen";
 import { Icon, type IconName } from "../components/ui/Icon";
@@ -14,6 +14,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function ProfileScreen() {
   const name = useSettingsStore(s => s.name);
   const setName = useSettingsStore(s => s.setName);
+  const age = useSettingsStore(s => s.age);
+  const weightKg = useSettingsStore(s => s.weightKg);
+  const setProfile = useSettingsStore(s => s.setProfile);
   const lastQuote = useSettingsStore(s => s.lastQuote);
   const setLastQuote = useSettingsStore(s => s.setLastQuote);
   const history = useWorkoutStore(s => s.history);
@@ -36,21 +39,35 @@ export default function ProfileScreen() {
         </View>
       </Photo>
 
-      <View className="mx-5 -mt-2 bg-card border border-line rounded-4xl p-5 flex-row items-center">
-        <View className="w-16 h-16 rounded-full bg-lime items-center justify-center">
-          <Text className="text-ink text-2xl font-extrabold">{(name || "A").charAt(0).toUpperCase()}</Text>
+      <View className="mx-5 -mt-2 bg-card border border-line rounded-4xl p-5">
+        <View className="flex-row items-center">
+          <View className="w-16 h-16 rounded-full bg-lime items-center justify-center">
+            <Text className="text-ink text-2xl font-extrabold">{(name || "A").charAt(0).toUpperCase()}</Text>
+          </View>
+          <View className="flex-1 ml-4">
+            <Text className="text-white text-xl font-bold" numberOfLines={1}>{name || "Tus datos"}</Text>
+            <Text className="text-mute mt-0.5">{history.length} entrenos · {routines.length} rutinas</Text>
+          </View>
         </View>
-        <View className="flex-1 ml-4">
+
+        <Field label="Nombre" icon="person-outline">
           <TextInput
             value={name}
             onChangeText={setName}
-            placeholder="Escribí tu nombre"
+            placeholder="Tu nombre"
             placeholderTextColor="#55555C"
-            className="text-white text-xl font-bold"
+            className="flex-1 text-white text-base font-semibold"
           />
-          <Text className="text-mute mt-0.5">{history.length} entrenos · {routines.length} rutinas</Text>
+        </Field>
+        <View className="flex-row gap-3">
+          <Field label="Edad" icon="calendar-outline" suffix="años">
+            <NumberInput value={age} onChange={v => setProfile({ age: v })} placeholder="30" />
+          </Field>
+          <Field label="Peso" icon="scale-outline" suffix="kg">
+            <NumberInput value={weightKg} onChange={v => setProfile({ weightKg: v })} placeholder="70" decimals />
+          </Field>
         </View>
-        <Icon name="create-outline" size={18} color={C.mute} />
+        <Text className="text-mute text-xs mt-3">Tu peso se usa para estimar las calorías de cada entreno.</Text>
       </View>
 
       <View className="mx-5 mt-3 bg-card border border-line rounded-4xl p-5">
@@ -90,5 +107,39 @@ function Row({ icon, label, onPress, danger }: {
       <Text className={`flex-1 ml-3 font-semibold ${danger ? "text-red-400" : "text-white"}`}>{label}</Text>
       <Icon name="chevron-forward" size={16} color={C.mute} />
     </Pressable>
+  );
+}
+
+function Field({ label, icon, suffix, children }: { label: string; icon: IconName; suffix?: string; children: React.ReactNode }) {
+  return (
+    <View className="flex-1 min-w-0 mt-4">
+      <Text className="text-mute text-xs mb-1.5">{label}</Text>
+      <View className="flex-row items-center h-14 px-4 bg-card2 rounded-2xl">
+        <Icon name={icon} size={17} color={C.lime} />
+        <View className="flex-1 min-w-0 flex-row items-center ml-3">{children}</View>
+        {suffix && <Text className="text-mute ml-1">{suffix}</Text>}
+      </View>
+    </View>
+  );
+}
+
+function NumberInput({ value, onChange, placeholder, decimals }: {
+  value: number | null; onChange: (v: number | null) => void; placeholder: string; decimals?: boolean;
+}) {
+  const [text, setText] = useState(value != null ? String(value) : "");
+  return (
+    <TextInput
+      value={text}
+      onChangeText={t => {
+        const clean = t.replace(",", ".").replace(decimals ? /[^0-9.]/g : /[^0-9]/g, "");
+        setText(clean);
+        const n = Number(clean);
+        onChange(clean && n > 0 ? n : null);
+      }}
+      keyboardType={decimals ? "decimal-pad" : "number-pad"}
+      placeholder={placeholder}
+      placeholderTextColor="#55555C"
+      className="flex-1 min-w-0 text-white text-base font-semibold"
+    />
   );
 }

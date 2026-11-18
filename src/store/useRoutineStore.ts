@@ -2,13 +2,16 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import type { Routine, ExerciseTemplate, ID, Category } from "../types/routine";
+import type { Routine, ExerciseTemplate, ID, Category, Goal } from "../types/routine";
+import { GOALS } from "../constants/exercises";
 import { uid } from "../utils/id";
 
 interface RoutineState {
   routines: Routine[];
-  createRoutine: (name: string, category: Category) => ID;
+  createRoutine: (name: string, category: Category, goal?: Goal) => ID;
   updateRoutine: (id: ID, patch: Partial<Pick<Routine, "name" | "category" | "weekdays">>) => void;
+  /** Cambia el objetivo y aplica sus series, reps y descanso sugeridos a todos los ejercicios. */
+  setGoal: (id: ID, goal: Goal) => void;
   toggleWeekday: (id: ID, day: number) => void;
   deleteRoutine: (id: ID) => void;
   addExercise: (id: ID, name: string) => void;
@@ -21,9 +24,9 @@ interface RoutineState {
 const ex = (name: string, targetSets = 3, targetReps = 10, restSeconds = 90): ExerciseTemplate =>
   ({ id: uid(), name, targetSets, targetReps, restSeconds });
 
-const routine = (name: string, category: Category, weekdays: number[], exercises: ExerciseTemplate[]): Routine => {
+const routine = (name: string, category: Category, goal: Goal, weekdays: number[], exercises: ExerciseTemplate[]): Routine => {
   const now = Date.now();
-  return { id: uid(), name, category, weekdays, exercises, createdAt: now, updatedAt: now };
+  return { id: uid(), name, category, goal, weekdays, exercises, createdAt: now, updatedAt: now };
 };
 
 export const useRoutineStore = create<RoutineState>()(
@@ -40,12 +43,18 @@ export const useRoutineStore = create<RoutineState>()(
       return {
         routines: [],
 
-        createRoutine: (name, category) => {
-          const r = routine(name, category, [], []);
+        createRoutine: (name, category, goal = "Hipertrofia") => {
+          const r = routine(name, category, goal, [], []);
           set(s => { s.routines.push(r); });
           return r.id;
         },
         updateRoutine: (id, patch) => edit(id, r => { Object.assign(r, patch); }),
+        setGoal: (id, goal) =>
+          edit(id, r => {
+            r.goal = goal;
+            const g = GOALS[goal];
+            r.exercises.forEach(e => { e.targetSets = g.sets; e.targetReps = g.reps; e.restSeconds = g.rest; });
+          }),
         toggleWeekday: (id, day) =>
           edit(id, r => {
             r.weekdays = r.weekdays.includes(day)
@@ -54,7 +63,11 @@ export const useRoutineStore = create<RoutineState>()(
           }),
         deleteRoutine: id => set(s => { s.routines = s.routines.filter(r => r.id !== id); }),
 
-        addExercise: (id, name) => edit(id, r => { r.exercises.push(ex(name)); }),
+        addExercise: (id, name) =>
+          edit(id, r => {
+            const g = GOALS[r.goal] ?? GOALS.Hipertrofia;
+            r.exercises.push(ex(name, g.sets, g.reps, g.rest));
+          }),
         updateExercise: (id, exId, patch) =>
           edit(id, r => {
             const e = r.exercises.find(e => e.id === exId);
@@ -72,17 +85,24 @@ export const useRoutineStore = create<RoutineState>()(
         seedExamples: () =>
           set(s => {
             s.routines.push(
-              routine("Pecho y tríceps", "Pecho", [1], [
-                ex("Press banca", 4, 8, 120), ex("Press inclinado con mancuernas", 3, 10),
-                ex("Aperturas en máquina", 3, 12, 60), ex("Extensión de tríceps en polea", 3, 12, 60),
+              routine("Pecho fuerte", "Pecho", "Masa muscular", [1], [
+                ex("Press banca", 5, 5, 150), ex("Press inclinado con mancuernas", 4, 6, 120),
+                ex("Fondos", 3, 8, 120),
               ]),
-              routine("Espalda y bíceps", "Espalda", [3], [
-                ex("Jalón al pecho", 4, 10), ex("Remo con barra", 3, 8, 120),
-                ex("Remo sentado en polea", 3, 12), ex("Curl con barra", 3, 10, 60),
+              routine("Espalda y bíceps", "Espalda", "Hipertrofia", [3], [
+                ex("Jalón al pecho", 4, 10), ex("Remo con barra", 4, 10),
+                ex("Remo sentado en polea", 3, 12), ex("Curl con barra", 3, 10, 60), ex("Curl martillo", 3, 12, 60),
               ]),
-              routine("Piernas", "Piernas", [5], [
-                ex("Sentadilla", 4, 8, 150), ex("Prensa", 3, 12, 120),
-                ex("Peso muerto rumano", 3, 10, 120), ex("Gemelos de pie", 4, 15, 60),
+              routine("Piernas quema grasa", "Piernas", "Quemar grasa", [5], [
+                ex("Sentadilla", 3, 15, 45), ex("Prensa", 3, 15, 45),
+                ex("Peso muerto rumano", 3, 15, 45), ex("Gemelos de pie", 3, 20, 30),
+              ]),
+              routine("Hombros y tríceps", "Hombros", "Hipertrofia", [], [
+                ex("Press militar", 4, 10), ex("Elevaciones laterales", 4, 12, 60),
+                ex("Extensión de tríceps en polea", 3, 12, 60), ex("Press francés", 3, 10, 60),
+              ]),
+              routine("Circuito cardio", "Cardio", "Cardio", [], [
+                ex("Bicicleta", 4, 20, 30), ex("Burpees", 4, 15, 30), ex("Remo ergómetro", 4, 20, 30),
               ]),
             );
           }),
@@ -90,7 +110,18 @@ export const useRoutineStore = create<RoutineState>()(
     }),
     {
       name: "routines-v2",
-      version: 1,
+      version: 2,
+      // v1 → v2: "Brazos" pasa a "Bíceps" y cada rutina recibe un objetivo
+      migrate: (persisted: any, version) => {
+        if (version < 2 && persisted?.routines) {
+          persisted.routines = persisted.routines.map((r: any) => ({
+            ...r,
+            category: r.category === "Brazos" ? "Bíceps" : r.category,
+            goal: r.goal ?? "Hipertrofia",
+          }));
+        }
+        return persisted;
+      },
       storage: createJSONStorage(() => AsyncStorage),
       partialize: s => ({ routines: s.routines }),
     },

@@ -59,7 +59,7 @@ export const useWorkoutStore = create<WorkoutState>()(
         });
         set(s => {
           s.active = {
-            id: uid(), routineId: routine.id, name: routine.name, category: routine.category,
+            id: uid(), routineId: routine.id, name: routine.name, category: routine.category, goal: routine.goal,
             startedAt: Date.now(), currentExercise: 0, exercises,
           };
         });

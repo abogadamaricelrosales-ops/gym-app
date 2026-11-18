@@ -14,6 +14,7 @@ import { C } from "../constants/theme";
 import { Photo } from "../components/ui/Photo";
 import { CATEGORY_PHOTO, PHOTOS } from "../constants/photos";
 import type { Workout } from "../types/workout";
+import { useSettingsStore } from "../store/useSettingsStore";
 
 export default function WorkoutScreen() {
   const nav = useNavigation<any>();
@@ -248,6 +249,10 @@ function Summary({ workout: w, onDone }: { workout: Workout; onDone: () => void 
   const insets = useSafeAreaInsets();
   const minutes = Math.max(1, Math.round(((w.finishedAt ?? Date.now()) - w.startedAt) / 60000));
   const sets = w.exercises.reduce((t, e) => t + e.sets.length, 0);
+  const weightKg = useSettingsStore(s => s.weightKg);
+  // MET aprox. de pesas según el objetivo (cardio / quemar grasa gastan más)
+  const met = w.goal === "Cardio" ? 8 : w.goal === "Quemar grasa" ? 6.5 : 5;
+  const kcal = weightKg ? Math.round(met * weightKg * (minutes / 60)) : null;
   return (
     <View className="flex-1 bg-ink">
       <Photo source={w.category ? CATEGORY_PHOTO[w.category] : PHOTOS.gym} style={{ flex: 1 }} strength={1}>
@@ -261,8 +266,9 @@ function Summary({ workout: w, onDone }: { workout: Workout; onDone: () => void 
         <Stat label="Minutos" value={String(minutes)} />
         <Stat label="Series" value={String(sets)} />
       </View>
-      <View className="mt-3">
+      <View className="flex-row gap-3 mt-3">
         <Stat label="Volumen total" value={fmtKg(workoutVolume(w))} />
+        <Stat label="Calorías aprox." value={kcal != null ? `${kcal}` : "—"} />
       </View>
       <Pressable onPress={onDone} className="h-16 rounded-full bg-lime items-center justify-center mt-10">
         <Text className="text-ink text-lg font-extrabold">Listo</Text>

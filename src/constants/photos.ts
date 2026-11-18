@@ -17,7 +17,8 @@ export const CATEGORY_PHOTO: Record<Category, ImageSourcePropType> = {
   Espalda: require("../../assets/photos/espalda.jpg"),
   Piernas: require("../../assets/photos/piernas.jpg"),
   Hombros: require("../../assets/photos/hombros.jpg"),
-  Brazos: require("../../assets/photos/brazos.jpg"),
+  "Bíceps": require("../../assets/photos/biceps.jpg"),
+  "Tríceps": require("../../assets/photos/triceps.jpg"),
   "Full body": require("../../assets/photos/fullbody.jpg"),
   Cardio: require("../../assets/photos/cardio.jpg"),
 };

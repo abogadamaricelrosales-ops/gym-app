@@ -6,10 +6,10 @@ App de gimnasio personal, simple y pensada para usar con una mano entre series. 
 
 - **Frase motivacional** distinta cada vez que abrís o recargás la app (nunca repite la anterior).
 - **Inicio:** semana actual, el entreno que te toca hoy en una tarjeta grande, meta semanal y tus rutinas filtrables por grupo muscular.
-- **Rutinas:** creás rutinas (ej. "Pecho y tríceps"), elegís qué días de la semana las hacés y agregás ejercicios con un toque.
+- **Rutinas:** creás rutinas, elegís su **objetivo** (masa muscular, hipertrofia, quemar grasa o cardio, que ajusta series, reps y descanso), el **grupo muscular** (pecho, espalda, piernas, bíceps, tríceps, hombros, full body o cardio), qué días la hacés y agregás ejercicios con un toque.
 - **Entrenando:** cronómetro grande, el ejercicio actual con kg y reps gigantes (botones − / +) y un botón **Serie hecha**. El descanso arranca solo, con aviso aunque bloquees el teléfono, y pasa al siguiente ejercicio cuando terminás uno. Cada serie se precarga con lo que hiciste la última vez.
 - **Progreso:** gráfico de los últimos 7 días (volumen, series o minutos), récords personales y entrenos recientes.
-- **Perfil:** tu nombre para el saludo, cargar rutinas de ejemplo o borrar todo.
+- **Perfil:** tus datos (nombre, edad y peso; el peso se usa para estimar calorías), cargar rutinas de ejemplo o borrar todo.
 
 ## Cómo correrla
 
@@ -53,7 +53,8 @@ Las fotos de fondo son de [Unsplash](https://unsplash.com) y se usan bajo la [li
 | espalda.jpg | https://unsplash.com/photos/photo-1541534741688-6078c6bfb5c5 |
 | piernas.jpg | https://unsplash.com/photos/photo-1517836357463-d25dfeac3438 |
 | hombros.jpg | https://unsplash.com/photos/photo-1550345332-09e3ac987658 |
-| brazos.jpg | https://unsplash.com/photos/photo-1581009146145-b5ef050c2e1e |
+| biceps.jpg | https://unsplash.com/photos/photo-1581009146145-b5ef050c2e1e |
+| triceps.jpg | https://unsplash.com/photos/photo-1594737625785-a6cbdabd333c |
 | fullbody.jpg | https://unsplash.com/photos/photo-1599058917212-d750089bc07e |
 | cardio.jpg | https://unsplash.com/photos/photo-1571902943202-507ec2618e8f |
 | gym.jpg | https://unsplash.com/photos/photo-1534438327276-14e5300c3a48 |

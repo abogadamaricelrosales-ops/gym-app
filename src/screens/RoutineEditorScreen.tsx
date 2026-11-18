@@ -9,7 +9,7 @@ import { Screen, TopBar } from "../components/ui/Screen";
 import { Icon } from "../components/ui/Icon";
 import { Chip } from "../components/ui/Chip";
 import { useRoutineStore } from "../store/useRoutineStore";
-import { CATEGORIES, EXERCISE_CATALOG, WEEKDAYS_SHORT } from "../constants/exercises";
+import { CATEGORIES, EXERCISE_CATALOG, WEEKDAYS_SHORT, GOALS, GOAL_LIST } from "../constants/exercises";
 import { C } from "../constants/theme";
 import type { ExerciseTemplate } from "../types/routine";
 
@@ -19,6 +19,7 @@ export default function RoutineEditorScreen() {
   const routine = useRoutineStore(s => s.routines.find(r => r.id === id));
   const update = useRoutineStore(s => s.updateRoutine);
   const toggleDay = useRoutineStore(s => s.toggleWeekday);
+  const setGoal = useRoutineStore(s => s.setGoal);
   const addExercise = useRoutineStore(s => s.addExercise);
   const remove = useRoutineStore(s => s.deleteRoutine);
   const [custom, setCustom] = useState("");
@@ -36,7 +37,7 @@ export default function RoutineEditorScreen() {
           <TopBar title="Editar rutina" back />
         </View>
         <View className="flex-1 justify-end px-5 pb-4">
-          <Text className="text-lime text-xs font-bold tracking-widest">{routine.category.toUpperCase()}</Text>
+          <Text className="text-lime text-xs font-bold tracking-widest">{routine.category.toUpperCase()} · {routine.goal.toUpperCase()}</Text>
           <Text className="text-white text-3xl font-extrabold tracking-tight" numberOfLines={1}>{routine.name || "Sin nombre"}</Text>
           <Text className="text-white/70 mt-1">
             {routine.exercises.length} ejercicios · {totalSets(routine)} series · ~{estimateMinutes(routine)} min
@@ -53,6 +54,29 @@ export default function RoutineEditorScreen() {
           className="h-14 bg-card border border-line rounded-2xl px-4 text-white text-xl font-bold"
         />
       </View>
+
+      <Text className="text-mute px-5 mt-6 mb-2">Objetivo</Text>
+      <View className="flex-row flex-wrap justify-between px-5">
+        {GOAL_LIST.map(g => {
+          const on = routine.goal === g;
+          const info = GOALS[g];
+          return (
+            <Pressable key={g} onPress={() => setGoal(id, g)}
+              className={`w-[48.5%] rounded-3xl p-4 mb-3 border ${on ? "bg-lime border-lime" : "bg-card border-line"}`}>
+              <View className={`w-9 h-9 rounded-full items-center justify-center ${on ? "bg-ink" : "bg-card2"}`}>
+                <Icon name={info.icon} size={17} color={C.lime} />
+              </View>
+              <Text className={`font-bold text-base mt-3 ${on ? "text-ink" : "text-white"}`}>{g}</Text>
+              <Text className={`text-xs mt-0.5 ${on ? "text-ink/70" : "text-mute"}`}>
+                {info.sets}×{info.reps} · {info.rest}s descanso
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+      <Text className="text-mute text-xs px-5">
+        {GOALS[routine.goal].description} Al elegir un objetivo se ajustan series, reps y descanso; después podés cambiarlos.
+      </Text>
 
       <Text className="text-mute px-5 mt-6 mb-2">Grupo muscular</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="px-5">

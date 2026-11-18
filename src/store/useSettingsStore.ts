@@ -4,6 +4,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface SettingsState {
   name: string;
+  age: number | null;
+  weightKg: number | null;
+  setProfile: (p: Partial<{ name: string; age: number | null; weightKg: number | null }>) => void;
   seeded: boolean;
   lastQuote: number;
   setLastQuote: (i: number) => void;
@@ -15,6 +18,9 @@ export const useSettingsStore = create<SettingsState>()(
   persist(
     set => ({
       name: "",
+      age: null,
+      weightKg: null,
+      setProfile: p => set(p),
       seeded: false,
       lastQuote: -1,
       setLastQuote: i => set({ lastQuote: i }),

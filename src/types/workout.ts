@@ -1,4 +1,4 @@
-import type { ID, Category } from "./routine";
+import type { ID, Category, Goal } from "./routine";
 
 export interface LoggedSet {
   id: ID;
@@ -21,6 +21,7 @@ export interface Workout {
   routineId?: ID;
   name: string;
   category?: Category;
+  goal?: Goal;
   startedAt: number;
   finishedAt?: number;
   currentExercise: number; // índice del ejercicio en pantalla

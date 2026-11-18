@@ -56,7 +56,7 @@ export default function RoutinesScreen() {
             <View className="flex-row items-center">
               <Image source={CATEGORY_PHOTO[r.category]} style={{ width: 64, height: 64, borderRadius: 16 }} resizeMode="cover" />
               <View className="flex-1 ml-3">
-                <Text className="text-lime text-xs font-semibold">{r.category.toUpperCase()}</Text>
+                <Text className="text-lime text-xs font-semibold">{r.category.toUpperCase()} · {r.goal.toUpperCase()}</Text>
                 <Text className="text-white text-lg font-bold" numberOfLines={1}>{r.name}</Text>
                 <Text className="text-mute text-sm">
                   {r.exercises.length} ejercicios · {totalSets(r)} series · {estimateMinutes(r)} min
