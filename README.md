@@ -41,3 +41,23 @@ src/
 ```
 
 Los colores están en `tailwind.config.js` (`ink`, `card`, `lime`…) y las frases en `src/constants/quotes.ts`.
+
+## Fotos
+
+Las fotos de fondo son de [Unsplash](https://unsplash.com) y se usan bajo la [licencia de Unsplash](https://unsplash.com/license) (uso libre y gratuito). Están dentro de la app (`assets/photos/`) para que funcione sin conexión. Fotos originales:
+
+| Archivo | Foto en Unsplash |
+| --- | --- |
+| splash.jpg | https://unsplash.com/photos/photo-1526506118085-60ce8714f8c5 |
+| pecho.jpg | https://unsplash.com/photos/photo-1583454110551-21f2fa2afe61 |
+| espalda.jpg | https://unsplash.com/photos/photo-1541534741688-6078c6bfb5c5 |
+| piernas.jpg | https://unsplash.com/photos/photo-1517836357463-d25dfeac3438 |
+| hombros.jpg | https://unsplash.com/photos/photo-1550345332-09e3ac987658 |
+| brazos.jpg | https://unsplash.com/photos/photo-1581009146145-b5ef050c2e1e |
+| fullbody.jpg | https://unsplash.com/photos/photo-1599058917212-d750089bc07e |
+| cardio.jpg | https://unsplash.com/photos/photo-1571902943202-507ec2618e8f |
+| gym.jpg | https://unsplash.com/photos/photo-1534438327276-14e5300c3a48 |
+| rack.jpg | https://unsplash.com/photos/photo-1576678927484-cc907957088c |
+| perfil.jpg | https://unsplash.com/photos/photo-1533681904393-9ab6eee7e408 |
+
+Para cambiar una foto, reemplazá el archivo en `assets/photos/` con el mismo nombre.

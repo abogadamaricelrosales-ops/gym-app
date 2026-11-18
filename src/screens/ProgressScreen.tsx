@@ -9,6 +9,9 @@ import { workoutVolume, workoutDurationMin, personalRecords, formatDate } from "
 import { WEEKDAYS_SHORT } from "../constants/exercises";
 import { fmtKg } from "../utils/format";
 import { C } from "../constants/theme";
+import { Photo } from "../components/ui/Photo";
+import { PHOTOS } from "../constants/photos";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import type { Workout } from "../types/workout";
 
 type Metric = "volumen" | "series" | "minutos";
@@ -27,6 +30,7 @@ export default function ProgressScreen() {
   const deleteWorkout = useWorkoutStore(s => s.deleteWorkout);
   const [metric, setMetric] = useState<Metric>("volumen");
   const [pendingDelete, setPendingDelete] = useState<string | null>(null);
+  const insets = useSafeAreaInsets();
 
   const today = startOfDay(new Date());
   const days = useMemo(() => Array.from({ length: 7 }, (_, i) => today - (6 - i) * DAY), [today]);
@@ -44,13 +48,15 @@ export default function ProgressScreen() {
   const records = useMemo(() => personalRecords(history).slice(0, 5), [history]);
 
   return (
-    <Screen>
-      <View className="px-5 pt-3">
-        <Text className="text-mute">Últimos 7 días</Text>
-        <Text className="text-white text-3xl font-extrabold">Progreso</Text>
-      </View>
+    <Screen edgeToEdge>
+      <Photo source={PHOTOS.gym} style={{ height: 210 + insets.top }}>
+        <View className="flex-1 justify-end px-5 pb-4">
+          <Text className="text-white/70">Últimos 7 días · {history.length} entrenos en total</Text>
+          <Text className="text-white text-4xl font-extrabold tracking-tight mt-1">Progreso</Text>
+        </View>
+      </Photo>
 
-      <View className="flex-row px-5 mt-5">
+      <View className="flex-row px-5 mt-3">
         {METRICS.map(m => <Chip key={m.key} label={m.label} active={metric === m.key} onPress={() => setMetric(m.key)} />)}
       </View>
 

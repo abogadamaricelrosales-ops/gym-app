@@ -1,10 +1,13 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Photo } from "../components/ui/Photo";
+import { CATEGORY_PHOTO, PHOTOS } from "../constants/photos";
 import { useNavigation } from "@react-navigation/native";
 import { Screen } from "../components/ui/Screen";
 import { Icon } from "../components/ui/Icon";
 import { useRoutineStore } from "../store/useRoutineStore";
 import { useWorkoutStore } from "../store/useWorkoutStore";
-import { CATEGORY_ICON, estimateMinutes, totalSets } from "../utils/format";
+import { estimateMinutes, totalSets } from "../utils/format";
 import { WEEKDAYS_SHORT } from "../constants/exercises";
 import { C } from "../constants/theme";
 
@@ -14,6 +17,7 @@ export default function RoutinesScreen() {
   const create = useRoutineStore(s => s.createRoutine);
   const active = useWorkoutStore(s => s.active);
   const start = useWorkoutStore(s => s.start);
+  const insets = useSafeAreaInsets();
 
   const onNew = () => {
     const id = create("Nueva rutina", "Pecho");
@@ -21,19 +25,21 @@ export default function RoutinesScreen() {
   };
 
   return (
-    <Screen>
-      <View className="flex-row items-end justify-between px-5 pt-3">
-        <View>
-          <Text className="text-mute">{routines.length} {routines.length === 1 ? "rutina" : "rutinas"}</Text>
-          <Text className="text-white text-3xl font-extrabold">Rutinas</Text>
+    <Screen edgeToEdge>
+      <Photo source={PHOTOS.rack} style={{ height: 230 + insets.top }}>
+        <View className="flex-1 justify-end px-5 pb-5">
+          <Text className="text-white/70">{routines.length} {routines.length === 1 ? "rutina" : "rutinas"} · {routines.reduce((t, r) => t + r.weekdays.length, 0)} días por semana</Text>
+          <View className="flex-row items-end justify-between mt-1">
+            <Text className="text-white text-4xl font-extrabold tracking-tight">Rutinas</Text>
+            <Pressable onPress={onNew} className="flex-row items-center h-12 pl-4 pr-5 rounded-full bg-lime">
+              <Icon name="add" size={20} color={C.ink} />
+              <Text className="text-ink font-bold ml-1">Nueva</Text>
+            </Pressable>
+          </View>
         </View>
-        <Pressable onPress={onNew} className="flex-row items-center h-12 pl-4 pr-5 rounded-full bg-lime">
-          <Icon name="add" size={20} color={C.ink} />
-          <Text className="text-ink font-bold ml-1">Nueva</Text>
-        </Pressable>
-      </View>
+      </Photo>
 
-      <View className="px-5 mt-6">
+      <View className="px-5 mt-4">
         {routines.length === 0 && (
           <View className="bg-card border border-line rounded-3xl p-6 items-center">
             <Icon name="barbell-outline" size={36} color={C.lime} />
@@ -48,10 +54,9 @@ export default function RoutinesScreen() {
             className="bg-card border border-line rounded-3xl p-4 mb-3"
           >
             <View className="flex-row items-center">
-              <View className="w-12 h-12 rounded-2xl bg-card2 items-center justify-center">
-                <Icon name={CATEGORY_ICON[r.category]} size={22} color={C.lime} />
-              </View>
+              <Image source={CATEGORY_PHOTO[r.category]} style={{ width: 64, height: 64, borderRadius: 16 }} resizeMode="cover" />
               <View className="flex-1 ml-3">
+                <Text className="text-lime text-xs font-semibold">{r.category.toUpperCase()}</Text>
                 <Text className="text-white text-lg font-bold" numberOfLines={1}>{r.name}</Text>
                 <Text className="text-mute text-sm">
                   {r.exercises.length} ejercicios · {totalSets(r)} series · {estimateMinutes(r)} min

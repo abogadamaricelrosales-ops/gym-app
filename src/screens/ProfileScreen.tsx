@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
 import { Screen } from "../components/ui/Screen";
-import { Icon } from "../components/ui/Icon";
+import { Icon, type IconName } from "../components/ui/Icon";
 import { useSettingsStore } from "../store/useSettingsStore";
 import { useRoutineStore } from "../store/useRoutineStore";
 import { useWorkoutStore } from "../store/useWorkoutStore";
 import { QUOTES, pickQuote } from "../constants/quotes";
 import { C } from "../constants/theme";
+import { Photo } from "../components/ui/Photo";
+import { PHOTOS } from "../constants/photos";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function ProfileScreen() {
   const name = useSettingsStore(s => s.name);
@@ -17,6 +20,7 @@ export default function ProfileScreen() {
   const routines = useRoutineStore(s => s.routines);
   const seed = useRoutineStore(s => s.seedExamples);
   const [confirm, setConfirm] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const wipe = () => {
     useRoutineStore.setState({ routines: [] });
@@ -25,27 +29,32 @@ export default function ProfileScreen() {
   };
 
   return (
-    <Screen>
-      <View className="px-5 pt-3">
-        <Text className="text-white text-3xl font-extrabold">Perfil</Text>
-      </View>
-
-      <View className="mx-5 mt-5 bg-card border border-line rounded-4xl p-5 items-center">
-        <View className="w-20 h-20 rounded-full bg-lime items-center justify-center">
-          <Text className="text-ink text-3xl font-extrabold">{(name || "A").charAt(0).toUpperCase()}</Text>
+    <Screen edgeToEdge>
+      <Photo source={PHOTOS.perfil} style={{ height: 220 + insets.top }}>
+        <View className="flex-1 justify-end px-5 pb-6">
+          <Text className="text-white text-4xl font-extrabold tracking-tight">Perfil</Text>
         </View>
-        <TextInput
-          value={name}
-          onChangeText={setName}
-          placeholder="Tu nombre"
-          placeholderTextColor="#55555C"
-          className="text-white text-2xl font-bold text-center mt-3 w-full"
-        />
-        <Text className="text-mute">{history.length} entrenos · {routines.length} rutinas</Text>
+      </Photo>
+
+      <View className="mx-5 -mt-2 bg-card border border-line rounded-4xl p-5 flex-row items-center">
+        <View className="w-16 h-16 rounded-full bg-lime items-center justify-center">
+          <Text className="text-ink text-2xl font-extrabold">{(name || "A").charAt(0).toUpperCase()}</Text>
+        </View>
+        <View className="flex-1 ml-4">
+          <TextInput
+            value={name}
+            onChangeText={setName}
+            placeholder="Escribí tu nombre"
+            placeholderTextColor="#55555C"
+            className="text-white text-xl font-bold"
+          />
+          <Text className="text-mute mt-0.5">{history.length} entrenos · {routines.length} rutinas</Text>
+        </View>
+        <Icon name="create-outline" size={18} color={C.mute} />
       </View>
 
       <View className="mx-5 mt-3 bg-card border border-line rounded-4xl p-5">
-        <Text className="text-mute font-semibold text-xs tracking-widest">TU FRASE</Text>
+        <Text className="text-lime font-bold text-xs tracking-widest">TU FRASE DE HOY</Text>
         <Text className="text-white text-lg font-semibold mt-2">
           {lastQuote >= 0 ? QUOTES[lastQuote] : "Abrí la app para ver tu frase."}
         </Text>
@@ -66,14 +75,14 @@ export default function ProfileScreen() {
       </View>
 
       <Text className="text-mute text-xs text-center mt-6 px-8">
-        Tus datos se guardan solo en este dispositivo.
+        Tus datos se guardan solo en este dispositivo.{"\n"}Fotos: Unsplash.
       </Text>
     </Screen>
   );
 }
 
 function Row({ icon, label, onPress, danger }: {
-  icon: "albums-outline" | "trash-outline"; label: string; onPress: () => void; danger?: boolean;
+  icon: IconName; label: string; onPress: () => void; danger?: boolean;
 }) {
   return (
     <Pressable onPress={onPress} className="flex-row items-center h-14 px-5 bg-card border border-line rounded-full">

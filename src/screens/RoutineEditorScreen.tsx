@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Photo } from "../components/ui/Photo";
+import { CATEGORY_PHOTO } from "../constants/photos";
+import { estimateMinutes, totalSets } from "../utils/format";
 import { Screen, TopBar } from "../components/ui/Screen";
 import { Icon } from "../components/ui/Icon";
 import { Chip } from "../components/ui/Chip";
@@ -19,16 +23,28 @@ export default function RoutineEditorScreen() {
   const remove = useRoutineStore(s => s.deleteRoutine);
   const [custom, setCustom] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const insets = useSafeAreaInsets();
 
   if (!routine) return <Screen scroll={false}><TopBar title="Rutina" back /></Screen>;
 
   const suggestions = EXERCISE_CATALOG[routine.category].filter(n => !routine.exercises.some(e => e.name === n));
 
   return (
-    <Screen padBottom={40}>
-      <TopBar title="Editar rutina" back />
+    <Screen padBottom={40} edgeToEdge>
+      <Photo source={CATEGORY_PHOTO[routine.category]} style={{ height: 240 + insets.top }}>
+        <View style={{ paddingTop: insets.top }}>
+          <TopBar title="Editar rutina" back />
+        </View>
+        <View className="flex-1 justify-end px-5 pb-4">
+          <Text className="text-lime text-xs font-bold tracking-widest">{routine.category.toUpperCase()}</Text>
+          <Text className="text-white text-3xl font-extrabold tracking-tight" numberOfLines={1}>{routine.name || "Sin nombre"}</Text>
+          <Text className="text-white/70 mt-1">
+            {routine.exercises.length} ejercicios · {totalSets(routine)} series · ~{estimateMinutes(routine)} min
+          </Text>
+        </View>
+      </Photo>
 
-      <View className="px-5 mt-2">
+      <View className="px-5 mt-4">
         <Text className="text-mute mb-2">Nombre</Text>
         <TextInput
           value={routine.name}

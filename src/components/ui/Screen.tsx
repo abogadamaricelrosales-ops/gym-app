@@ -11,7 +11,7 @@ export function TopBar({ title, back, right }: { title: string; back?: boolean; 
     <View className="flex-row items-center justify-between px-5 h-14">
       <View className="w-11">
         {back && (
-          <Pressable onPress={() => nav.goBack()} className="w-11 h-11 rounded-full bg-card border border-line items-center justify-center">
+          <Pressable onPress={() => nav.goBack()} className="w-11 h-11 rounded-full bg-black/40 border border-white/10 items-center justify-center">
             <Icon name="chevron-back" size={20} />
           </Pressable>
         )}
@@ -23,15 +23,18 @@ export function TopBar({ title, back, right }: { title: string; back?: boolean; 
 }
 
 /** Pantalla con fondo negro, margen del notch y espacio para la barra flotante. */
-export function Screen({ children, scroll = true, padBottom = 120 }: {
+export function Screen({ children, scroll = true, padBottom = 120, edgeToEdge = false }: {
   children: ReactNode; scroll?: boolean; padBottom?: number;
+  /** true = el contenido empieza bajo la barra de estado (para fotos de cabecera). */
+  edgeToEdge?: boolean;
 }) {
   const insets = useSafeAreaInsets();
-  if (!scroll) return <View className="flex-1 bg-ink" style={{ paddingTop: insets.top }}>{children}</View>;
+  const top = edgeToEdge ? 0 : insets.top;
+  if (!scroll) return <View className="flex-1 bg-ink" style={{ paddingTop: top }}>{children}</View>;
   return (
     <ScrollView
       className="flex-1 bg-ink"
-      contentContainerStyle={{ paddingTop: insets.top, paddingBottom: padBottom + insets.bottom }}
+      contentContainerStyle={{ paddingTop: top, paddingBottom: padBottom + insets.bottom }}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
     >

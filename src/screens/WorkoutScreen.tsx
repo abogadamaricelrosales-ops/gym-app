@@ -11,6 +11,8 @@ import { Icon } from "../components/ui/Icon";
 import { fmtClock, fmtKg } from "../utils/format";
 import { workoutVolume } from "../utils/progress";
 import { C } from "../constants/theme";
+import { Photo } from "../components/ui/Photo";
+import { CATEGORY_PHOTO, PHOTOS } from "../constants/photos";
 import type { Workout } from "../types/workout";
 
 export default function WorkoutScreen() {
@@ -46,24 +48,32 @@ export default function WorkoutScreen() {
   };
 
   return (
-    <View className="flex-1 bg-ink" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center justify-between px-5 h-14">
-        <Pressable onPress={close} className="w-11 h-11 rounded-full bg-card border border-line items-center justify-center">
-          <Icon name="chevron-down" size={20} />
-        </Pressable>
-        <Text className="text-white text-lg font-bold flex-1 text-center mx-3" numberOfLines={1}>{active.name}</Text>
-        <Pressable onPress={() => setMenu(true)} className="w-11 h-11 rounded-full bg-card border border-line items-center justify-center">
-          <Icon name="ellipsis-horizontal" size={20} />
-        </Pressable>
-      </View>
-
-      <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: insets.bottom + 40 }} showsVerticalScrollIndicator={false}>
-        <ElapsedPill startedAt={active.startedAt} workout={active} />
+    <View className="flex-1 bg-ink">
+      <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + 40 }} showsVerticalScrollIndicator={false}>
+        <Photo source={active.category ? CATEGORY_PHOTO[active.category] : PHOTOS.gym} style={{ height: 300 + insets.top }}>
+          <View className="flex-row items-center justify-between px-5 h-14" style={{ marginTop: insets.top }}>
+            <Pressable onPress={close} className="w-11 h-11 rounded-full bg-black/40 border border-white/10 items-center justify-center">
+              <Icon name="chevron-down" size={20} />
+            </Pressable>
+            <View className="bg-black/40 border border-white/10 rounded-full px-3 py-1.5">
+              <Text className="text-white text-xs font-semibold tracking-wide">{(active.category ?? "Entreno").toUpperCase()}</Text>
+            </View>
+            <Pressable onPress={() => setMenu(true)} className="w-11 h-11 rounded-full bg-black/40 border border-white/10 items-center justify-center">
+              <Icon name="ellipsis-horizontal" size={20} />
+            </Pressable>
+          </View>
+          <View className="flex-1 justify-end px-5 pb-5">
+            <Text className="text-white text-[34px] font-extrabold tracking-tight mb-4" numberOfLines={2}>{active.name}</Text>
+            <ElapsedPill startedAt={active.startedAt} workout={active} />
+          </View>
+        </Photo>
+        <View className="px-5">
         <CurrentExercise />
         <ExerciseList />
         <Pressable onPress={() => setMenu(true)} className="h-14 rounded-full bg-card border border-line items-center justify-center mt-4">
           <Text className="text-white font-semibold">Terminar entreno</Text>
         </Pressable>
+        </View>
       </ScrollView>
 
       <Modal visible={menu} transparent animationType="fade" onRequestClose={() => setMenu(false)}>
@@ -239,7 +249,9 @@ function Summary({ workout: w, onDone }: { workout: Workout; onDone: () => void 
   const minutes = Math.max(1, Math.round(((w.finishedAt ?? Date.now()) - w.startedAt) / 60000));
   const sets = w.exercises.reduce((t, e) => t + e.sets.length, 0);
   return (
-    <View className="flex-1 bg-ink px-6 justify-center" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+    <View className="flex-1 bg-ink">
+      <Photo source={w.category ? CATEGORY_PHOTO[w.category] : PHOTOS.gym} style={{ flex: 1 }} strength={1}>
+      <View className="flex-1 px-6 justify-end" style={{ paddingTop: insets.top, paddingBottom: insets.bottom + 32 }}>
       <View className="w-16 h-16 rounded-full bg-lime items-center justify-center">
         <Icon name="trophy" size={30} color={C.ink} />
       </View>
@@ -255,12 +267,14 @@ function Summary({ workout: w, onDone }: { workout: Workout; onDone: () => void 
       <Pressable onPress={onDone} className="h-16 rounded-full bg-lime items-center justify-center mt-10">
         <Text className="text-ink text-lg font-extrabold">Listo</Text>
       </Pressable>
+      </View>
+      </Photo>
     </View>
   );
 }
 
 const Stat = ({ label, value }: { label: string; value: string }) => (
-  <View className="flex-1 bg-card border border-line rounded-3xl p-5">
+  <View className="flex-1 bg-black/50 border border-white/10 rounded-3xl p-5">
     <Text className="text-mute">{label}</Text>
     <Text className="text-white text-3xl font-extrabold mt-1">{value}</Text>
   </View>

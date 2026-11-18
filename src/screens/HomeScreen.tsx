@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { View, Text, Pressable, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { Photo } from "../components/ui/Photo";
+import { CATEGORY_PHOTO, PHOTOS } from "../constants/photos";
+import type { ImageSourcePropType } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Screen, SectionTitle } from "../components/ui/Screen";
 import { Icon } from "../components/ui/Icon";
@@ -10,7 +12,7 @@ import { useRoutineStore } from "../store/useRoutineStore";
 import { useWorkoutStore } from "../store/useWorkoutStore";
 import { useSettingsStore } from "../store/useSettingsStore";
 import { QUOTES } from "../constants/quotes";
-import { CATEGORY_ICON, estimateMinutes, fmtDay } from "../utils/format";
+import { estimateMinutes, fmtDay } from "../utils/format";
 import { C } from "../constants/theme";
 import type { Routine, Category } from "../types/routine";
 
@@ -73,6 +75,7 @@ export default function HomeScreen() {
       <View className="px-5 mt-5">
         {active ? (
           <HeroCard
+            photo={active.category ? CATEGORY_PHOTO[active.category] : PHOTOS.gym}
             eyebrow="Entreno en curso"
             title={active.name}
             meta={`${active.exercises.flatMap(e => e.sets).filter(s => s.completed).length} de ${active.exercises.flatMap(e => e.sets).length} series`}
@@ -81,6 +84,7 @@ export default function HomeScreen() {
           />
         ) : planned ? (
           <HeroCard
+            photo={CATEGORY_PHOTO[planned.category]}
             eyebrow={isToday ? "Entreno de hoy" : "Entreno de ese día"}
             title={planned.name}
             meta={`${planned.exercises.length} ejercicios · ${estimateMinutes(planned)} min`}
@@ -88,13 +92,15 @@ export default function HomeScreen() {
             onPress={() => go(planned)}
           />
         ) : (
-          <View className="bg-card border border-line rounded-4xl p-6">
-            <Text className="text-mute font-semibold">{isToday ? "Hoy" : "Ese día"}</Text>
-            <Text className="text-white text-3xl font-extrabold mt-1">Día de descanso</Text>
-            <Text className="text-mute mt-2">
-              {routines.length ? "Podés entrenar igual eligiendo una rutina de abajo." : "Creá tu primera rutina para empezar."}
-            </Text>
-          </View>
+          <Photo source={PHOTOS.gym} radius={28} style={{ height: 220 }}>
+            <View className="flex-1 justify-end p-6">
+              <Text className="text-white/70 font-semibold">{isToday ? "Hoy" : "Ese día"}</Text>
+              <Text className="text-white text-3xl font-extrabold mt-1">Día de descanso</Text>
+              <Text className="text-white/70 mt-1">
+                {routines.length ? "Podés entrenar igual eligiendo una rutina de abajo." : "Creá tu primera rutina para empezar."}
+              </Text>
+            </View>
+          </Photo>
         )}
       </View>
 
@@ -135,51 +141,60 @@ export default function HomeScreen() {
   );
 }
 
-function HeroCard({ eyebrow, title, meta, cta, onPress }: {
-  eyebrow: string; title: string; meta: string; cta: string; onPress: () => void;
+function HeroCard({ photo, eyebrow, title, meta, cta, onPress }: {
+  photo: ImageSourcePropType; eyebrow: string; title: string; meta: string; cta: string; onPress: () => void;
 }) {
   return (
     <Pressable onPress={onPress}>
-      <LinearGradient
-        colors={["#D6F75A", "#B4E61E"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={{ borderRadius: 28, padding: 24 }}
-      >
-        <Text className="text-ink/70 font-semibold">{eyebrow}</Text>
-        <Text className="text-ink text-3xl font-extrabold mt-1" numberOfLines={2}>{title}</Text>
-        <View className="flex-row items-center justify-between mt-6">
-          <Text className="text-ink/80 font-medium">{meta}</Text>
-          <View className="flex-row items-center bg-ink rounded-full pl-5 pr-1.5 h-12">
-            <Text className="text-white font-bold mr-3">{cta}</Text>
-            <View className="w-9 h-9 rounded-full bg-lime items-center justify-center">
-              <Icon name="arrow-forward" size={18} color={C.ink} />
+      <Photo source={photo} radius={28} style={{ height: 260 }}>
+        <View className="flex-1 justify-between p-5">
+          <View className="self-start flex-row items-center bg-lime rounded-full px-3 py-1.5">
+            <View className="w-1.5 h-1.5 rounded-full bg-ink mr-2" />
+            <Text className="text-ink text-xs font-bold tracking-wide">{eyebrow.toUpperCase()}</Text>
+          </View>
+          <View>
+            <Text className="text-white text-[32px] font-extrabold leading-9 tracking-tight" numberOfLines={2}>{title}</Text>
+            <View className="flex-row items-center justify-between mt-4">
+              <Text className="text-white/75 font-medium">{meta}</Text>
+              <View className="flex-row items-center bg-lime rounded-full pl-5 pr-1.5 h-12">
+                <Text className="text-ink font-bold mr-3">{cta}</Text>
+                <View className="w-9 h-9 rounded-full bg-ink items-center justify-center">
+                  <Icon name="arrow-forward" size={18} color={C.lime} />
+                </View>
+              </View>
             </View>
           </View>
         </View>
-      </LinearGradient>
+      </Photo>
     </Pressable>
   );
 }
 
 function RoutineTile({ routine: r, onPlay }: { routine: Routine; onPlay: () => void }) {
   return (
-    <Pressable onPress={onPlay} className="w-[48.5%] bg-card border border-line rounded-3xl p-4 mb-3">
-      <View className="flex-row justify-between items-start">
-        <View className="w-11 h-11 rounded-2xl bg-card2 items-center justify-center">
-          <Icon name={CATEGORY_ICON[r.category]} size={20} color={C.lime} />
+    <Pressable onPress={onPlay} className="w-[48.5%] mb-3">
+      <Photo source={CATEGORY_PHOTO[r.category]} radius={24} style={{ height: 210 }}>
+        <View className="flex-1 justify-between p-3">
+          <View className="flex-row gap-1.5">
+            <View className="flex-row items-center bg-black/50 rounded-full px-2 py-1">
+              <Icon name="time-outline" size={11} color={C.white} />
+              <Text className="text-white text-[11px] ml-1">{estimateMinutes(r)} min</Text>
+            </View>
+            <View className="bg-black/50 rounded-full px-2 py-1">
+              <Text className="text-white text-[11px]">{r.exercises.length} ejerc.</Text>
+            </View>
+          </View>
+          <View>
+            <Text className="text-white text-base font-bold leading-5" numberOfLines={2}>{r.name}</Text>
+            <View className="flex-row items-center justify-between mt-2">
+              <Text className="text-lime text-xs font-semibold">{r.category}</Text>
+              <View className="w-8 h-8 rounded-full bg-lime items-center justify-center">
+                <Icon name="play" size={13} color={C.ink} />
+              </View>
+            </View>
+          </View>
         </View>
-        <View className="px-2 py-1 rounded-full bg-ink">
-          <Text className="text-mute text-xs">{estimateMinutes(r)} min</Text>
-        </View>
-      </View>
-      <Text className="text-white text-base font-bold mt-4" numberOfLines={2}>{r.name}</Text>
-      <View className="flex-row items-center justify-between mt-2">
-        <Text className="text-mute text-xs">{r.exercises.length} ejercicios</Text>
-        <View className="w-8 h-8 rounded-full bg-lime items-center justify-center">
-          <Icon name="play" size={14} color={C.ink} />
-        </View>
-      </View>
+      </Photo>
     </Pressable>
   );
 }
