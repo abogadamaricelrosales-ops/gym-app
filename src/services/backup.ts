@@ -29,6 +29,15 @@ export async function exportBackup(): Promise<boolean> {
   const file = `gym-copia-${new Date().toISOString().slice(0, 10)}.json`;
   try {
     if (Platform.OS === "web") {
+      // Dentro de claude.ai la página no puede descargar sola: se pide el permiso de "downloads".
+      const claude = (globalThis as any).claude;
+      const downloads = claude?.use ? await claude.use("downloads").catch(() => null) : null;
+      if (downloads) {
+        try { await downloads.save({ filename: file, data: json }); }
+        catch (e: any) { if (e?.code === "declined") return false; throw e; }
+        useSettingsStore.getState().markBackup();
+        return true;
+      }
       const url = URL.createObjectURL(new Blob([json], { type: "application/json" }));
       const a = document.createElement("a");
       a.href = url; a.download = file;
