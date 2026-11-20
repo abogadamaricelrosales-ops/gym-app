@@ -6,8 +6,8 @@ import { guideFor } from "../data/exerciseGuide";
 import { drawPattern } from "../data/figures";
 
 /** Miniatura del ejercicio: la foto de la posición final, o el muñeco si no hay foto. */
-export function ExerciseThumb({ name, size }: { name: string; size: number }) {
-  const photos = useMemo(() => photosFor(name), [name]);
+export function ExerciseThumb({ name, size, female = false }: { name: string; size: number; female?: boolean }) {
+  const photos = useMemo(() => photosFor(name, female), [name, female]);
   const prims = useMemo(() => (photos ? null : drawPattern(guideFor(name).pattern)[1]), [name, photos]);
   return (
     <View style={{ width: size, height: size }} className="rounded-2xl bg-ink items-center justify-center overflow-hidden">

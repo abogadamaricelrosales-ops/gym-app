@@ -71,3 +71,5 @@ Las fotos de `assets/referents/` son de prensa de fitness (Fitness Volt, sitios 
 ### Fotos de técnica de ejercicios
 
 Las fotos de `assets/exercises/` (inicio y final de cada ejercicio) vienen de [Free Exercise DB](https://github.com/yuhonas/free-exercise-db), publicado como dominio público (Unlicense). El origen de esas fotos no está documentado del todo, así que tomalas como de uso personal, igual que las de referentes. La relación nombre → foto está en `src/data/exercisePhotos.ts`; los ejercicios sin foto siguen mostrando el muñeco.
+
+Las fotos que terminan en `-f0.jpg` / `-f1.jpg` son las mismas posturas hechas por una mujer, generadas con la IA de Canva a partir de esas fotos. Se muestran solo en las rutinas de referentes mujeres (`FEMALE_PHOTOS` en `src/data/exercisePhotos.ts`); si un ejercicio todavía no tiene versión de mujer, se usa la foto de siempre.

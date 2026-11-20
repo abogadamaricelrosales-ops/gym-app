@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useWorkoutStore } from "../store/useWorkoutStore";
 import { exerciseKind, fmtSecs } from "../utils/exerciseKind";
+import { isFemaleRoutine } from "../data/exercisePhotos";
 import { ExerciseGuideSheet } from "../components/ExerciseGuideSheet";
 import { ExerciseThumb } from "../components/ExerciseThumb";
 import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
@@ -119,7 +120,7 @@ export default function RoutineEditorScreen() {
           <Text className="text-mute text-xs mb-1">Tocá la foto de un ejercicio para ver cómo se hace. Si le cambiás el nombre, también se cambia en tu historial.</Text>
         )}
       </View>
-      <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
+      <ExerciseGuideSheet name={guide} female={isFemaleRoutine(routine.id)} onClose={() => setGuide(null)} />
 
       {suggestions.length > 0 && (
         <>
@@ -189,7 +190,7 @@ function ExerciseEditor({ routineId, ex, index, count, onGuide }: {
     <View className="bg-card border border-line rounded-3xl p-4 mb-3">
       <View className="flex-row items-center">
         <Pressable onPress={onGuide} className="mr-3">
-          <ExerciseThumb name={ex.name} size={56} />
+          <ExerciseThumb name={ex.name} size={56} female={isFemaleRoutine(routineId)} />
           <View className="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-lime items-center justify-center">
             <Text className="text-ink text-[10px] font-extrabold">{index + 1}</Text>
           </View>

@@ -16,6 +16,7 @@ import { Photo } from "../components/ui/Photo";
 import { CATEGORY_PHOTO, PHOTOS } from "../constants/photos";
 import type { Workout } from "../types/workout";
 import { useSettingsStore } from "../store/useSettingsStore";
+import { isFemaleRoutine } from "../data/exercisePhotos";
 import { ExerciseGuideSheet } from "../components/ExerciseGuideSheet";
 import { kcalFor, METS } from "../utils/body";
 
@@ -180,7 +181,7 @@ function CurrentExercise() {
 
   return (
     <View className="bg-card border border-line rounded-4xl p-5 mt-4">
-      <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
+      <ExerciseGuideSheet name={guide} female={isFemaleRoutine(active.routineId)} onClose={() => setGuide(null)} />
       <View className="flex-row items-center justify-between">
         <Text className="text-mute font-semibold">Ejercicio {idx + 1} de {active.exercises.length}</Text>
         <Pressable onPress={() => setGuide(ex.name)} hitSlop={8} className="flex-row items-center h-8 px-3 rounded-full bg-card2">

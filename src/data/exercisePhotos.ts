@@ -92,10 +92,25 @@ export const EXERCISE_PHOTOS: Record<string, [ImageSourcePropType, ImageSourcePr
   "Escaladora": [require("../../assets/exercises/stairmaster-0.jpg"), require("../../assets/exercises/stairmaster-1.jpg")],
 };
 
-import { guideFor } from "./exerciseGuide";
+/** Las mismas posturas hechas por una mujer, para las rutinas de referentes femeninas. */
+export const FEMALE_PHOTOS: Record<string, [any, any]> = {
+  "Hip thrust": [require("../../assets/exercises/barbell-hip-thrust-f0.jpg"), require("../../assets/exercises/barbell-hip-thrust-f1.jpg")],
+  "Sentadilla": [require("../../assets/exercises/barbell-squat-f0.jpg"), require("../../assets/exercises/barbell-squat-f1.jpg")],
+};
 
-/** Fotos (inicio, final) para un nombre de ejercicio cualquiera, o null si no hay. */
-export const photosFor = (name: string) => {
+import { guideFor } from "./exerciseGuide";
+import { REFERENTS } from "./referents";
+
+/** Fotos (inicio, final) para un nombre de ejercicio cualquiera, o null si no hay.
+ *  Con female=true usa la versión con una mujer cuando existe. */
+export const photosFor = (name: string, female = false) => {
   const key = guideFor(name).key;
-  return key ? EXERCISE_PHOTOS[key] ?? null : null;
+  if (!key) return null;
+  return (female && FEMALE_PHOTOS[key]) || EXERCISE_PHOTOS[key] || null;
+};
+
+/** true si la rutina viene de una referente mujer (ids "ref:<referente>:<día>"). */
+export const isFemaleRoutine = (routineId?: string) => {
+  const m = routineId?.match(/^ref:(.+):\d+$/);
+  return !!m && REFERENTS.find(r => r.id === m[1])?.gender === "female";
 };

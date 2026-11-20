@@ -10,12 +10,12 @@ import { ExerciseMotion } from "./ExerciseMotion";
 import { photosFor } from "../data/exercisePhotos";
 
 /** Hoja con las fotos del ejercicio (o el muñeco si no hay fotos) en 2 posiciones y la mejor técnica del ejercicio. */
-export function ExerciseGuideSheet({ name, onClose }: { name: string | null; onClose: () => void }) {
+export function ExerciseGuideSheet({ name, onClose, female = false }: { name: string | null; onClose: () => void; female?: boolean }) {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const g = useMemo(() => (name ? guideFor(name) : null), [name]);
   const poses = useMemo(() => (g ? drawPattern(g.pattern) : null), [g]);
-  const photos = useMemo(() => (name ? photosFor(name) : null), [name]);
+  const photos = useMemo(() => (name ? photosFor(name, female) : null), [name, female]);
   const fig = Math.min(180, (Math.min(width, 520) - 40 - 12) / 2 - 8);
 
   return (

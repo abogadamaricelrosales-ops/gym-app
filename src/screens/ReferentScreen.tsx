@@ -71,7 +71,7 @@ export default function ReferentScreen() {
         {r.days.map((d, i) => <DayCard key={i} referent={r} day={d} index={i} sets={totalSets(d)} onGuide={setGuide} />)}
       </View>
 
-      <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
+      <ExerciseGuideSheet name={guide} female={r.gender === "female"} onClose={() => setGuide(null)} />
 
       {!!r.videos?.length && (
         <View className="px-5 mt-2">
