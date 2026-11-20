@@ -17,6 +17,7 @@ import { C } from "../constants/theme";
 import type { Routine, Goal } from "../types/routine";
 import { GOAL_LIST } from "../constants/exercises";
 import { LoadCard } from "../components/LoadCard";
+import { startWorkout } from "../components/StartGuard";
 import type { Adjustment } from "../utils/load";
 
 export default function HomeScreen() {
@@ -26,7 +27,6 @@ export default function HomeScreen() {
   const routines = useRoutineStore(s => s.routines);
   const history = useWorkoutStore(s => s.history);
   const active = useWorkoutStore(s => s.active);
-  const start = useWorkoutStore(s => s.start);
 
   const today = startOfDay(new Date());
   const [selected, setSelected] = useState(today);
@@ -48,12 +48,12 @@ export default function HomeScreen() {
   const weightKg = useSettingsStore(s => s.weightKg);
   const heightCm = useSettingsStore(s => s.heightCm);
   const sex = useSettingsStore(s => s.sex);
+  const lastBackupAt = useSettingsStore(s => s.lastBackupAt);
+  // recordatorio cada 14 días una vez que ya tenés algunos entrenos guardados
+  const needsBackup = history.length >= 3 && (!lastBackupAt || Date.now() - lastBackupAt > 14 * 86_400_000);
   const profileIncomplete = !name || !age || !weightKg || !heightCm || !sex;
 
-  const go = (r: Routine, adj?: Adjustment) => {
-    if (!active) start(r, adj);
-    nav.navigate("Workout");
-  };
+  const go = (r: Routine, adj?: Adjustment) => startWorkout(r, adj);
   const todayPlan = routines.find(r => r.weekdays.includes(new Date().getDay()));
 
   return (
@@ -97,6 +97,19 @@ export default function HomeScreen() {
           <View className="flex-1 ml-3">
             <Text className="text-white font-bold">Mi estrategia</Text>
             <Text className="text-mute text-xs">Peso meta, calorías, fases y gráficos según tus datos.</Text>
+          </View>
+          <Icon name="chevron-forward" size={18} color={C.lime} />
+        </Pressable>
+      )}
+
+      {needsBackup && (
+        <Pressable onPress={() => nav.navigate("Perfil")} className="mx-5 mt-3 flex-row items-center bg-card border border-line rounded-3xl p-4">
+          <View className="w-10 h-10 rounded-full bg-card2 items-center justify-center">
+            <Icon name="cloud-upload-outline" size={18} color={C.lime} />
+          </View>
+          <View className="flex-1 ml-3">
+            <Text className="text-white font-bold">Guardá una copia de tus datos</Text>
+            <Text className="text-mute text-xs">Así no perdés tus entrenos si cambiás de celular. Está en Perfil.</Text>
           </View>
           <Icon name="chevron-forward" size={18} color={C.lime} />
         </Pressable>

@@ -26,6 +26,8 @@ interface WorkoutState {
   finish: () => Promise<Workout | null>;
   discard: () => Promise<void>;
   deleteWorkout: (id: ID) => void;
+  /** Renombra un ejercicio en el historial y en el entreno en curso. */
+  renameExercise: (from: string, to: string) => void;
 }
 
 // Últimas series hechas de un ejercicio → se precargan (sobrecarga progresiva)
@@ -166,6 +168,11 @@ export const useWorkoutStore = create<WorkoutState>()(
       },
 
       deleteWorkout: id => set(s => { s.history = s.history.filter(w => w.id !== id); }),
+
+      renameExercise: (from, to) => set(s => {
+        for (const w of [...s.history, ...(s.active ? [s.active] : [])])
+          for (const e of w.exercises) if (e.name === from) e.name = to;
+      }),
     })),
     {
       name: "workout-v2",

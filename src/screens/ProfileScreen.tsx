@@ -12,6 +12,8 @@ import { Photo } from "../components/ui/Photo";
 import { PHOTOS } from "../constants/photos";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IdealWeightCard } from "../components/IdealWeightCard";
+import { BackupSheet } from "../components/BackupSheet";
+import { fmtNum } from "../utils/exerciseKind";
 
 export default function ProfileScreen() {
   const name = useSettingsStore(s => s.name);
@@ -28,12 +30,21 @@ export default function ProfileScreen() {
   const routines = useRoutineStore(s => s.routines);
   const seed = useRoutineStore(s => s.seedExamples);
   const [confirm, setConfirm] = useState(false);
+  const [formKey, setFormKey] = useState(0); // remonta los campos al borrar o restaurar
+  const [seedMsg, setSeedMsg] = useState<string | null>(null);
+  const [backup, setBackup] = useState(false);
+  const lastBackupAt = useSettingsStore(s => s.lastBackupAt);
+  const clearProfile = useSettingsStore(s => s.clearProfile);
+  const backupDays = lastBackupAt ? Math.floor((Date.now() - lastBackupAt) / 86_400_000) : null;
+  const backupLabel = backupDays == null ? "nunca" : backupDays === 0 ? "hoy" : backupDays === 1 ? "ayer" : `hace ${backupDays} días`;
   const insets = useSafeAreaInsets();
 
   const wipe = () => {
     useRoutineStore.setState({ routines: [] });
     useWorkoutStore.setState({ history: [], active: null, timer: null });
     useActivityStore.setState({ activities: [] });
+    clearProfile();
+    setFormKey(k => k + 1);
     setConfirm(false);
   };
 
@@ -56,6 +67,7 @@ export default function ProfileScreen() {
           </View>
         </View>
 
+        <View key={formKey}>
         <Field label="Nombre" icon="person-outline">
           <TextInput
             value={name}
@@ -92,6 +104,7 @@ export default function ProfileScreen() {
         <Field label="% de grasa (opcional, si lo mediste)" icon="water-outline" suffix="%">
           <NumberInput value={bodyFat} onChange={v => setProfile({ bodyFat: v != null && v < 60 ? v : null })} placeholder="Si no lo sabés, lo estimamos" decimals />
         </Field>
+        </View>
         <Text className="text-mute text-xs mt-3">Con peso, estatura, edad y sexo calculamos tus calorías, tu peso ideal y los referentes que te mostramos.</Text>
       </View>
 
@@ -118,14 +131,26 @@ export default function ProfileScreen() {
       </View>
 
       <View className="mx-5 mt-3 gap-2">
-        <Row icon="albums-outline" label="Cargar rutinas de ejemplo" onPress={seed} />
+        <Row icon="cloud-upload-outline" label="Copia de seguridad" detail={`Última: ${backupLabel}`} onPress={() => setBackup(true)} />
+        <Row
+          icon="albums-outline"
+          label="Cargar rutinas de ejemplo"
+          detail={seedMsg ?? undefined}
+          onPress={() => {
+            const n = seed();
+            setSeedMsg(n ? `Se agregaron ${n}` : "Ya las tenés todas");
+          }}
+        />
         <Row
           icon="trash-outline"
           label={confirm ? "Tocá otra vez para borrar todo" : "Borrar todos mis datos"}
+          detail={confirm ? "Rutinas, entrenos, actividades y tus datos" : undefined}
           danger
           onPress={() => (confirm ? wipe() : setConfirm(true))}
         />
       </View>
+
+      <BackupSheet visible={backup} onClose={() => setBackup(false)} onRestored={() => setFormKey(k => k + 1)} />
 
       <Text className="text-mute text-xs text-center mt-6 px-8">
         Tus datos se guardan solo en este dispositivo.{"\n"}Fotos: Unsplash.
@@ -134,13 +159,16 @@ export default function ProfileScreen() {
   );
 }
 
-function Row({ icon, label, onPress, danger }: {
-  icon: IconName; label: string; onPress: () => void; danger?: boolean;
+function Row({ icon, label, detail, onPress, danger }: {
+  icon: IconName; label: string; detail?: string; onPress: () => void; danger?: boolean;
 }) {
   return (
     <Pressable onPress={onPress} className="flex-row items-center h-14 px-5 bg-card border border-line rounded-full">
       <Icon name={icon} size={18} color={danger ? "#F87171" : C.lime} />
-      <Text className={`flex-1 ml-3 font-semibold ${danger ? "text-red-400" : "text-white"}`}>{label}</Text>
+      <View className="flex-1 ml-3">
+        <Text className={`font-semibold ${danger ? "text-red-400" : "text-white"}`}>{label}</Text>
+        {!!detail && <Text className="text-mute text-xs">{detail}</Text>}
+      </View>
       <Icon name="chevron-forward" size={16} color={C.mute} />
     </Pressable>
   );
@@ -162,7 +190,7 @@ function Field({ label, icon, suffix, children }: { label: string; icon: IconNam
 function NumberInput({ value, onChange, placeholder, decimals }: {
   value: number | null; onChange: (v: number | null) => void; placeholder: string; decimals?: boolean;
 }) {
-  const [text, setText] = useState(value != null ? String(value) : "");
+  const [text, setText] = useState(value != null ? fmtNum(value) : "");
   return (
     <TextInput
       value={text}

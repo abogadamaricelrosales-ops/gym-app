@@ -1,17 +1,14 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Screen, TopBar } from "../components/ui/Screen";
 import { Photo } from "../components/ui/Photo";
 import { Icon } from "../components/ui/Icon";
-import { ExerciseFigure } from "../components/ExerciseFigure";
+import { ExerciseThumb } from "../components/ExerciseThumb";
 import { ExerciseGuideSheet } from "../components/ExerciseGuideSheet";
 import { PHOTOS } from "../constants/photos";
 import { HOME_WORKOUTS, type HomeWorkout } from "../data/homeWorkouts";
-import { guideFor } from "../data/exerciseGuide";
-import { drawPattern } from "../data/figures";
-import { useWorkoutStore } from "../store/useWorkoutStore";
+import { startWorkout } from "../components/StartGuard";
 import type { Routine } from "../types/routine";
 import { uid } from "../utils/id";
 import { C } from "../constants/theme";
@@ -42,7 +39,7 @@ export default function HomeWorkoutsScreen() {
           <HomeCard key={h.id} h={h} open={open === h.id} onToggle={() => setOpen(open === h.id ? "" : h.id)} onGuide={setGuide} />
         ))}
         <Text className="text-mute text-xs text-center mt-2 px-4">
-          Tocá un ejercicio para ver el muñeco y la técnica. En los que dicen "seg", las repeticiones son segundos.
+          Tocá un ejercicio para ver cómo se hace. En los que dicen "seg", las repeticiones son segundos.
         </Text>
       </View>
       <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
@@ -51,12 +48,9 @@ export default function HomeWorkoutsScreen() {
 }
 
 function HomeCard({ h, open, onToggle, onGuide }: { h: HomeWorkout; open: boolean; onToggle: () => void; onGuide: (n: string) => void }) {
-  const nav = useNavigation<any>();
-  const active = useWorkoutStore(s => s.active);
-  const start = useWorkoutStore(s => s.start);
   const sets = h.exercises.reduce((t, e) => t + e.sets, 0);
   const minutes = Math.round(h.exercises.reduce((t, e) => t + e.sets * ((e.unit === "seg" ? e.reps : e.reps * 3) + e.rest), 0) / 60);
-  const go = () => { if (!active) start(toRoutine(h)); nav.navigate("Workout"); };
+  const go = () => startWorkout(toRoutine(h));
 
   return (
     <View className="bg-card border border-line rounded-4xl mb-3 overflow-hidden">
@@ -85,12 +79,9 @@ function HomeCard({ h, open, onToggle, onGuide }: { h: HomeWorkout; open: boolea
 }
 
 function Row({ name, detail, rest, onPress }: { name: string; detail: string; rest: number; onPress: () => void }) {
-  const thumb = useMemo(() => drawPattern(guideFor(name).pattern)[1], [name]);
   return (
     <Pressable onPress={onPress} className="flex-row items-center py-2 border-t border-line">
-      <View className="w-12 h-12 rounded-xl bg-ink items-center justify-center mr-3">
-        <ExerciseFigure prims={thumb} width={44} />
-      </View>
+      <View className="mr-3"><ExerciseThumb name={name} size={48} /></View>
       <Text className="text-white font-semibold flex-1">{name}</Text>
       <View className="items-end">
         <Text className="text-lime font-bold">{detail}</Text>

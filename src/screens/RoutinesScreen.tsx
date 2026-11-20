@@ -8,7 +8,7 @@ import { ReferentsList } from "../components/ReferentsList";
 import { Screen } from "../components/ui/Screen";
 import { Icon } from "../components/ui/Icon";
 import { useRoutineStore } from "../store/useRoutineStore";
-import { useWorkoutStore } from "../store/useWorkoutStore";
+import { startWorkout } from "../components/StartGuard";
 import { estimateMinutes, totalSets } from "../utils/format";
 import { WEEKDAYS_SHORT } from "../constants/exercises";
 import { C } from "../constants/theme";
@@ -17,8 +17,6 @@ export default function RoutinesScreen() {
   const nav = useNavigation<any>();
   const routines = useRoutineStore(s => s.routines);
   const create = useRoutineStore(s => s.createRoutine);
-  const active = useWorkoutStore(s => s.active);
-  const start = useWorkoutStore(s => s.start);
   const insets = useSafeAreaInsets();
   const params = useRoute<any>().params as { tab?: "mias" | "referentes" } | undefined;
   const [tab, setTab] = useState<"mias" | "referentes">(params?.tab ?? "mias");
@@ -79,7 +77,7 @@ export default function RoutinesScreen() {
                 </Text>
               </View>
               <Pressable
-                onPress={() => { if (!active) start(r); nav.navigate("Workout"); }}
+                onPress={() => startWorkout(r)}
                 hitSlop={8}
                 className="w-12 h-12 rounded-full bg-lime items-center justify-center"
               >

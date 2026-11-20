@@ -9,6 +9,7 @@ import { REFERENTS } from "../data/referents";
 import { CATEGORY_PHOTO, REFERENT_PHOTO } from "../constants/photos";
 import { ExerciseGuideSheet } from "../components/ExerciseGuideSheet";
 import { useWorkoutStore } from "../store/useWorkoutStore";
+import { startWorkout } from "../components/StartGuard";
 import { useRoutineStore } from "../store/useRoutineStore";
 import { useLoadAnalysis } from "../hooks/useLoadAnalysis";
 import { LEVEL_STYLE } from "../components/LoadCard";
@@ -70,7 +71,7 @@ export default function ReferentScreen() {
         {r.days.map((d, i) => <DayCard key={i} referent={r} day={d} index={i} sets={totalSets(d)} onGuide={setGuide} />)}
       </View>
 
-      <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
+      <ExerciseGuideSheet name={guide} female={r.gender === "female"} onClose={() => setGuide(null)} />
 
       {!!r.videos?.length && (
         <View className="px-5 mt-2">
@@ -112,8 +113,6 @@ function DayCard({ referent, day, index, sets, onGuide }: {
   referent: Referent; day: ReferentDay; index: number; sets: number; onGuide: (name: string) => void;
 }) {
   const nav = useNavigation<any>();
-  const active = useWorkoutStore(s => s.active);
-  const start = useWorkoutStore(s => s.start);
   const importRoutine = useRoutineStore(s => s.importRoutine);
   const analysis = useLoadAnalysis(day.category);
   const [open, setOpen] = useState(index === 0);
@@ -121,10 +120,7 @@ function DayCard({ referent, day, index, sets, onGuide }: {
   const st = LEVEL_STYLE[analysis.level];
   const minutes = Math.round(day.exercises.reduce((t, e) => t + e.sets * (40 + e.rest), 0) / 60);
 
-  const go = (adj?: Adjustment) => {
-    if (!active) start(dayToRoutine(referent, day, index), adj);
-    nav.navigate("Workout");
-  };
+  const go = (adj?: Adjustment) => startWorkout(dayToRoutine(referent, day, index), adj);
   const save = () => {
     const { id, createdAt, updatedAt, ...rest } = dayToRoutine(referent, day, index);
     importRoutine(rest);
