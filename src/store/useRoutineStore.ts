@@ -20,7 +20,10 @@ interface RoutineState {
   updateExercise: (id: ID, exId: ID, patch: Partial<ExerciseTemplate>) => void;
   removeExercise: (id: ID, exId: ID) => void;
   moveExercise: (id: ID, from: number, to: number) => void;
-  seedExamples: () => void;
+  /** Carga las rutinas de ejemplo que todavía no tengas. Devuelve cuántas agregó. */
+  seedExamples: () => number;
+  /** Renombra un ejercicio en todas tus rutinas (para que no se pierda su historial). */
+  renameExerciseEverywhere: (from: string, to: string) => void;
 }
 
 const ex = (name: string, targetSets = 3, targetReps = 10, restSeconds = 90): ExerciseTemplate =>
@@ -89,9 +92,18 @@ export const useRoutineStore = create<RoutineState>()(
           }),
 
         // Rutinas de ejemplo (lunes, miércoles y viernes) para que la app no arranque vacía
-        seedExamples: () =>
+        renameExerciseEverywhere: (from, to) =>
           set(s => {
-            s.routines.push(
+            s.routines.forEach(r => r.exercises.forEach(e => {
+              if (e.name === from) { e.name = to; r.updatedAt = Date.now(); }
+            }));
+          }),
+
+        seedExamples: () => {
+          let added = 0;
+          set(s => {
+            const have = new Set(s.routines.map(r => r.name));
+            const examples = [
               routine("Pecho fuerte", "Pecho", "Masa muscular", [1], [
                 ex("Press banca", 5, 5, 150), ex("Press inclinado con mancuernas", 4, 6, 120),
                 ex("Fondos", 3, 8, 120),
@@ -111,8 +123,12 @@ export const useRoutineStore = create<RoutineState>()(
               routine("Circuito cardio", "Cardio", "Cardio", [], [
                 ex("Bicicleta", 4, 20, 30), ex("Burpees", 4, 15, 30), ex("Remo ergómetro", 4, 20, 30),
               ]),
-            );
-          }),
+            ].filter(r => !have.has(r.name));
+            added = examples.length;
+            s.routines.push(...examples);
+          });
+          return added;
+        },
       };
     }),
     {

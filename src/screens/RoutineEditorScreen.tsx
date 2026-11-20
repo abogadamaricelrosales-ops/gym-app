@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useWorkoutStore } from "../store/useWorkoutStore";
+import { exerciseKind, fmtSecs } from "../utils/exerciseKind";
 import { ExerciseGuideSheet } from "../components/ExerciseGuideSheet";
 import { ExerciseFigure } from "../components/ExerciseFigure";
 import { guideFor } from "../data/exerciseGuide";
@@ -30,6 +32,12 @@ export default function RoutineEditorScreen() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [guide, setGuide] = useState<string | null>(null);
   const insets = useSafeAreaInsets();
+
+  // Una rutina sin ejercicios no sirve: si salís sin agregar ninguno, no se guarda.
+  useEffect(() => nav.addListener("beforeRemove", () => {
+    const r = useRoutineStore.getState().routines.find(x => x.id === id);
+    if (r && r.exercises.length === 0) useRoutineStore.getState().deleteRoutine(id);
+  }), [nav, id]);
 
   if (!routine) return <Screen scroll={false}><TopBar title="Rutina" back /></Screen>;
 
@@ -107,10 +115,10 @@ export default function RoutineEditorScreen() {
           <ExerciseEditor key={e.id} routineId={id} ex={e} index={i} count={routine.exercises.length} onGuide={() => setGuide(e.name)} />
         ))}
         {routine.exercises.length === 0 && (
-          <Text className="text-mute mb-3">Agregá ejercicios con los botones de abajo.</Text>
+          <Text className="text-mute mb-3">Agregá ejercicios con los botones de abajo. Si salís sin agregar ninguno, la rutina no se guarda.</Text>
         )}
         {routine.exercises.length > 0 && (
-          <Text className="text-mute text-xs mb-1">Tocá el muñequito de un ejercicio para ver cómo se hace.</Text>
+          <Text className="text-mute text-xs mb-1">Tocá el muñequito de un ejercicio para ver cómo se hace. Si le cambiás el nombre, también se cambia en tu historial.</Text>
         )}
       </View>
       <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
@@ -167,6 +175,18 @@ function ExerciseEditor({ routineId, ex, index, count, onGuide }: {
   const remove = useRoutineStore(s => s.removeExercise);
   const move = useRoutineStore(s => s.moveExercise);
   const patch = (p: Partial<ExerciseTemplate>) => update(routineId, ex.id, p);
+  const timed = exerciseKind(ex.name) === "time";
+  // El nombre se guarda al terminar de escribir, y se cambia en todas tus rutinas y en tu
+  // historial para que no se pierdan los pesos de la última vez ni tus récords.
+  const [name, setName] = useState(ex.name);
+  useEffect(() => setName(ex.name), [ex.name]);
+  const commitName = () => {
+    const to = name.trim();
+    if (!to) return setName(ex.name);
+    if (to === ex.name) return;
+    useRoutineStore.getState().renameExerciseEverywhere(ex.name, to);
+    useWorkoutStore.getState().renameExercise(ex.name, to);
+  };
 
   return (
     <View className="bg-card border border-line rounded-3xl p-4 mb-3">
@@ -178,7 +198,7 @@ function ExerciseEditor({ routineId, ex, index, count, onGuide }: {
           </View>
         </Pressable>
         <View className="flex-1 min-w-0">
-          <TextInput value={ex.name} onChangeText={v => patch({ name: v })} className="text-white text-base font-bold" />
+          <TextInput value={name} onChangeText={setName} onEndEditing={commitName} onBlur={commitName} className="text-white text-base font-bold" />
           <Pressable onPress={onGuide} hitSlop={6}><Text className="text-lime text-xs font-semibold mt-0.5">Cómo se hace →</Text></Pressable>
         </View>
         <Pressable disabled={index === 0} onPress={() => move(routineId, index, index - 1)} hitSlop={6} className="px-1.5">
@@ -193,22 +213,24 @@ function ExerciseEditor({ routineId, ex, index, count, onGuide }: {
       </View>
       <View className="flex-row gap-2 mt-3">
         <Mini label="Series" value={ex.targetSets} onChange={v => patch({ targetSets: Math.max(1, v) })} step={1} />
-        <Mini label="Reps" value={ex.targetReps} onChange={v => patch({ targetReps: Math.max(1, v) })} step={1} />
+        {timed
+          ? <Mini label="Segundos" value={ex.targetReps} display={fmtSecs(ex.targetReps)} onChange={v => patch({ targetReps: Math.max(5, v) })} step={15} />
+          : <Mini label="Reps" value={ex.targetReps} onChange={v => patch({ targetReps: Math.max(1, v) })} step={1} />}
         <Mini label="Descanso" value={ex.restSeconds} onChange={v => patch({ restSeconds: Math.max(15, v) })} step={15} suffix="s" />
       </View>
     </View>
   );
 }
 
-function Mini({ label, value, onChange, step, suffix = "" }: {
-  label: string; value: number; onChange: (v: number) => void; step: number; suffix?: string;
+function Mini({ label, value, onChange, step, suffix = "", display }: {
+  label: string; value: number; onChange: (v: number) => void; step: number; suffix?: string; display?: string;
 }) {
   return (
     <View className="flex-1 bg-card2 rounded-2xl py-2 items-center">
       <Text className="text-mute text-[11px]">{label}</Text>
       <View className="flex-row items-center mt-1">
         <Pressable onPress={() => onChange(value - step)} hitSlop={8} className="px-2"><Icon name="remove" size={16} color={C.mute} /></Pressable>
-        <Text className="text-white font-bold text-base min-w-[36px] text-center">{value}{suffix}</Text>
+        <Text className="text-white font-bold text-base min-w-[36px] text-center">{display ?? `${value}${suffix}`}</Text>
         <Pressable onPress={() => onChange(value + step)} hitSlop={8} className="px-2"><Icon name="add" size={16} color={C.mute} /></Pressable>
       </View>
     </View>

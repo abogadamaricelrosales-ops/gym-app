@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { View, Text, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Screen, TopBar } from "../components/ui/Screen";
 import { Photo } from "../components/ui/Photo";
@@ -11,7 +10,7 @@ import { PHOTOS } from "../constants/photos";
 import { HOME_WORKOUTS, type HomeWorkout } from "../data/homeWorkouts";
 import { guideFor } from "../data/exerciseGuide";
 import { drawPattern } from "../data/figures";
-import { useWorkoutStore } from "../store/useWorkoutStore";
+import { startWorkout } from "../components/StartGuard";
 import type { Routine } from "../types/routine";
 import { uid } from "../utils/id";
 import { C } from "../constants/theme";
@@ -51,12 +50,9 @@ export default function HomeWorkoutsScreen() {
 }
 
 function HomeCard({ h, open, onToggle, onGuide }: { h: HomeWorkout; open: boolean; onToggle: () => void; onGuide: (n: string) => void }) {
-  const nav = useNavigation<any>();
-  const active = useWorkoutStore(s => s.active);
-  const start = useWorkoutStore(s => s.start);
   const sets = h.exercises.reduce((t, e) => t + e.sets, 0);
   const minutes = Math.round(h.exercises.reduce((t, e) => t + e.sets * ((e.unit === "seg" ? e.reps : e.reps * 3) + e.rest), 0) / 60);
-  const go = () => { if (!active) start(toRoutine(h)); nav.navigate("Workout"); };
+  const go = () => startWorkout(toRoutine(h));
 
   return (
     <View className="bg-card border border-line rounded-4xl mb-3 overflow-hidden">

@@ -9,7 +9,8 @@ App de gimnasio personal, simple y pensada para usar con una mano entre series. 
 - **Rutinas:** creás rutinas, elegís su **objetivo** (masa muscular, hipertrofia, quemar grasa o cardio, que ajusta series, reps y descanso), el **grupo muscular** (pecho, espalda, piernas, bíceps, tríceps, hombros, full body o cardio), qué días la hacés y agregás ejercicios con un toque.
 - **Entrenando:** cronómetro grande, el ejercicio actual con kg y reps gigantes (botones − / +) y un botón **Serie hecha**. El descanso arranca solo, con aviso aunque bloquees el teléfono, y pasa al siguiente ejercicio cuando terminás uno. Cada serie se precarga con lo que hiciste la última vez.
 - **Progreso:** gráfico de los últimos 7 días (volumen, series o minutos), récords personales y entrenos recientes.
-- **Perfil:** tus datos (nombre, edad y peso; el peso se usa para estimar calorías), cargar rutinas de ejemplo o borrar todo.
+- **Perfil:** tus datos (nombre, edad y peso; el peso se usa para estimar calorías), **copia de seguridad** (guardar y restaurar todo en un archivo o texto), cargar rutinas de ejemplo o borrar todo.
+- **Ejercicios por tiempo** (plancha, isométricos, cinta, bici…): se cargan en segundos y tienen cuenta regresiva.
 
 ## Cómo correrla
 

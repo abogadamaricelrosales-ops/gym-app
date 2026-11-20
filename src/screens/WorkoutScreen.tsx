@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, Text, Pressable, ScrollView, Modal } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { useWorkoutStore } from "../store/useWorkoutStore";
 import { useRestTimer } from "../hooks/useRestTimer";
-import { ensurePermissions } from "../services/notifications";
+import { ensurePermissions, alertNow, unlockAudio } from "../services/notifications";
+import { exerciseKind, fmtNum, fmtSecs } from "../utils/exerciseKind";
 import { Stepper } from "../components/Stepper";
 import { Ring } from "../components/Ring";
 import { Icon } from "../components/ui/Icon";
@@ -23,6 +24,8 @@ export default function WorkoutScreen() {
   const insets = useSafeAreaInsets();
   const active = useWorkoutStore(s => s.active);
   const [menu, setMenu] = useState(false);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
+  const closeMenu = () => { setMenu(false); setConfirmDiscard(false); };
   const [summary, setSummary] = useState<Workout | null>(null);
   const finish = useWorkoutStore(s => s.finish);
   const discard = useWorkoutStore(s => s.discard);
@@ -44,7 +47,7 @@ export default function WorkoutScreen() {
   }
 
   const onFinish = async () => {
-    setMenu(false);
+    closeMenu();
     const done = await finish();
     if (done && done.exercises.length) setSummary(done);
     else close();
@@ -85,18 +88,26 @@ export default function WorkoutScreen() {
         </View>
       </ScrollView>
 
-      <Modal visible={menu} transparent animationType="fade" onRequestClose={() => setMenu(false)}>
-        <Pressable onPress={() => setMenu(false)} className="flex-1 bg-black/70 justify-end">
+      <Modal visible={menu} transparent animationType="fade" onRequestClose={closeMenu}>
+        <Pressable onPress={closeMenu} className="flex-1 bg-black/70 justify-end">
           <Pressable className="bg-card rounded-t-4xl p-6 gap-3" style={{ paddingBottom: insets.bottom + 24 }}>
             <Text className="text-white text-xl font-bold mb-2">¿Terminamos?</Text>
             <Pressable onPress={onFinish} className="h-14 rounded-full bg-lime items-center justify-center">
               <Text className="text-ink font-bold text-base">Guardar y terminar</Text>
             </Pressable>
-            <Pressable onPress={() => setMenu(false)} className="h-14 rounded-full bg-card2 items-center justify-center">
+            <Pressable onPress={closeMenu} className="h-14 rounded-full bg-card2 items-center justify-center">
               <Text className="text-white font-semibold">Seguir entrenando</Text>
             </Pressable>
-            <Pressable onPress={async () => { setMenu(false); await discard(); close(); }} className="h-12 items-center justify-center">
-              <Text className="text-red-400">Descartar sin guardar</Text>
+            <Pressable
+              onPress={async () => {
+                if (!confirmDiscard) return setConfirmDiscard(true);
+                closeMenu(); await discard(); close();
+              }}
+              className={`h-12 mt-3 rounded-full items-center justify-center ${confirmDiscard ? "bg-red-500" : ""}`}
+            >
+              <Text className={confirmDiscard ? "text-white font-bold" : "text-red-400"}>
+                {confirmDiscard ? "Tocá otra vez: se pierde todo este entreno" : "Descartar sin guardar"}
+              </Text>
             </Pressable>
           </Pressable>
         </Pressable>
@@ -135,6 +146,15 @@ function CurrentExercise() {
   const goTo = useWorkoutStore(s => s.goToExercise);
   const rest = useRestTimer();
   const [guide, setGuide] = useState<string | null>(null);
+  const [undoId, setUndoId] = useState<string | null>(null);
+  const kgStep = useSettingsStore(s => s.kgStep);
+  const cycleKgStep = useSettingsStore(s => s.cycleKgStep);
+  // el "¿Deshacer?" se cancela solo a los 3 segundos
+  useEffect(() => {
+    if (!undoId) return;
+    const t = setTimeout(() => setUndoId(null), 3000);
+    return () => clearTimeout(t);
+  }, [undoId]);
 
   const idx = active.currentExercise;
   const ex = active.exercises[idx];
@@ -142,6 +162,21 @@ function CurrentExercise() {
   const setIdx = ex.sets.findIndex(s => !s.completed);
   const current = setIdx >= 0 ? ex.sets[setIdx] : null;
   const isLast = idx === active.exercises.length - 1;
+  const timed = exerciseKind(ex.name) === "time";
+  const chipLabel = (w: number, r: number) => (timed ? fmtSecs(r) : `${fmtNum(w)}×${r}`);
+
+  const inputs = current && (
+    <View className="flex-row gap-3">
+      {!timed && (
+        <Stepper label="KG" value={current.weight} step={kgStep} decimals
+          hint={`de a ${fmtNum(kgStep)} kg`} onHintPress={cycleKgStep}
+          onChange={v => updateSet(ex.id, current.id, { weight: v })} />
+      )}
+      <Stepper label={timed ? "SEGUNDOS" : "REPS"} value={current.reps} step={timed ? 15 : 1}
+        hint={timed ? fmtSecs(current.reps) : undefined}
+        onChange={v => updateSet(ex.id, current.id, { reps: v })} />
+    </View>
+  );
 
   return (
     <View className="bg-card border border-line rounded-4xl p-5 mt-4">
@@ -162,12 +197,15 @@ function CurrentExercise() {
         {ex.sets.map((s, i) => (
           <Pressable
             key={s.id}
-            onPress={() => s.completed && undoSet(ex.id, s.id)}
+            onPress={() => {
+              if (!s.completed) return;
+              if (undoId === s.id) { undoSet(ex.id, s.id); setUndoId(null); } else setUndoId(s.id);
+            }}
             className={`h-9 min-w-[36px] px-2 rounded-full items-center justify-center ${
-              s.completed ? "bg-lime" : i === setIdx ? "border-2 border-lime" : "bg-card2"}`}
+              undoId === s.id ? "bg-red-500" : s.completed ? "bg-lime" : i === setIdx ? "border-2 border-lime" : "bg-card2"}`}
           >
-            <Text className={`font-bold text-xs ${s.completed ? "text-ink" : "text-white"}`}>
-              {s.completed ? `${s.weight}×${s.reps}` : i + 1}
+            <Text className={`font-bold text-xs ${undoId === s.id ? "text-white" : s.completed ? "text-ink" : "text-white"}`}>
+              {undoId === s.id ? "¿Deshacer?" : s.completed ? chipLabel(s.weight, s.reps) : i + 1}
             </Text>
           </Pressable>
         ))}
@@ -177,18 +215,32 @@ function CurrentExercise() {
       </View>
 
       {rest.active ? (
-        <RestPanel label={rest.label} progress={rest.progress} next={current ? `Serie ${setIdx + 1} · ${current.weight} kg × ${current.reps}` : undefined} />
+        <>
+          <RestPanel label={rest.label} progress={rest.progress} />
+          {current && (
+            <>
+              <Text className="text-mute mt-5 mb-3">Próxima: serie {setIdx + 1} de {ex.sets.length} · podés ajustarla ya</Text>
+              {inputs}
+            </>
+          )}
+        </>
       ) : current ? (
         <>
-          <Text className="text-mute mt-5 mb-3">Serie {setIdx + 1} de {ex.sets.length} · objetivo {ex.targetReps} reps</Text>
-          <View className="flex-row gap-3">
-            <Stepper label="KG" value={current.weight} step={2.5} decimals onChange={v => updateSet(ex.id, current.id, { weight: v })} />
-            <Stepper label="REPS" value={current.reps} step={1} onChange={v => updateSet(ex.id, current.id, { reps: v })} />
-          </View>
-          <Pressable onPress={() => completeSet(ex.id, current.id)} className="h-16 rounded-full bg-lime flex-row items-center justify-center mt-4">
-            <Icon name="checkmark-circle" size={24} color={C.ink} />
-            <Text className="text-ink text-lg font-extrabold ml-2">Serie hecha</Text>
-          </Pressable>
+          <Text className="text-mute mt-5 mb-3">
+            Serie {setIdx + 1} de {ex.sets.length} · objetivo {timed ? fmtSecs(ex.targetReps) : `${ex.targetReps} reps`}
+          </Text>
+          {inputs}
+          {timed ? (
+            <TimedSet key={current.id} seconds={current.reps} onDone={secs => {
+              updateSet(ex.id, current.id, { reps: secs });
+              completeSet(ex.id, current.id);
+            }} />
+          ) : (
+            <Pressable onPress={() => completeSet(ex.id, current.id)} className="h-16 rounded-full bg-lime flex-row items-center justify-center mt-4">
+              <Icon name="checkmark-circle" size={24} color={C.ink} />
+              <Text className="text-ink text-lg font-extrabold ml-2">Serie hecha</Text>
+            </Pressable>
+          )}
         </>
       ) : (
         <View className="items-center mt-6">
@@ -205,7 +257,58 @@ function CurrentExercise() {
   );
 }
 
-function RestPanel({ label, progress, next }: { label: string; progress: number; next?: string }) {
+/** Cuenta regresiva para ejercicios por tiempo (plancha, bici…). Al llegar a 0 marca la serie. */
+function TimedSet({ seconds, onDone }: { seconds: number; onDone: (secs: number) => void }) {
+  const [endsAt, setEndsAt] = useState<number | null>(null);
+  const [startedAt, setStartedAt] = useState(0);
+  const [now, setNow] = useState(Date.now());
+  const fired = useRef(false);
+  useEffect(() => {
+    if (!endsAt) return;
+    const iv = setInterval(() => setNow(Date.now()), 200);
+    return () => clearInterval(iv);
+  }, [endsAt]);
+  const left = endsAt ? Math.max(0, Math.ceil((endsAt - now) / 1000)) : seconds;
+  useEffect(() => {
+    if (endsAt && left === 0 && !fired.current) {
+      fired.current = true;
+      alertNow("¡Tiempo!", "Serie terminada");
+      onDone(seconds);
+    }
+  }, [left, endsAt]);
+
+  if (!endsAt) {
+    return (
+      <Pressable
+        disabled={seconds <= 0}
+        onPress={() => { unlockAudio(); const t = Date.now(); setStartedAt(t); setNow(t); setEndsAt(t + seconds * 1000); }}
+        className={`h-16 rounded-full bg-lime flex-row items-center justify-center mt-4 ${seconds > 0 ? "" : "opacity-40"}`}
+      >
+        <Icon name="play" size={22} color={C.ink} />
+        <Text className="text-ink text-lg font-extrabold ml-2">Arrancar {fmtSecs(seconds)}</Text>
+      </Pressable>
+    );
+  }
+  return (
+    <View className="items-center mt-4">
+      <View className="items-center justify-center">
+        <Ring size={180} stroke={14} progress={1 - left / Math.max(1, seconds)} />
+        <View className="absolute items-center">
+          <Text className="text-mute font-semibold tracking-widest text-xs">EN SERIE</Text>
+          <Text className="text-white text-5xl font-extrabold" style={{ fontVariant: ["tabular-nums"] }}>{fmtSecs(left)}</Text>
+        </View>
+      </View>
+      <Pressable
+        onPress={() => { fired.current = true; onDone(Math.max(1, Math.round((Date.now() - startedAt) / 1000))); }}
+        className="h-14 px-8 rounded-full bg-card2 items-center justify-center mt-4"
+      >
+        <Text className="text-white font-bold">Terminé antes</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+function RestPanel({ label, progress }: { label: string; progress: number }) {
   const adjust = useWorkoutStore(s => s.adjustRest);
   const skip = useWorkoutStore(s => s.skipRest);
   return (
@@ -217,7 +320,6 @@ function RestPanel({ label, progress, next }: { label: string; progress: number;
           <Text className="text-white text-5xl font-extrabold" style={{ fontVariant: ["tabular-nums"] }}>{label}</Text>
         </View>
       </View>
-      {next && <Text className="text-mute mt-3">Siguiente: {next}</Text>}
       <View className="flex-row gap-3 mt-4 w-full">
         <Pressable onPress={() => adjust(-15)} className="flex-1 h-14 rounded-full bg-card2 items-center justify-center">
           <Text className="text-white font-bold">−15 s</Text>

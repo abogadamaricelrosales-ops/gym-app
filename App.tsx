@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootNavigator from "./src/app/RootNavigator";
 import { QuoteSplash } from "./src/components/QuoteSplash";
+import { StartGuard } from "./src/components/StartGuard";
 import { useSettingsStore } from "./src/store/useSettingsStore";
 import { useRoutineStore } from "./src/store/useRoutineStore";
 
@@ -32,6 +33,7 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar style="light" />
       <RootNavigator />
+      <StartGuard />
       <QuoteSplash />
     </SafeAreaProvider>
   );

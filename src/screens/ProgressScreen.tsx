@@ -13,6 +13,7 @@ import { Photo } from "../components/ui/Photo";
 import { PHOTOS } from "../constants/photos";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import type { Workout } from "../types/workout";
+import { exerciseKind, fmtNum, fmtSecs } from "../utils/exerciseKind";
 
 type Metric = "volumen" | "series" | "minutos";
 const METRICS: { key: Metric; label: string; unit: string }[] = [
@@ -66,7 +67,7 @@ export default function ProgressScreen() {
           <Text className="text-lime text-3xl font-extrabold">
             {metric === "volumen" ? Math.round(total).toLocaleString("es-AR") : total}
           </Text>
-          <Text className="text-mute ml-2">{unit} esta semana</Text>
+          <Text className="text-mute ml-2">{unit} en los últimos 7 días</Text>
         </View>
         <View className="flex-row justify-between items-end h-44 mt-5">
           {series.map((v, i) => {
@@ -106,8 +107,16 @@ export default function ProgressScreen() {
               <Text className="text-white font-semibold" numberOfLines={1}>{r.name}</Text>
               <Text className="text-mute text-xs">{formatDate(r.date)}</Text>
             </View>
-            <Text className="text-white font-extrabold text-lg">{r.weight} kg</Text>
-            <Text className="text-mute ml-1">× {r.reps}</Text>
+            {exerciseKind(r.name) === "time" ? (
+              <Text className="text-white font-extrabold text-lg">{fmtSecs(r.reps)}</Text>
+            ) : r.weight > 0 ? (
+              <>
+                <Text className="text-white font-extrabold text-lg">{fmtNum(r.weight)} kg</Text>
+                <Text className="text-mute ml-1">× {r.reps}</Text>
+              </>
+            ) : (
+              <Text className="text-white font-extrabold text-lg">{r.reps} reps</Text>
+            )}
           </View>
         ))}
       </View>

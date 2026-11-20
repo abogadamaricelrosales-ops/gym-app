@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, createNavigationContainerRef } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
@@ -22,6 +22,8 @@ export type RootStackParams = {
   HomeWorkouts: undefined;
 };
 
+export const navigationRef = createNavigationContainerRef<RootStackParams>();
+
 const Root = createNativeStackNavigator<RootStackParams>();
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +43,7 @@ function Tabs() {
 
 export default function RootNavigator() {
   return (
-    <NavigationContainer theme={navTheme}>
+    <NavigationContainer ref={navigationRef} theme={navTheme}>
       <Root.Navigator screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.ink } }}>
         <Root.Screen name="Tabs" component={Tabs} />
         <Root.Screen name="RoutineEditor" component={RoutineEditorScreen} />
