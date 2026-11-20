@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useWorkoutStore } from "../store/useWorkoutStore";
 import { exerciseKind, fmtSecs } from "../utils/exerciseKind";
 import { ExerciseGuideSheet } from "../components/ExerciseGuideSheet";
-import { ExerciseFigure } from "../components/ExerciseFigure";
-import { guideFor } from "../data/exerciseGuide";
-import { drawPattern } from "../data/figures";
+import { ExerciseThumb } from "../components/ExerciseThumb";
 import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -118,7 +116,7 @@ export default function RoutineEditorScreen() {
           <Text className="text-mute mb-3">Agregá ejercicios con los botones de abajo. Si salís sin agregar ninguno, la rutina no se guarda.</Text>
         )}
         {routine.exercises.length > 0 && (
-          <Text className="text-mute text-xs mb-1">Tocá el muñequito de un ejercicio para ver cómo se hace. Si le cambiás el nombre, también se cambia en tu historial.</Text>
+          <Text className="text-mute text-xs mb-1">Tocá la foto de un ejercicio para ver cómo se hace. Si le cambiás el nombre, también se cambia en tu historial.</Text>
         )}
       </View>
       <ExerciseGuideSheet name={guide} onClose={() => setGuide(null)} />
@@ -170,7 +168,6 @@ export default function RoutineEditorScreen() {
 function ExerciseEditor({ routineId, ex, index, count, onGuide }: {
   routineId: string; ex: ExerciseTemplate; index: number; count: number; onGuide: () => void;
 }) {
-  const thumb = useMemo(() => drawPattern(guideFor(ex.name).pattern)[1], [ex.name]);
   const update = useRoutineStore(s => s.updateExercise);
   const remove = useRoutineStore(s => s.removeExercise);
   const move = useRoutineStore(s => s.moveExercise);
@@ -191,8 +188,8 @@ function ExerciseEditor({ routineId, ex, index, count, onGuide }: {
   return (
     <View className="bg-card border border-line rounded-3xl p-4 mb-3">
       <View className="flex-row items-center">
-        <Pressable onPress={onGuide} className="w-14 h-14 rounded-2xl bg-ink items-center justify-center mr-3">
-          <ExerciseFigure prims={thumb} width={50} />
+        <Pressable onPress={onGuide} className="mr-3">
+          <ExerciseThumb name={ex.name} size={56} />
           <View className="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-lime items-center justify-center">
             <Text className="text-ink text-[10px] font-extrabold">{index + 1}</Text>
           </View>

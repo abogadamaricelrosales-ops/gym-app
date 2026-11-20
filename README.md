@@ -67,3 +67,7 @@ Para cambiar una foto, reemplazá el archivo en `assets/photos/` con el mismo no
 ### Fotos de referentes
 
 Las fotos de `assets/referents/` son de prensa de fitness (Fitness Volt, sitios oficiales de Jeff Nippard y RP Strength, Athletech News) y se usan solo para uso personal y no comercial de esta app. No tienen licencia libre: no publiques la app con ellas.
+
+### Fotos de técnica de ejercicios
+
+Las fotos de `assets/exercises/` (inicio y final de cada ejercicio) vienen de [Free Exercise DB](https://github.com/yuhonas/free-exercise-db), publicado como dominio público (Unlicense). El origen de esas fotos no está documentado del todo, así que tomalas como de uso personal, igual que las de referentes. La relación nombre → foto está en `src/data/exercisePhotos.ts`; los ejercicios sin foto siguen mostrando el muñeco.

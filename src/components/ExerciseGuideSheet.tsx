@@ -6,13 +6,16 @@ import { ExerciseFigure } from "./ExerciseFigure";
 import { guideFor } from "../data/exerciseGuide";
 import { drawPattern } from "../data/figures";
 import { C } from "../constants/theme";
+import { ExerciseMotion } from "./ExerciseMotion";
+import { photosFor } from "../data/exercisePhotos";
 
-/** Hoja con el muñeco en 2 posiciones y la mejor técnica del ejercicio. */
+/** Hoja con las fotos del ejercicio (o el muñeco si no hay fotos) en 2 posiciones y la mejor técnica del ejercicio. */
 export function ExerciseGuideSheet({ name, onClose }: { name: string | null; onClose: () => void }) {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const g = useMemo(() => (name ? guideFor(name) : null), [name]);
   const poses = useMemo(() => (g ? drawPattern(g.pattern) : null), [g]);
+  const photos = useMemo(() => (name ? photosFor(name) : null), [name]);
   const fig = Math.min(180, (Math.min(width, 520) - 40 - 12) / 2 - 8);
 
   return (
@@ -30,6 +33,9 @@ export function ExerciseGuideSheet({ name, onClose }: { name: string | null; onC
             </Pressable>
           </View>
           <ScrollView showsVerticalScrollIndicator={false} className="mt-4">
+            {photos ? (
+              <ExerciseMotion photos={photos} width={Math.min(width, 520) - 40} />
+            ) : (
             <View className="flex-row gap-3">
               {poses.map((p, i) => (
                 <View key={i} className="flex-1 bg-ink rounded-3xl items-center pt-3 pb-2">
@@ -43,6 +49,7 @@ export function ExerciseGuideSheet({ name, onClose }: { name: string | null; onC
                 </View>
               ))}
             </View>
+            )}
             {g.approx && (
               <Text className="text-mute text-xs mt-2">Se muestra el movimiento más parecido de nuestro catálogo.</Text>
             )}
@@ -63,10 +70,13 @@ export function ExerciseGuideSheet({ name, onClose }: { name: string | null; onC
                 <Text className="text-white/85 text-sm mt-0.5">{g.mistake}</Text>
               </View>
             </View>
-            <View className="flex-row items-center mt-4 mb-2">
-              <Icon name="information-circle-outline" size={16} color={C.mute} />
-              <Text className="text-mute text-xs ml-1.5 flex-1">En verde, la parte del cuerpo que se mueve.</Text>
-            </View>
+            {!photos && (
+              <View className="flex-row items-center mt-4 mb-2">
+                <Icon name="information-circle-outline" size={16} color={C.mute} />
+                <Text className="text-mute text-xs ml-1.5 flex-1">En verde, la parte del cuerpo que se mueve.</Text>
+              </View>
+            )}
+            <View className="h-3" />
           </ScrollView>
         </View>
       )}

@@ -563,12 +563,13 @@ const KEYWORDS: [RegExp, string][] = [
 const byName = new Map(GUIDES.map(g => [norm(g.name), g]));
 
 /** Guía del ejercicio: exacta si está en el catálogo, si no la del movimiento más parecido. */
-export function guideFor(name: string): ExerciseGuide & { approx: boolean } {
+/** `key` = nombre del ejercicio del catálogo que se usó (sirve para buscar sus fotos). */
+export function guideFor(name: string): ExerciseGuide & { approx: boolean; key?: string } {
   const n = norm(name.replace(/\s*\([^)]*\)/g, "").trim());
   const exact = byName.get(n);
-  if (exact) return { ...exact, approx: false };
+  if (exact) return { ...exact, approx: false, key: exact.name };
   for (const [re, target] of KEYWORDS) {
-    if (re.test(n)) return { ...byName.get(norm(target))!, name, approx: true };
+    if (re.test(n)) { const t = byName.get(norm(target))!; return { ...t, name, approx: true, key: t.name }; }
   }
   return {
     name, category: "Full body", pattern: "squat", muscles: "", approx: true,
